@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import  { getDatabase, ref, get, set, child, onValue, onChildAdded, onChildChanged, onChildRemoved}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import  { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,6 +20,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Realtime Database and get a reference to the service
+
+//REALTIME DATABASE
 const database = getDatabase(app);
 const db = getDatabase();
 function CreateNewUser(name) {
@@ -47,6 +50,31 @@ onChildRemoved(usersRef, (snapshot) => {
   //console.log(data["GPA"]);
 });
 //CreateNewUser("Test2");
+
+//AUTH
+const auth = getAuth();
+const form = document.getElementById('form');
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+ signInWithEmailAndPassword(auth, email, password)
+  .then((user) => {
+      if (user) {
+        alert('sucess');
+      }
+      // ...
+  })
+  .catch((error) => {
+      console.log("error: email or password is incorrect");
+  });
+  
+});
+
+
+
 class User
 {
   constructor(username, gpa) {
@@ -54,7 +82,19 @@ class User
     this.gpa = gpa;
   }
 }
-function getNumberOfUsers() {
+document.addEventListener('DOMContentLoaded', function() {
+  ShowNumberOfUsers();
+  
+	//window.onmousemove  = function() {myFunction()};
+	
+	
+})
+
+
+
+
+
+function ShowNumberOfUsers() {
   var counter = document.getElementById("currentuserscount");
   counter.textContent = 0;
 
@@ -81,11 +121,3 @@ function getNumberOfUsers() {
     console.error(error);
   });
 }
-document.addEventListener('DOMContentLoaded', function() {
-  getNumberOfUsers();
-	
-
-	//window.onmousemove  = function() {myFunction()};
-	
-	
-});
