@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import  { getDatabase, ref, set }  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import  { getDatabase, ref, set, onValue, onChildAdded, onChildChanged, onChildRemoved}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,13 +21,33 @@ const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
 console.log(app);
-function writeUserData(data) {
-  const db = getDatabase();
-  set(ref(db, 'users/' + "bruh"), {
-    data: data
+const db = getDatabase();
+function CreateNewUser(name) {
+  set(ref(db, 'users/' + name), {
+    username: name,
+    GPA: 0.0,
   });
 }
-writeUserData("Test");
+const users = ref(db, 'users/');
+onValue(users, (snapshot) => {
+  // const data = snapshot.val();
+  // console.log(data["Test"]);
+});
+onChildAdded(users, (snapshot) => {
+  const data = snapshot.val();
+  console.log(data["GPA"]);
+});
+
+onChildChanged(users, (snapshot) => {
+  const data = snapshot.val();
+  console.log(data["GPA"]);
+});
+
+onChildRemoved(users, (snapshot) => {
+  const data = snapshot.val();
+  console.log(data["GPA"]);
+});
+CreateNewUser("Test");
 // $(document).ready(function(){
 // 	// function myFunction() {
 		
