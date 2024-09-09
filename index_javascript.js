@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import  { getDatabase, ref, set, onValue, onChildAdded, onChildChanged, onChildRemoved}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import  { getDatabase, ref, get, set, child, onValue, onChildAdded, onChildChanged, onChildRemoved}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,7 +20,6 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
-console.log(app);
 const db = getDatabase();
 function CreateNewUser(name) {
   set(ref(db, 'users/' + name), {
@@ -28,81 +27,65 @@ function CreateNewUser(name) {
     GPA: 0.0,
   });
 }
-const users = ref(db, 'users/');
-onValue(users, (snapshot) => {
-  // const data = snapshot.val();
-  // console.log(data["Test"]);
-});
-onChildAdded(users, (snapshot) => {
+const usersRef = ref(db, 'users/');
+onValue(usersRef, (snapshot) => {
   const data = snapshot.val();
-  console.log(data["GPA"]);
+  //console.log(data);
+});
+onChildAdded(usersRef, (snapshot) => {
+  const data = snapshot.val();
+  //console.log(data["GPA"]);
 });
 
-onChildChanged(users, (snapshot) => {
+onChildChanged(usersRef, (snapshot) => {
   const data = snapshot.val();
-  console.log(data["GPA"]);
+  //console.log(data["GPA"]);
 });
 
-onChildRemoved(users, (snapshot) => {
+onChildRemoved(usersRef, (snapshot) => {
   const data = snapshot.val();
-  console.log(data["GPA"]);
+  //console.log(data["GPA"]);
 });
-CreateNewUser("Test");
-// $(document).ready(function(){
-// 	// function myFunction() {
-		
-// 	// 	if (($('h1').is(':hover'))){
-			
-// 	// 		$('h1').css('transition','all .2s ease-in-out');
-// 	// 		$('h1').css('transform','scale(1.05,1.05)');
-// 	// 	} 
-// 	// 	else {
-// 	// 		$('h1').css('transform','scale(1.0,1.0)');
-// 	// 	}
-// 	// 	if (($("#div1").is(':hover')) ){
-// 	// 		$("#div1").css('transition','all .1s ease-in-out');
-// 	// 		$("#div1").css('transform','scale(1.02,1.02)');
-// 	// 	} 
-// 	// 	else {
-// 	// 		$("#div1").css('transform','scale(1.0,1.0)');
-// 	// 	}
-// 	// 	if (($("#div3").is(':hover')) ){
-// 	// 		$("#div3").css('transition','all .1s ease-in-out');
-// 	// 		$("#div3").css('transform','scale(1.02,1.02)');
-// 	// 		$("#gif1").css('margin-right','0%');
-		
-// 	// 	} 
-// 	// 	else {
-// 	// 		$("#div3").css('transform','scale(1.0,1.0)');
-// 	// 		$("#gif1").css('margin-right','-50%');
-// 	// 		$("#div3").css("overflow", "hidden");
-// 	// 	}
-// 	// 	if (($("#div2").is(':hover')) ){
-// 	// 		$("#div2").css('transition','all .1s ease-in-out');
-// 	// 		$("#div2").css('transform','scale(1.02,1.02)');
-// 	// 		$("#gif2").css('margin-left','0%');
-			
-// 	// 	} 
-// 	// 	else {
-// 	// 		$("#div2").css('transform','scale(1.0,1.0)');
-// 	// 		$("#gif2").css('margin-left','-50%');
-// 	// 		$("#div2").css("overflow", "hidden");
-// 	// 	}
-// 	// 	if (($("#div4").is(':hover'))){
-// 	// 		$("#div4").css('transition','all .1s ease-in-out');
-// 	// 		$("#div4").css('transform','scale(1.02,1.04)');
-// 	// 		$("#gif3").css('margin-right','0%');
-			
-// 	// 	} 
-// 	// 	else {
-// 	// 		$("#div4").css('transform','scale(1.0,1.0)');
-// 	// 		$("#gif3").css('margin-right','-50%');
-// 	// 		$("#div4").css("overflow", "hidden");
-// 	// 	}
-// 	// }
+//CreateNewUser("Test2");
+class User
+{
+  constructor(username, gpa) {
+    this.username = username;
+    this.gpa = gpa;
+  }
+}
+function getNumberOfUsers() {
+  var counter = document.getElementById("currentuserscount");
+  counter.textContent = 0;
+
+  get(usersRef, "users").then((snapshot) => {
+    if (snapshot.exists()) {
+
+      var result = snapshot.val();
+      var values = Object.values(result);
+      counter.textContent = values.length;
+
+
+      for (var key of Object.keys(result)) {
+        // this will give you the key & values for all properties
+        var temp = result[key];
+        const user = new User(temp["username"], temp["GPA"]);
+        //console.log(key + " -> " + user.username + " , " + user.gpa);
+        // .. process the data here! 
+    }
+
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  getNumberOfUsers();
 	
 
-// 	// window.onmousemove  = function() {myFunction()};
+	//window.onmousemove  = function() {myFunction()};
 	
 	
-// });
+});
