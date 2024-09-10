@@ -5,7 +5,14 @@
   	src: url("https://fonts.googleapis.com/css?family=Lobster");
 }
 
-
+body{
+	display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+    background-color: #e0e0e0; /* Background color */
+}
 
 .google-button {
 	background-color: #ffffff;

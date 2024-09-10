@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import  { getDatabase, ref, get, set, child, onValue, onChildAdded, onChildChanged, onChildRemoved}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-import  { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import  { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -31,24 +31,24 @@ function CreateNewUser(name) {
   });
 }
 const usersRef = ref(db, 'users/');
-onValue(usersRef, (snapshot) => {
-  const data = snapshot.val();
-  //console.log(data);
-});
-onChildAdded(usersRef, (snapshot) => {
-  const data = snapshot.val();
-  //console.log(data["GPA"]);
-});
+// onValue(usersRef, (snapshot) => {
+//   const data = snapshot.val();
+//   //console.log(data);
+// });
+// onChildAdded(usersRef, (snapshot) => {
+//   const data = snapshot.val();
+//   //console.log(data["GPA"]);
+// });
 
-onChildChanged(usersRef, (snapshot) => {
-  const data = snapshot.val();
-  //console.log(data["GPA"]);
-});
+// onChildChanged(usersRef, (snapshot) => {
+//   const data = snapshot.val();
+//   //console.log(data["GPA"]);
+// });
 
-onChildRemoved(usersRef, (snapshot) => {
-  const data = snapshot.val();
-  //console.log(data["GPA"]);
-});
+// onChildRemoved(usersRef, (snapshot) => {
+//   const data = snapshot.val();
+//   //console.log(data["GPA"]);
+// });
 //CreateNewUser("Test2");
 
 //AUTH
@@ -113,21 +113,20 @@ class User
   }
 }
 document.addEventListener('DOMContentLoaded', function() {
-  ShowNumberOfUsers();
-  // var email = "";
-  // var password = "";
-  // createUserWithEmailAndPassword(auth, email, password)
-  // .then((userCredential) => {
-  //   // Signed up 
-  //   const user = userCredential.user;
-  //   // ...
-  // })
-  // .catch((error) => {
-  //   const errorCode = error.code;
-  //   const errorMessage = error.message;
-  //   // ..
-  // });
-
+  //ShowNumberOfUsers();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      const uid = user.uid;
+      document.getElementById("nameheader").textContent = "Current user: " + user.displayName;
+      document.getElementById("GoogleLoginBtn").style.display = "none";
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
 	//window.onmousemove  = function() {myFunction()};
 	
 	
