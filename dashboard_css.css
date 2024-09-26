@@ -1,0 +1,156 @@
+@charset "utf-8";
+@font-face{
+	font-family: myFirstFont;
+	font-family: 'Lobster', cursive;
+  	src: url("https://fonts.googleapis.com/css?family=Lobster");
+}
+
+body{
+    justify-content: center; /* Center horizontally */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+    background-color: #e0e0e0; /* Background color */
+}
+#nameheader
+{
+	display: flex;
+}
+#courseTable
+{
+    align-items: center; /* Center vertically */
+}
+
+
+
+
+
+/* a{
+	color: red;
+}
+h1{
+	font-size: 40px;
+	text-align: center;
+	font-style: italic;
+	font-family: 'Lobster', cursive;
+}
+.das{
+	
+	font-size: 60px;
+}
+.das2{
+	text-align: right;
+	font-size: 60px;	
+}
+.das5{
+	font-size: 20px;
+	text-align: right;
+	
+}
+.das6 {
+	font-size: 20px;	
+}
+a:link {
+  	text-decoration: none;
+	
+}
+a:hover{
+	text-decoration: underline;
+}
+
+
+p{
+	
+	
+}
+.div1{
+	
+	overflow: auto;
+	border: 0px solid green;
+	padding: 10px 10px 50px 10px;
+	margin: 0px;
+	background-color: black;
+	color: white;
+}
+
+.div3{
+	
+	overflow: auto;
+	text-align: left;
+	border: 0px solid green;
+	padding: 10px 10px 50px 10px;
+	margin: 0px;
+	background-color: white;
+}
+
+
+@keyframes scale {
+  	0% { transform:scale(1.5,1.5); }
+  	50% { transform:scale(1,1); }
+	100% { transform:scale(1.5,1.5); }
+}
+
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px grey;
+		transform: translatey(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px grey;
+		transform: translatey(-20px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px grey;
+		transform: translatey(0px);
+	}
+}
+
+#nameheader {
+	
+}
+
+#div4 {
+	height: 300px;
+}
+
+.img1 {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 15%;
+	animation: float 6s ease-in-out infinite;
+	
+}
+
+.das8 {
+	text-align: center;
+	font-size: 60px;
+}
+
+.das9 {
+	font-size: 20px;
+	text-align: center;
+}
+
+#gif1 {
+	float: right;
+	margin-top: 0%;
+	width: 30%;
+	margin-right: -50%;
+	transition: all .1s ease-in-out;
+	
+}
+#gif2 {
+	float: left;
+	margin-top: 5%;
+	margin-left: -50%;
+	transition: all .1s ease-in-out;
+	
+}
+#gif3 {
+	float: right;
+	margin-top: 0%;
+	
+	margin-right: -50%;
+	transition: all .1s ease-in-out;
+	
+} */

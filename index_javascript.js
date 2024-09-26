@@ -22,15 +22,36 @@ const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
 
 //REALTIME DATABASE
+var currUser = null;
 const database = getDatabase(app);
 const db = getDatabase();
-function CreateNewUser(name) {
-  set(ref(db, 'users/' + name), {
-    username: name,
-    GPA: 0.0,
+function CreateNewUser(user) {
+  var initialGPA = 0.0;
+  set(ref(db, 'users/' + user.uid), {
+    username: user.displayName,
+    GPA: initialGPA,
   });
+  currUser = new User(user.uid, user.displayName, initialGPA);
 }
 const usersRef = ref(db, 'users/');
+
+class User
+{
+  constructor(uid, username, gpa) {
+    this.uid = uid;
+    this.username = username;
+    this.gpa = gpa;
+  }
+}
+class Course
+{
+  constructor(courseCode, courseName) {
+    this.courseCode = courseCode;
+    this.courseName = this.courseName
+  }
+}
+
+
 // onValue(usersRef, (snapshot) => {
 //   const data = snapshot.val();
 //   //console.log(data);
@@ -61,8 +82,10 @@ document.getElementById('GoogleLoginBtn').addEventListener('click',function(){
     // This gives you a Google Access Token. You can use it to access the Google API.
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
+    
     // The signed-in user info.
     const user = result.user;
+    
     // IdP data available using getAdditionalUserInfo(result)
     // ...
   }).catch((error) => {
@@ -97,6 +120,7 @@ document.getElementById('GoogleLoginBtn').addEventListener('click',function(){
 // });
 
 function logout () {
+  console.log("Logging out");
   signOut(auth).then(() => {
       // Sign-out successful.
     }).catch((error) => {
@@ -105,13 +129,7 @@ function logout () {
 }
 
 
-class User
-{
-  constructor(username, gpa) {
-    this.username = username;
-    this.gpa = gpa;
-  }
-}
+
 document.addEventListener('DOMContentLoaded', function() {
   //ShowNumberOfUsers();
   onAuthStateChanged(auth, (user) => {
@@ -119,8 +137,21 @@ document.addEventListener('DOMContentLoaded', function() {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.uid;
-      document.getElementById("nameheader").textContent = "Current user: " + user.displayName;
       document.getElementById("GoogleLoginBtn").style.display = "none";
+      console.log(user.metadata.creationTime + " , " + user.metadata.lastSignInTime);
+      get(usersRef, "users/" + user.uid).then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log("Exists!");
+          var userData = snapshot.val()[user.uid];
+          currUser = new User(user.uid, userData["username"], userData["GPA"]);
+        }
+        else
+        {
+          CreateNewUser(user);
+        }
+      });    
+      GoToDashboard();
+      
       // ...
     } else {
       // User is signed out
@@ -133,9 +164,15 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-
-
+function GoToDashboard()
+{
+  sleep(2000).then(() => { window.location.href = "dashboard.html"; });
+  
+}
 function ShowNumberOfUsers() {
   var counter = document.getElementById("currentuserscount");
   counter.textContent = 0;
@@ -151,7 +188,7 @@ function ShowNumberOfUsers() {
       for (var key of Object.keys(result)) {
         // this will give you the key & values for all properties
         var temp = result[key];
-        const user = new User(temp["username"], temp["GPA"]);
+        currUser = new User(user.uid, temp["username"], temp["GPA"]);
         //console.log(key + " -> " + user.username + " , " + user.gpa);
         // .. process the data here! 
     }
