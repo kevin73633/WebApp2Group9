@@ -16,6 +16,7 @@ function createFilterOptions() {
     //   <option value="2">..</option>
 
     var select = document.getElementById("filterOptions");
+    select.innerHTML = "";
 
     for (let category of Categories) {
         var options = document.createElement("option");
@@ -27,7 +28,9 @@ function createFilterOptions() {
 
 function createModulesTable() {
     /*
-        This function creates the table of modules when user pressed "Search" button
+        This function creates the table of modules when user pressed "Search" button, regardless if
+        first time or not.
+
         Also changes the filter dropdown options
     */
 
@@ -126,6 +129,90 @@ function removeTableItems(tableModules) {
     if (rows !== null) {
         tableModules.children[1].remove();
     }
+}
+
+function editModulesTable() {
+    /* This function changes the table when there is a change in filter */
+
+    // Get the selected option
+    var selectedFilterOption = document.getElementById("filterOptions").value;
+
+    if (selectedFilterOption == "All Tracks") {
+        createModulesTable()
+    }
+    else {
+        // Get Table Element
+        var tableModules = document.getElementById("tableModules");
+
+        // Resets table
+        removeTableItems(tableModules)
+
+        // Create Element: Table Body
+        var tableBody = document.createElement("tbody")
+        tableBody.setAttribute("id", "listModules")
+
+        for (let data_item of exampleData) {
+            if (data_item["category"] === selectedFilterOption) {
+                //Create Table Row
+                var row = document.createElement("tr");
+
+                courseName = data_item["name"];
+                codeNo = data_item["codeNo"];
+                category = data_item["category"];
+                tookCourse = data_item["status"];
+                enrolledYear = data_item["enrolled_year"];
+                
+                // Create checkbox
+                var tableDataCol = document.createElement("td");
+                var checkbox = document.createElement("input");
+                checkbox.setAttribute("type", "checkbox");
+                checkbox.value = category.split(" ")[0] + codeNo;
+                tableDataCol.appendChild(checkbox);
+                row.appendChild(tableDataCol);
+
+                // Create the other columns
+                var col = document.createElement("td");
+                col.innerText = courseName;
+                row.appendChild(col);
+
+                var col = document.createElement("td");
+                col.innerText = codeNo;
+                row.appendChild(col);
+
+                var col = document.createElement("td");
+                col.innerText = category;
+                row.appendChild(col);
+
+                var col = document.createElement("td");
+                // For enrolled or not, use if-else
+                if (tookCourse === "yes") {
+                    col.innerText = "Enrolled " + enrolledYear;
+                    col.setAttribute("class", "text-success");
+                }
+                else {
+                    col.innerText = "Not Enrolled";
+                    col.setAttribute("class", "text-danger");
+                }
+                row.appendChild(col);
+
+                // Create button
+                var tableDataCol = document.createElement("td");
+                var button = document.createElement("button");
+                button.setAttribute("type", "button");
+                button.setAttribute("class", "btn btn-secondary px-3 rounded-2");
+                button.innerText = "View More"
+                tableDataCol.appendChild(button);
+                row.appendChild(tableDataCol);
+
+                // Append column to row
+                tableBody.appendChild(row);
+            }
+        }
+
+        //Append row to table
+        tableModules.appendChild(tableBody);
+    }
+    
 }
 
 createFilterOptions()
