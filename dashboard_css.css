@@ -4,153 +4,123 @@
 	font-family: 'Lobster', cursive;
   	src: url("https://fonts.googleapis.com/css?family=Lobster");
 }
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+html,body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+
+#app{
+	color: white;
+}
 
 body{
     justify-content: center; /* Center horizontally */
     height: 100vh; /* Full viewport height */
     margin: 0; /* Remove default margin */
     background-color: #e0e0e0; /* Background color */
+	background-image: url(images/login_bg.png);
+	background-position: center;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
 }
+
+#content {
+	margin-left: 250px;
+	padding: 20px;
+}
+
+.nav-link {
+	color: white;
+	padding: 10px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+}
+
+.nav-link.active {
+	background-color: #0055FF;
+}
+
+.nav-link i {
+	width: 20px;
+}
+
+
+#sidebar{
+	width: 250px;
+	height: 100%;
+	background-color: black;
+	min-height: 100vh;
+	width: 250px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	padding: 20px;
+}
+
+
+#profile_top{
+	color: white;
+	position: fixed;
+		top: 20px;
+		right: 20px;
+		display: flex;
+		align-items: center;
+		z-index: 1000;
+}
+
+.icon-circle {
+	width: 40px;
+	height: 40px;
+	background-color: #f0f4ff;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#welcome-banner {
+	background-color: #0055FF;
+	border-radius: 10px;
+	padding: 20px;
+	margin-bottom: 30px;
+	position: fixed;
+	width: 55%;
+}
+
+#friends{
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+	/* width: ; */
+}
+
+
+#steps, #stepsTagline{
+	font-family: Orbitron, sans-serif;
+	font-size: x-small;
+	display: block;
+}
+
+
+
+li{
+	margin: 15px;
+}
+
+
 #nameheader
 {
 	display: flex;
+	color: white;
 }
+
+
 #courseTable
 {
     align-items: center; /* Center vertically */
 }
-
-
-
-
-
-/* a{
-	color: red;
-}
-h1{
-	font-size: 40px;
-	text-align: center;
-	font-style: italic;
-	font-family: 'Lobster', cursive;
-}
-.das{
-	
-	font-size: 60px;
-}
-.das2{
-	text-align: right;
-	font-size: 60px;	
-}
-.das5{
-	font-size: 20px;
-	text-align: right;
-	
-}
-.das6 {
-	font-size: 20px;	
-}
-a:link {
-  	text-decoration: none;
-	
-}
-a:hover{
-	text-decoration: underline;
-}
-
-
-p{
-	
-	
-}
-.div1{
-	
-	overflow: auto;
-	border: 0px solid green;
-	padding: 10px 10px 50px 10px;
-	margin: 0px;
-	background-color: black;
-	color: white;
-}
-
-.div3{
-	
-	overflow: auto;
-	text-align: left;
-	border: 0px solid green;
-	padding: 10px 10px 50px 10px;
-	margin: 0px;
-	background-color: white;
-}
-
-
-@keyframes scale {
-  	0% { transform:scale(1.5,1.5); }
-  	50% { transform:scale(1,1); }
-	100% { transform:scale(1.5,1.5); }
-}
-
-@keyframes float {
-	0% {
-		box-shadow: 0 5px 15px 0px grey;
-		transform: translatey(0px);
-	}
-	50% {
-		box-shadow: 0 25px 15px 0px grey;
-		transform: translatey(-20px);
-	}
-	100% {
-		box-shadow: 0 5px 15px 0px grey;
-		transform: translatey(0px);
-	}
-}
-
-#nameheader {
-	
-}
-
-#div4 {
-	height: 300px;
-}
-
-.img1 {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 15%;
-	animation: float 6s ease-in-out infinite;
-	
-}
-
-.das8 {
-	text-align: center;
-	font-size: 60px;
-}
-
-.das9 {
-	font-size: 20px;
-	text-align: center;
-}
-
-#gif1 {
-	float: right;
-	margin-top: 0%;
-	width: 30%;
-	margin-right: -50%;
-	transition: all .1s ease-in-out;
-	
-}
-#gif2 {
-	float: left;
-	margin-top: 5%;
-	margin-left: -50%;
-	transition: all .1s ease-in-out;
-	
-}
-#gif3 {
-	float: right;
-	margin-top: 0%;
-	
-	margin-right: -50%;
-	transition: all .1s ease-in-out;
-	
-} */

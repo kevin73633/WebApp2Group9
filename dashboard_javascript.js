@@ -67,7 +67,12 @@ document.addEventListener('DOMContentLoaded', function() {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.uid;
-      document.getElementById("nameheader").textContent = "Current user: " + user.displayName;
+      
+      let str = user.displayName;
+      // Remove trailing underscores using regular expression
+      let trimmedStr = str.replace(/_+$/, ' ');
+
+      document.getElementById("nameheader").textContent = trimmedStr;
       FetchCourses();
       // ...
     } else {
@@ -79,6 +84,23 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	
 })
+
+// added for dashboardbanner line 88 block
+document.addEventListener('DOMContentLoaded', function() {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      
+      let str = user.displayName;
+      let trimmedStr = str ? str.replace(/_+$/, '') : 'User';
+
+      document.getElementById("banner_name").textContent = `Welcome back, ${trimmedStr}!`;
+      
+      FetchCourses();
+    }
+  });
+});
+
 
 
 function FetchCourses()
