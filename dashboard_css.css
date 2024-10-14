@@ -33,25 +33,39 @@ body{
 	margin-left: 250px;
 	padding: 20px;
 }
-
+/* Side Navigation */
 .nav-link {
 	color: white;
+	opacity: 0.5;
 	padding: 10px;
 	margin-bottom: 5px;
 	border-radius: 5px;
 }
 
 .nav-link.active {
-	background-color: #0055FF;
+	background-color: #0038FF;
+	opacity:1;
 }
 
 .nav-link i {
 	width: 20px;
 }
+.icon-text{
+	font-family: "Poppins", sans-serif;
+	font-weight: 600;
+	font-style: normal;
+	font-size:16px;
+}
 
+.icon-text-wrapper {
+    display: inline-flex;
+    align-items: center; /* Align icon and text vertically centered */
+}
+li{
+	margin: 15px;
+}
 
 #sidebar{
-	width: 250px;
 	height: 100%;
 	background-color: black;
 	min-height: 100vh;
@@ -62,7 +76,7 @@ body{
 	padding: 20px;
 }
 
-
+/* Profile */
 #profile_top{
 	color: white;
 	position: fixed;
@@ -84,12 +98,10 @@ body{
 }
 
 #welcome-banner {
-	background-color: #0055FF;
+	background-color: #0038FF;
 	border-radius: 10px;
 	padding: 20px;
 	margin-bottom: 30px;
-	position: fixed;
-	width: 55%;
 }
 
 #friends{
@@ -99,19 +111,11 @@ body{
 	/* width: ; */
 }
 
-
 #steps, #stepsTagline{
 	font-family: Orbitron, sans-serif;
 	font-size: x-small;
 	display: block;
 }
-
-
-
-li{
-	margin: 15px;
-}
-
 
 #nameheader
 {
@@ -124,3 +128,47 @@ li{
 {
     align-items: center; /* Center vertically */
 }
+
+
+
+
+
+.carousel-item {
+	display: flex;
+	justify-content: space-between;
+  }
+  
+  .card-deck {
+	display: flex;
+	justify-content: space-between;
+	gap: 15px;
+  }
+  
+  .card {
+	flex: 1; /* Make sure all cards have equal width */
+	height:140px  !important;
+	display: flex;
+	justify-content: center;
+	border-radius: 20px !important;
+  }
+  
+  .card-body {
+	color: white;
+  }
+  
+  .card-title {
+	font-family: 'Orbitron', sans-serif;
+	font-size: 1.2rem;
+  }
+  
+  .carousel-item img {
+	width: 100px;
+	height: auto;
+  }
+  .card-text{
+	margin:20px 0;
+  }
+
+  #courseCarousel, #courseCarousel2, .course3{
+	margin:30px 10px;
+  }
