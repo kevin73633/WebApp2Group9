@@ -1,8 +1,14 @@
 // Example Data
 const exampleData = [
-    {"name": "Introduction to Programming", "codeNo": "111", "category": "IS Core", "status": "yes", "enrolled_year": "Y1"},
-    {"name": "Object Oriented Programming", "codeNo": "102", "category": "CS Core", "status": "yes", "enrolled_year": "Y2"},
-    {"name": "Data Mangement", "codeNo": "112", "category": "IS Core", "status": "no", "enrolled_year": null}
+    {"name": "Introduction to Programming", "codeNo": "COR1704", "category": "IS Core", "status": "yes", "enrolled_year": "Y1"},
+    {"name": "Programming Fundamentals II", "codeNo": "CS102", "category": "CS Core", "status": "yes", "enrolled_year": "Y2"},
+    {"name": "Data Mangement", "codeNo": "IS112", "category": "IS Core", "status": "no", "enrolled_year": null}
+]
+
+const courseDescription = [
+    {"codeNo": "COR1704", "desc": "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications."},
+    {"codeNo": "CS102", "desc": "This course focuses on fundamental concepts of developing programs using an object oriented approach. There will be an emphasis on writing clean and efficient code, and the ability to use an appropriate data structure or algorithm to solve problems. The Java programming language will be taught in depth."},
+    {"codeNo": "IS112", "desc": "This course will cover the fundamentals of relational database theory, important data management concepts such as data modelling, database design, database implementation and search in unstructured data (i.e., text) in current business information systems. <br><br> A series of in-class exercises, tests, quizzes and course project will help students understand covered topics. Students are expected to apply knowledge learned in the classroom to solve many problems based on real-life business scenarios, while gaining hands-on experience in designing, implementing, and managing database systems."}
 ]
 
 // All the options in the filter
@@ -143,16 +149,54 @@ function createRows(tableModules, selectedOption="All Tracks") {
             var button = document.createElement("button");
             button.setAttribute("type", "button");
             button.setAttribute("class", "btn btn-secondary px-3 rounded-2");
+            button.setAttribute("data-bs-toggle", "modal");
+            button.setAttribute("data-bs-target",`#Modal_${codeNo}`);
             button.innerText = "View More";
             tableDataCol.appendChild(button);
-            row.appendChild(tableDataCol);
+
+            // Create Modal
+            var modalDiv = createModal(codeNo, courseName);
+            if (modalDiv != null) {
+                tableDataCol.innerHTML += modalDiv;
+            }
 
             // Append column to row
+            row.appendChild(tableDataCol);
+
+            // Append row to tbody
             tableBody.appendChild(row);
         }
 
         //Append row to table
         tableModules.appendChild(tableBody);
+    }
+}
+
+function createModal(codeNo, courseName) {
+    /* This function creates the modal and returns the div of the modal */
+
+    // <!-- Modal -->
+    for (course of courseDescription) {
+        var modal = null;
+        if (course["codeNo"] === codeNo) {
+            modal = `<div class="modal fade" id="Modal_${codeNo}" tabindex="-1" aria-labelledby="Modal_${codeNo}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="Modal_${codeNo}">${courseName}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ${course["desc"]}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+            return modal
+        }
     }
 }
 
