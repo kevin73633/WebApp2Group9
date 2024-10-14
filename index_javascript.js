@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import  { getDatabase, ref, get, set, child, onValue, onChildAdded, onChildChanged, onChildRemoved}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-import  { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { get, getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -139,18 +139,23 @@ document.addEventListener('DOMContentLoaded', function() {
       const uid = user.uid;
       document.getElementById("GoogleLoginBtn").style.display = "none";
       console.log(user.metadata.creationTime + " , " + user.metadata.lastSignInTime);
-      get(usersRef, "users/" + user.uid).then((snapshot) => {
+      var localuser =  ref(db, 'users/' + uid);
+      get(localuser, `users/${uid}`).then((snapshot) => {
         if (snapshot.exists()) {
           console.log("Exists!");
           var userData = snapshot.val()[user.uid];
           currUser = new User(user.uid, userData["username"], userData["GPA"]);
+          GoToDashboard();
+      
         }
         else
         {
           CreateNewUser(user);
+          //showpopup
+          GoToDashboard();
+      
         }
       });    
-      GoToDashboard();
       
       // ...
     } else {
