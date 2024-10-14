@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
       get(localuser, `users/${uid}`).then((snapshot) => {
         if (snapshot.exists()) {
           console.log("Exists!");
-          var userData = snapshot.val()[user.uid];
+          var userData = snapshot.val();
           currUser = new User(user.uid, userData["username"], userData["GPA"]);
           GoToDashboard();
       
