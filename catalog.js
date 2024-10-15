@@ -58,7 +58,7 @@ class Course
 // ]
 
 // All the options in the filter
-const Categories = ["All Tracks"]
+const Categories = ["All Tracks"];
 
 /* This document contains functions: createFilterOptions(), createModulesTable(), removeTableItems(tableModules), editModulesTable(), createRows(tableModules, [selectedOption]) */
 
@@ -200,7 +200,7 @@ function createRows(tableModules, courses, selectedOption) {
             var tableDataCol = document.createElement("td");
             var checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
-            checkbox.value = courseCategory.split(" ")[0] + courseCode;
+            checkbox.value = courseCode;
             tableDataCol.appendChild(checkbox);
             row.appendChild(tableDataCol);
 
@@ -277,15 +277,16 @@ function createModal(course) {
         </div>
     </div>`
     return modal
-    
-    
 }
+
+// Acts like "import"
 document.addEventListener('DOMContentLoaded', function() {
     createFilterOptions()
 
-    // Acts like "import"
+    // For the search button
     var searchBtn = document.getElementById("searchBtn");
     searchBtn.onclick = function() {createModulesTable();}
     
+    // For the filtering onchange
     document.getElementById("filterOptions").onchange = function() {editModulesTable()}
 })
