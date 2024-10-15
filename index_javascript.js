@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
           var userData = snapshot.val();
           global.SetCurrentUser(new global.User(user.uid, userData["username"], userData["GPA"]));
           global.currUser.AddNewCourse("IS111", "Y1");
-          //GoToDashboard();
+          GoToDashboard();
       
         }
         else
