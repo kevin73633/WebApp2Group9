@@ -71,7 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
           console.log("User Exists!");
           var userData = snapshot.val();
           global.SetCurrentUser(new global.User(user.uid, userData["username"], userData["GPA"]));
-          GoToDashboard();
+          global.currUser.AddNewCourse("IS111", "Y1");
+          //GoToDashboard();
       
         }
         else

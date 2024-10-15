@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let trimmedStr = str.replace(/_+$/, ' ');
 
       document.getElementById("nameheader").textContent = trimmedStr;
-      FetchCourses();
+      FetchUsersCourses();
       // ...
     } else {
       // User is signed out
@@ -44,14 +44,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
       document.getElementById("banner_name").textContent = `Welcome back, ${trimmedStr}!`;
       
-      FetchCourses();
+      FetchUsersCourses();
     }
   });
 });
 
 
 
-function FetchCourses()
+function FetchUsersCourses()
 {
   var courseTable = document.getElementById("courseTable");
   get(global.coursesRef, "courses").then((snapshot) => {
