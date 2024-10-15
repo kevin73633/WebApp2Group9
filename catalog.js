@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import  { getDatabase, ref, get, set, child, onValue, onChildAdded, onChildChanged, onChildRemoved}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-import  { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import  { getDatabase, ref, get, set}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -33,6 +32,7 @@ function CreateNewCourse(course) {
   });
 }
 const coursesRef = ref(db, 'courses/');
+
 class Course
 {
   constructor(courseCode, courseName, courseCategory, courseDescription = "") {
@@ -62,7 +62,7 @@ const Categories = ["All Tracks"]
 
 /* This document contains functions: createFilterOptions(), createModulesTable(), removeTableItems(tableModules), editModulesTable(), createRows(tableModules, [selectedOption]) */
 
-function createFilterOptions() {
+function createFilterOptions(selectedFilterOption, courses="") {
     /* This function creates the filter options*/
 
     // <option selected>All Tracks</option>
@@ -71,10 +71,20 @@ function createFilterOptions() {
     var select = document.getElementById("filterOptions");
     select.innerHTML = "";
 
+    for (var data_item of courses) {
+        var courseCategory = data_item.courseCategory;
+        if (Categories.indexOf(courseCategory) == -1) {
+            Categories.push(courseCategory);
+        }
+    }
+
     for (let courseCategory of Categories) {
         var options = document.createElement("option");
         options.setAttribute("value", courseCategory);
         options.innerText = courseCategory;
+        if (selectedFilterOption == courseCategory) {
+            options.selected = true;
+        }
         select.appendChild(options);
     }
 }
@@ -111,14 +121,12 @@ function createModulesTable()
     //     }
     // }
     FetchCourses();
-    createFilterOptions()
 }
-function FetchCourses()
+function FetchCourses(selectedFilterOption="All Tracks")
 {
   get(coursesRef, "courses").then((snapshot) => {
     if (snapshot.exists()) {
         var result = snapshot.val();
-        var values = Object.values(result);
         var courses = [];
 
         for (var key of Object.keys(result)) {
@@ -130,8 +138,9 @@ function FetchCourses()
             //console.log(key + " -> " + user.username + " , " + user.gpa);
             // .. process the data here! 
         }
-        console.log(courses);
-        createRows(document.getElementById("tableModules"), courses);
+        // console.log(courses);
+        createRows(document.getElementById("tableModules"), courses, selectedFilterOption);
+        createFilterOptions(selectedFilterOption, courses);
     }
     else
     {
@@ -165,11 +174,11 @@ function editModulesTable() {
     // Resets table
     removeTableItems(tableModules);
 
-    createRows(tableModules, courses, selectedFilterOption);
+    FetchCourses(selectedFilterOption);
     
 }
 
-function createRows(tableModules, courses, selectedOption="All Tracks") {
+function createRows(tableModules, courses, selectedOption) {
     /* Module that creates the rows and append to table */
 
     // Create Element: Table Body
@@ -232,9 +241,7 @@ function createRows(tableModules, courses, selectedOption="All Tracks") {
 
             // Create Modal
             var modalDiv = createModal(data_item);
-            if (modalDiv != null) {
-                tableDataCol.innerHTML += modalDiv;
-            }
+            document.getElementById("modals").innerHTML += modalDiv;
 
             // Append column to row
             row.appendChild(tableDataCol);
@@ -275,6 +282,10 @@ function createModal(course) {
 }
 document.addEventListener('DOMContentLoaded', function() {
     createFilterOptions()
+
+    // Acts like "import"
     var searchBtn = document.getElementById("searchBtn");
-    searchBtn.onclick = function() {createModulesTable();}  
+    searchBtn.onclick = function() {createModulesTable();}
+    
+    document.getElementById("filterOptions").onchange = function() {editModulesTable()}
 })

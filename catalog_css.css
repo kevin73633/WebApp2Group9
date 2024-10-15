@@ -34,93 +34,26 @@ body{
 	padding: 20px;
 }
 
-.nav-link {
-	color: white;
-	padding: 10px;
-	margin-bottom: 5px;
-	border-radius: 5px;
-}
-
-.nav-link.active {
-	background-color: #0055FF;
-}
-
-.nav-link i {
-	width: 20px;
-}
-
-
-#sidebar{
-	width: 250px;
-	height: 100%;
-	background-color: black;
-	min-height: 100vh;
-	width: 250px;
-	position: fixed;
-	left: 0;
-	top: 0;
+#filter-search {
 	padding: 20px;
-}
-
-
-#profile_top{
-	color: white;
+	margin-top: 100px;
+	margin-bottom: 20px;
 	position: fixed;
-		top: 20px;
-		right: 20px;
-		display: flex;
-		align-items: center;
-		z-index: 1000;
+	width: 65%;
 }
 
-.icon-circle {
-	width: 40px;
-	height: 40px;
-	background-color: #f0f4ff;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-#welcome-banner {
-	background-color: #0055FF;
-	border-radius: 10px;
+#courseTable {
 	padding: 20px;
-	margin-bottom: 30px;
+	margin-top: 150px;
+	margin-bottom: 20px;
+	position: fixed;
+	width: 70%;
+}
+
+#addToPlanner {
+	padding: 20px;
+	margin-top: 200px;
+	margin-bottom: 20px;
 	position: fixed;
 	width: 55%;
-}
-
-#friends{
-	display: flex;
-	justify-content: space-between;
-	gap: 10px;
-	/* width: ; */
-}
-
-
-#steps, #stepsTagline{
-	font-family: Orbitron, sans-serif;
-	font-size: x-small;
-	display: block;
-}
-
-
-
-li{
-	margin: 15px;
-}
-
-
-#nameheader
-{
-	display: flex;
-	color: white;
-}
-
-
-#courseTable
-{
-    align-items: center; /* Center vertically */
 }
