@@ -55,10 +55,11 @@ function CreateNewCourse(course) {
 const coursesRef = ref(db, 'courses/');
 class Course
 {
-  constructor(courseCode, courseName, courseCategory) {
+  constructor(courseCode, courseName, courseCategory, courseDescription = "") {
     this.courseCode = courseCode;
     this.courseName = courseName;
     this.courseCategory = courseCategory;
+    this.courseDescription = courseDescription;
     this.status = "no";
     this.enrolled_year = null;
   }
