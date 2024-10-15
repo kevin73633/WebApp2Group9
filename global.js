@@ -22,8 +22,29 @@ const auth = getAuth();
 // Initialize Realtime Database and get a reference to the service
 
 //REALTIME DATABASE
-const database = getDatabase(app);
 const db = getDatabase();
+var currUser = null;
+function CreateNewUser(user) {
+    var initialGPA = 0.0;
+    set(ref(global.db, 'users/' + user.uid), {
+      username: user.displayName,
+      GPA: initialGPA,
+      courses: user.courses,
+    });
+    currUser = new User(user.uid, user.displayName, initialGPA);
+}
+function logout () {
+    console.log("Logging out");
+    signOut(global.auth).then(() => {
+        // Sign-out successful.
+      }).catch((error) => {
+        // An error happened.
+    });
+  }
+function SetCurrentUser(user)
+{
+    currUser = user;
+}
 function CreateNewCourse(course) {
   set(ref(db, 'courses/' + course.courseCode), {
     courseCode: course.courseCode,
@@ -59,4 +80,21 @@ class User
       courses: this.courses,
     });
   }
+
+}
+
+export
+{
+    firebaseConfig,
+    app,
+    auth,
+    db,
+    User,
+    Course,
+    coursesRef,
+    currUser,
+    CreateNewUser,
+    SetCurrentUser,
+    logout
+
 }
