@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
           var userData = snapshot.val();
           global.SetCurrentUser(new global.User(user.uid, userData["username"], userData["GPA"], userData["courses"]));
           sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
-          //GoToDashboard();
+          GoToDashboard();
       
         }
         else
