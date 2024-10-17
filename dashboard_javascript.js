@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
   //ShowNumberOfUsers();
   global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
   console.log(global.currUser);
+  UpdateCoursesList();
   onAuthStateChanged(global.auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
@@ -49,8 +50,79 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
-
-
+function UpdateCoursesList()
+{
+  var enrolledCoursesCarousel = document.getElementById("enrolledCourses");
+  for (var courseCode in global.currUser.courses)
+  {
+    var courseSem = global.currUser.courses[courseCode];
+    enrolledCoursesCarousel.innerHTML += `
+    <div class="card mb-3">
+    <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+      <h5 class="card-title">${courseCode}</h5>
+      <p class="card-text">
+        <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+      </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <img src="images/com.png" class="img-fluid rounded-start" alt="...">
+    </div>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+      <h5 class="card-title">${courseCode}</h5>
+      <p class="card-text">
+        <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+      </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <img src="images/com.png" class="img-fluid rounded-start" alt="...">
+    </div>
+    </div>
+  </div>
+  
+  <div class="card mb-3">
+    <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+      <h5 class="card-title">${courseCode}</h5>
+      <p class="card-text">
+        <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+      </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <img src="images/com.png" class="img-fluid rounded-start" alt="...">
+    </div>
+    </div>
+  </div>
+  
+  <div class="card mb-3">
+    <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+      <h5 class="card-title">${courseCode}</h5>
+      <p class="card-text">
+        <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+      </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <img src="images/com.png" class="img-fluid rounded-start" alt="...">
+    </div>
+    </div>
+  </div>
+  
+    `
+  }
+}
 
 function FetchUsersCourses()
 {
