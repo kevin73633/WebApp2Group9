@@ -68,11 +68,11 @@ class Course
 }
 class User
 {
-  constructor(uid, username, gpa) {
+  constructor(uid, username, gpa, courses) {
     this.uid = uid;
     this.username = username;
     this.gpa = gpa;
-    this.courses = [];
+    this.courses = courses;
   }
   AddNewCourse(courseCode, YearTaken)
   {

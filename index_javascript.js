@@ -70,9 +70,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (snapshot.exists()) {
           console.log("User Exists!");
           var userData = snapshot.val();
-          global.SetCurrentUser(new global.User(user.uid, userData["username"], userData["GPA"]));
-          global.currUser.AddNewCourse("IS111", "Y1");
-          GoToDashboard();
+          global.SetCurrentUser(new global.User(user.uid, userData["username"], userData["GPA"], userData["courses"]));
+          sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
+          //GoToDashboard();
       
         }
         else

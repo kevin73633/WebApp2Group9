@@ -243,6 +243,9 @@ function createModal(course) {
 
 // Acts like "import"
 document.addEventListener('DOMContentLoaded', function() {
+    global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
+    console.log(global.currUser);
+
     createFilterOptions()
 
     // For the search button
