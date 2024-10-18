@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import  { getDatabase, ref, get, set, child, onValue, onChildAdded, onChildChanged, onChildRemoved}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import  { getDatabase, ref, get, push, set, update, child, onValue, onChildAdded, onChildChanged, onChildRemoved}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 import  { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,8 +22,31 @@ const auth = getAuth();
 // Initialize Realtime Database and get a reference to the service
 
 //REALTIME DATABASE
-const database = getDatabase(app);
 const db = getDatabase();
+const coursesRef = ref(db, 'courses/');
+
+var currUser = null;
+function CreateNewUser(user) {
+    var initialGPA = 0.0;
+    set(ref(db, 'users/' + user.uid), {
+      username: user.displayName,
+      GPA: initialGPA,
+      courses: [],
+    });
+    currUser = new User(user.uid, user.displayName, initialGPA);
+}
+function logout () {
+    console.log("Logging out");
+    signOut(global.auth).then(() => {
+        // Sign-out successful.
+      }).catch((error) => {
+        // An error happened.
+    });
+  }
+function SetCurrentUser(user)
+{
+    currUser = user;
+}
 function CreateNewCourse(course) {
   set(ref(db, 'courses/' + course.courseCode), {
     courseCode: course.courseCode,
@@ -31,32 +54,54 @@ function CreateNewCourse(course) {
     courseCategory: course.courseCategory
   });
 }
-const coursesRef = ref(db, 'courses/');
+
 class Course
 {
-  constructor(courseCode, courseName, courseCategory) {
+  constructor(courseCode, courseName, courseCategory, courseDescription = "") {
     this.courseCode = courseCode;
     this.courseName = courseName;
     this.courseCategory = courseCategory;
+    this.courseDescription = courseDescription;
     this.status = "no";
     this.enrolled_year = null;
   }
 }
 class User
 {
-  constructor(uid, username, gpa) {
+  constructor(uid, username, gpa, courses) {
     this.uid = uid;
     this.username = username;
     this.gpa = gpa;
-    this.courses = [];
+    this.courses = courses;
   }
-  AddNewCourse(courseCode) 
+  AddNewCourse(courseCode, YearTaken)
   {
-    this.courses.push(courseCode);
-    set(ref(db, 'users/' + user.uid), {
-      username: this.displayName,
-      GPA: this.gpa,
-      courses: this.courses,
-    });
+
+    // Get a key for a new Post.
+    var localuser =  ref(db,`users/${this.uid}`);
+    const newPostKey = push(child(localuser, 'posts')).key;
+
+    // Write the new post's data simultaneously in the posts list and the user's post list.
+    const updates = {};
+    updates[`users/${this.uid}/courses/${courseCode}`] = YearTaken;
+
+    return update(ref(db), updates);
   }
+
+}
+
+export
+{
+    firebaseConfig,
+    app,
+    auth,
+    db,
+    User,
+    Course,
+    coursesRef,
+    currUser,
+    CreateNewUser,
+    SetCurrentUser,
+    logout
+
 }

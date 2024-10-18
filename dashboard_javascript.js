@@ -4,75 +4,15 @@ import  { getDatabase, ref, get, set, child, onValue, onChildAdded, onChildChang
 import  { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
+import * as global from './global.js';
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCCo6vTfAeWwN4-dVCwcVozAkDSOlNEF_k",
-  authDomain: "wad2-b1ba1.firebaseapp.com",
-  databaseURL: "https://wad2-b1ba1-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "wad2-b1ba1",
-  storageBucket: "wad2-b1ba1.appspot.com",
-  messagingSenderId: "146287601431",
-  appId: "1:146287601431:web:845da202141a53e241f952"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-// Initialize Realtime Database and get a reference to the service
-
-//REALTIME DATABASE
-const database = getDatabase(app);
-const db = getDatabase();
-function CreateNewCourse(course) {
-  set(ref(db, 'courses/' + course.courseCode), {
-    courseCode: course.courseCode,
-    courseName: course.courseName,
-  });
-}
-const coursesRef = ref(db, 'courses/');
-
-class User
-{
-  constructor(uid, username, gpa) {
-    this.uid = uid;
-    this.username = username;
-    this.gpa = gpa;
-    this.courses = [];
-  }
-  AddNewCourse(courseCode) 
-  {
-    this.courses.push(courseCode);
-    set(ref(db, 'users/' + user.uid), {
-      username: this.displayName,
-      GPA: this.gpa,
-      courses: this.courses,
-    });
-  }
-}
-class Course
-{
-  constructor(courseCode, courseName) {
-    this.courseCode = courseCode;
-    this.courseName = courseName;
-  }
-}
-
-//AUTH
-const auth = getAuth();
-const form = document.getElementById('form');
-
-function logout () {
-  signOut(auth).then(() => {
-      // Sign-out successful.
-    }).catch((error) => {
-      // An error happened.
-  });
-}
 
 document.addEventListener('DOMContentLoaded', function() {
   //ShowNumberOfUsers();
-  onAuthStateChanged(auth, (user) => {
+  global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
+  console.log(global.currUser);
+  UpdateCoursesList();
+  onAuthStateChanged(global.auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/auth.user
@@ -83,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let trimmedStr = str.replace(/_+$/, ' ');
 
       document.getElementById("nameheader").textContent = trimmedStr;
-      FetchCourses();
+      FetchUsersCourses();
       // ...
     } else {
       // User is signed out
@@ -97,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // added for dashboardbanner line 88 block
 document.addEventListener('DOMContentLoaded', function() {
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(global.auth, (user) => {
     if (user) {
       const uid = user.uid;
       
@@ -106,17 +46,88 @@ document.addEventListener('DOMContentLoaded', function() {
 
       document.getElementById("banner_name").textContent = `Welcome back, ${trimmedStr}!`;
       
-      FetchCourses();
+      FetchUsersCourses();
     }
   });
 });
+function UpdateCoursesList()
+{
+  var enrolledCoursesCarousel = document.getElementById("enrolledCourses");
+  for (var courseCode in global.currUser.courses)
+  {
+    var courseSem = global.currUser.courses[courseCode];
+    enrolledCoursesCarousel.innerHTML += `
+    <div class="card mb-3">
+    <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+      <h5 class="card-title">${courseCode}</h5>
+      <p class="card-text">
+        <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+      </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <img src="images/com.png" class="img-fluid rounded-start" alt="...">
+    </div>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+      <h5 class="card-title">${courseCode}</h5>
+      <p class="card-text">
+        <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+      </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <img src="images/com.png" class="img-fluid rounded-start" alt="...">
+    </div>
+    </div>
+  </div>
+  
+  <div class="card mb-3">
+    <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+      <h5 class="card-title">${courseCode}</h5>
+      <p class="card-text">
+        <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+      </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <img src="images/com.png" class="img-fluid rounded-start" alt="...">
+    </div>
+    </div>
+  </div>
+  
+  <div class="card mb-3">
+    <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+      <h5 class="card-title">${courseCode}</h5>
+      <p class="card-text">
+        <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+      </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <img src="images/com.png" class="img-fluid rounded-start" alt="...">
+    </div>
+    </div>
+  </div>
+  
+    `
+  }
+}
 
-
-
-function FetchCourses()
+function FetchUsersCourses()
 {
   var courseTable = document.getElementById("courseTable");
-  get(coursesRef, "courses").then((snapshot) => {
+  get(global.coursesRef, "courses").then((snapshot) => {
     if (snapshot.exists()) {
       var result = snapshot.val();
       var values = Object.values(result);
@@ -125,11 +136,8 @@ function FetchCourses()
       for (var key of Object.keys(result)) {
           // this will give you the key & values for all properties
           var temp = result[key];
-          var currCourse = new Course(temp["courseCode"], temp["courseName"]);
+          var currCourse = new global.Course(temp["courseCode"], temp["courseName"]);
           
-          var item = document.createElement("li");
-          item.textContent = currCourse.courseCode;
-          courseTable.appendChild(item);
           //console.log(key + " -> " + user.username + " , " + user.gpa);
           // .. process the data here! 
       }
