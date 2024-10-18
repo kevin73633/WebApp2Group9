@@ -6,25 +6,76 @@ import { get, getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/1
 // https://firebase.google.com/docs/web/setup#available-libraries
 import * as global from './global.js';
 
-// Example Data
-// const exampleData = [
-//     {"courseName": "Introduction to Programming", "courseCode": "IS111", "courseCategory": "IS Core", "status": "yes", "enrolled_year": "Y1"},
-//     {"courseName": "Programming Fundamentals II", "courseCode": "CS102", "courseCategory": "CS Core", "status": "yes", "enrolled_year": "Y2"},
-//     {"courseName": "Data Mangement", "courseCode": "IS112", "courseCategory": "IS Core", "status": "no", "enrolled_year": null}
-// ]
-
-// const courseDescription = [
-//     {"courseCode": "IS111", "desc": "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications."},
-//     {"courseCode": "CS102", "desc": "This course focuses on fundamental concepts of developing programs using an object oriented approach. There will be an emphasis on writing clean and efficient code, and the ability to use an appropriate data structure or algorithm to solve problems. The Java programming language will be taught in depth."},
-//     {"courseCode": "IS112", "desc": "This course will cover the fundamentals of relational database theory, important data management concepts such as data modelling, database design, database implementation and search in unstructured data (i.e., text) in current business information systems. <br><br> A series of in-class exercises, tests, quizzes and course project will help students understand covered topics. Students are expected to apply knowledge learned in the classroom to solve many problems based on real-life business scenarios, while gaining hands-on experience in designing, implementing, and managing database systems."}
-// ]
-
 // All the options in the filter
 const Categories = ["All Tracks"];
+// All the courses taken from database
+const Courses = [];
 
-/* This document contains functions: createFilterOptions(), createModulesTable(), removeTableItems(tableModules), editModulesTable(), createRows(tableModules, [selectedOption]) */
+function FetchCourses(selectedFilterOption="All Tracks")
+{
+  get(global.coursesRef, "courses").then((snapshot) => {
+    if (snapshot.exists()) {
+        var result = snapshot.val();
 
-function createFilterOptions(selectedFilterOption, courses="") {
+        for (var key of Object.keys(result)) {
+            // this will give you the key & values for all properties
+            var temp = result[key];
+            var currCourse = new global.Course(temp["courseCode"], temp["courseName"], temp["courseCategory"], temp["courseDescription"]);
+            //console.log(currCourse);
+            Courses.push(currCourse);
+            //console.log(key + " -> " + user.username + " , " + user.gpa);
+            // .. process the data here! 
+        }
+        // console.log(courses);
+        createRows(selectedFilterOption);
+        createFilterOptions(selectedFilterOption);
+    }
+    else
+    {
+    //   CreateNewCourse(new Course("IS111", "Intro to programming", "IS Core", "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications."));
+    //   CreateNewCourse(new Course("CS102", "Programming Fundamentals II", "CS Core", "This course focuses on fundamental concepts of developing programs using an object oriented approach. There will be an emphasis on writing clean and efficient code, and the ability to use an appropriate data structure or algorithm to solve problems. The Java programming language will be taught in depth."));
+    //   CreateNewCourse(new Course("IS112", "Data Mangement", "IS Core", "This course will cover the fundamentals of relational database theory, important data management concepts such as data modelling, database design, database implementation and search in unstructured data (i.e., text) in current business information systems. <br><br> A series of in-class exercises, tests, quizzes and course project will help students understand covered topics. Students are expected to apply knowledge learned in the classroom to solve many problems based on real-life business scenarios, while gaining hands-on experience in designing, implementing, and managing database systems."));
+    }
+  });
+  
+}
+
+function createModulesTable() 
+{
+    /*
+        This function creates the table of modules when user pressed "Search" button, 
+        also calls createFilterOptions() to create the filter
+    */
+
+    // Resets table
+    removeTableItems();
+
+    // Reset Courses and Categories
+    resetTableConstVar();
+
+    // Get Courses from db and create table
+    FetchCourses();
+}
+
+function removeTableItems() {
+    /* This functions removes the items in the table if the search button has been pressed before*/
+
+    // Get table rows
+    var tableModules = document.getElementById("tableModules");
+    tableModules.children[1].remove();
+}
+
+function resetTableConstVar() {
+    for (let i=0; i < Courses.length+2; i++) {
+        Courses.pop();
+    }
+
+    for (let i=0; i < Categories.length-1; i++) {
+        Categories.pop();
+    }
+}
+
+function createFilterOptions(selectedFilterOption) {
     /* This function creates the filter options*/
 
     // <option selected>All Tracks</option>
@@ -33,7 +84,7 @@ function createFilterOptions(selectedFilterOption, courses="") {
     var select = document.getElementById("filterOptions");
     select.innerHTML = "";
 
-    for (var data_item of courses) {
+    for (var data_item of Courses) {
         var courseCategory = data_item.courseCategory;
         if (Categories.indexOf(courseCategory) == -1) {
             Categories.push(courseCategory);
@@ -51,12 +102,21 @@ function createFilterOptions(selectedFilterOption, courses="") {
     }
 }
 
-function createModulesTable() 
-{
-    /*
-        This function creates the table of modules when user pressed "Search" button, 
-        also calls createFilterOptions() to create the filter
-    */
+function editModulesTable() {
+    /* This function changes the table when there is a change in filter */
+
+    // Get the selected option and table
+    var selectedFilterOption = document.getElementById("filterOptions").value;
+
+    // Resets table
+    removeTableItems();
+
+    // Create filtered table
+    createRows(selectedFilterOption);
+}
+
+function createRows(selectedOption) {
+    /* Module that creates the rows and append to table */
 
     // Table example
     //   <td><input type="checkbox"></td>
@@ -66,88 +126,13 @@ function createModulesTable()
     //   <td>Enrolled Y1</td>
     //   <td><button type="button" class="btn btn-secondary px-3 rounded-2">View More</button></td>
 
-    // Get Table Element
+    // Get tableModule
     var tableModules = document.getElementById("tableModules");
-
-    // Resets table
-    removeTableItems(tableModules)
-
-    // Create table
-    
-    // createRows(tableModules);
-
-    // // Update filter options
-    // for (data_item of exampleData) {
-    //     if (Categories.indexOf(data_item["courseCategory"]) === -1) {
-    //         Categories.push(data_item["courseCategory"])
-    //     }
-    // }
-    FetchCourses();
-}
-function FetchCourses(selectedFilterOption="All Tracks")
-{
-  get(global.coursesRef, "courses").then((snapshot) => {
-    if (snapshot.exists()) {
-        var result = snapshot.val();
-        var courses = [];
-
-        for (var key of Object.keys(result)) {
-            // this will give you the key & values for all properties
-            var temp = result[key];
-            var currCourse = new global.Course(temp["courseCode"], temp["courseName"], temp["courseCategory"], temp["courseDescription"]);
-            //console.log(currCourse);
-            courses.push(currCourse);
-            //console.log(key + " -> " + user.username + " , " + user.gpa);
-            // .. process the data here! 
-        }
-        // console.log(courses);
-        createRows(document.getElementById("tableModules"), courses, selectedFilterOption);
-        createFilterOptions(selectedFilterOption, courses);
-    }
-    else
-    {
-    //   CreateNewCourse(new Course("IS111", "Intro to programming", "IS Core", "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications."));
-    //   CreateNewCourse(new Course("CS102", "Programming Fundamentals II", "CS Core", "This course focuses on fundamental concepts of developing programs using an object oriented approach. There will be an emphasis on writing clean and efficient code, and the ability to use an appropriate data structure or algorithm to solve problems. The Java programming language will be taught in depth."));
-    //   CreateNewCourse(new Course("IS112", "Data Mangement", "IS Core", "This course will cover the fundamentals of relational database theory, important data management concepts such as data modelling, database design, database implementation and search in unstructured data (i.e., text) in current business information systems. <br><br> A series of in-class exercises, tests, quizzes and course project will help students understand covered topics. Students are expected to apply knowledge learned in the classroom to solve many problems based on real-life business scenarios, while gaining hands-on experience in designing, implementing, and managing database systems."));
-    }
-  });
-  
-}
-function removeTableItems(tableModules) {
-    /* This functions removes the items in the table if the search button has been pressed before*/
-
-    // Get table rows
-    var rows = document.getElementById("listModules");
-
-    if (rows !== null) {
-        tableModules.children[1].remove();
-    }
-}
-
-function editModulesTable() {
-    /* This function changes the table when there is a change in filter */
-
-    // Get the selected option
-    var selectedFilterOption = document.getElementById("filterOptions").value;
-
-    // Get Table Element
-    var tableModules = document.getElementById("tableModules");
-
-    // Resets table
-    removeTableItems(tableModules);
-
-    FetchCourses(selectedFilterOption);
-    
-}
-
-function createRows(tableModules, courses, selectedOption) {
-    /* Module that creates the rows and append to table */
 
     // Create Element: Table Body
     var tableBody = document.createElement("tbody");
-    tableBody.setAttribute("id", "listModules");
 
-    for (var data_item of courses) {
+    for (var data_item of Courses) {
         if (data_item.courseCategory === selectedOption || selectedOption === "All Tracks") {
             //Create Table Row
             var row = document.createElement("tr");
@@ -159,12 +144,12 @@ function createRows(tableModules, courses, selectedOption) {
             var enrolledYear = data_item.enrolled_year;
             
             // Create checkbox
-            var tableDataCol = document.createElement("td");
+            var col = document.createElement("td");
             var checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
             checkbox.value = courseCode;
-            tableDataCol.appendChild(checkbox);
-            row.appendChild(tableDataCol);
+            col.appendChild(checkbox);
+            row.appendChild(col);
 
             // Create the other columns
             var col = document.createElement("td");
@@ -192,21 +177,19 @@ function createRows(tableModules, courses, selectedOption) {
             row.appendChild(col);
 
             // Create button
-            var tableDataCol = document.createElement("td");
+            var col = document.createElement("td");
             var button = document.createElement("button");
             button.setAttribute("type", "button");
             button.setAttribute("class", "btn btn-secondary px-3 rounded-2");
             button.setAttribute("data-bs-toggle", "modal");
             button.setAttribute("data-bs-target",`#Modal_${courseCode}`);
             button.innerText = "View More";
-            tableDataCol.appendChild(button);
+            col.appendChild(button);
+            row.appendChild(col);
 
             // Create Modal
             var modalDiv = createModal(data_item);
             document.getElementById("modals").innerHTML += modalDiv;
-
-            // Append column to row
-            row.appendChild(tableDataCol);
 
             // Append row to tbody
             tableBody.appendChild(row);
@@ -244,7 +227,7 @@ function createModal(course) {
 // Acts like "import"
 document.addEventListener('DOMContentLoaded', function() {
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
-    console.log(global.currUser);
+    // console.log(global.currUser);
 
     createFilterOptions()
 
