@@ -257,12 +257,12 @@ function getAllSelectedCourses()
         // If checked no checkboxes
         else {
             document.getElementById("addToPlannerModalBody").innerText = "Please select at least 1 module";
-            document.getElementById("addToPlannerModalBody")
             document.getElementById("buttonToAdd").disabled = true;
         }
     }
     // If DID NOT pressed search before "Add to Planner"
     else {
+        document.getElementById("addToPlannerModalBody").innerText = "Please select at least 1 module";
         document.getElementById("buttonToAdd").disabled = true;
     }
 }
