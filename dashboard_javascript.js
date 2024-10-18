@@ -50,79 +50,84 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
-function UpdateCoursesList()
-{
-  var enrolledCoursesCarousel = document.getElementById("enrolledCourses");
-  for (var courseCode in global.currUser.courses)
-  {
-    var courseSem = global.currUser.courses[courseCode];
-    enrolledCoursesCarousel.innerHTML += `
-    <div class="card mb-3">
-    <div class="row g-0">
-    <div class="col-md-8">
-      <div class="card-body">
-      <h5 class="card-title">${courseCode}</h5>
-      <p class="card-text">
-        <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
-      </p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <img src="images/com.png" class="img-fluid rounded-start" alt="...">
-    </div>
-    </div>
-  </div>
-  <div class="card mb-3">
-    <div class="row g-0">
-    <div class="col-md-8">
-      <div class="card-body">
-      <h5 class="card-title">${courseCode}</h5>
-      <p class="card-text">
-        <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
-      </p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <img src="images/com.png" class="img-fluid rounded-start" alt="...">
-    </div>
-    </div>
-  </div>
+
+function UpdateCoursesList() {
+  var enrolledCoursesCarousel = document.querySelector(".carousel-inner");
+  var courses = global.currUser.courses;
+  var courseCodes = Object.keys(courses);
   
-  <div class="card mb-3">
-    <div class="row g-0">
-    <div class="col-md-8">
-      <div class="card-body">
-      <h5 class="card-title">${courseCode}</h5>
-      <p class="card-text">
-        <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
-      </p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <img src="images/com.png" class="img-fluid rounded-start" alt="...">
-    </div>
-    </div>
-  </div>
+  let totalCards = courseCodes.length;
+  let totalSlides = totalCards;
   
-  <div class="card mb-3">
-    <div class="row g-0">
-    <div class="col-md-8">
-      <div class="card-body">
-      <h5 class="card-title">${courseCode}</h5>
-      <p class="card-text">
-        <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
-      </p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <img src="images/com.png" class="img-fluid rounded-start" alt="...">
-    </div>
-    </div>
-  </div>
-  
-    `
+  enrolledCoursesCarousel.innerHTML = '';
+
+  for (let i = 0; i < totalSlides; i++) {
+
+    let carouselItem = document.createElement('div');
+    carouselItem.className = 'carousel-item';
+    if (i === 0) {
+      carouselItem.className += ' active';
+    }
+
+    let cardDeck = document.createElement('div');
+    cardDeck.className = 'card-deck d-flex justify-content-center';
+
+    // 3 cards to each slide
+    for (let j = 0; j < 3; j++) {
+      let cardIndex = (i + j) % totalCards;
+      let courseCode = courseCodes[cardIndex];
+
+      // Card
+      let card = document.createElement('div');
+      card.className = 'card mb-3';
+
+      // Row and columns
+      let row = document.createElement('div');
+      row.className = 'row g-0';
+
+      let colText = document.createElement('div');
+      colText.className = 'col-md-8';
+
+      let cardBody = document.createElement('div');
+      cardBody.className = 'card-body';
+
+      let cardTitle = document.createElement('h5');
+      cardTitle.className = 'card-title';
+      cardTitle.textContent = courseCode;
+
+      let cardText = document.createElement('p');
+      cardText.className = 'card-text';
+
+      let viewButton = document.createElement('a');
+      viewButton.className = 'btn btn-primary';
+      viewButton.setAttribute('href', '#');
+      viewButton.setAttribute('role', 'button');
+      viewButton.textContent = 'View';
+
+      cardText.appendChild(viewButton);
+      cardBody.appendChild(cardTitle);
+      cardBody.appendChild(cardText);
+      colText.appendChild(cardBody);
+
+      let colImg = document.createElement('div');
+      colImg.className = 'col-md-4';
+
+      let img = document.createElement('img');
+      img.src = 'images/com.png';
+      img.className = 'img-fluid rounded-start';
+
+      colImg.appendChild(img);
+      row.appendChild(colText);
+      row.appendChild(colImg);
+      card.appendChild(row);
+      cardDeck.appendChild(card);
+    }
+    carouselItem.appendChild(cardDeck);
+    enrolledCoursesCarousel.appendChild(carouselItem);
   }
 }
+
+
 
 function FetchUsersCourses()
 {
