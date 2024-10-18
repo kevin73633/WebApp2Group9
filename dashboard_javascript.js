@@ -38,6 +38,16 @@ class User
     this.uid = uid;
     this.username = username;
     this.gpa = gpa;
+    this.courses = [];
+  }
+  AddNewCourse(courseCode) 
+  {
+    this.courses.push(courseCode);
+    set(ref(db, 'users/' + user.uid), {
+      username: this.displayName,
+      GPA: this.gpa,
+      courses: this.courses,
+    });
   }
 }
 class Course
