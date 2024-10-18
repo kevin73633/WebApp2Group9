@@ -35,6 +35,17 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 })
 
+//Get Current Date
+function formatDate(date) {
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  return date.toLocaleDateString('en-US', options);
+}
+
+  const currentDateElement = document.getElementById('currentDate');
+  const currentDate = new Date();
+  currentDateElement.textContent = formatDate(currentDate);
+
+
 // added for dashboardbanner line 88 block
 document.addEventListener('DOMContentLoaded', function() {
   onAuthStateChanged(global.auth, (user) => {
@@ -57,12 +68,11 @@ function UpdateCoursesList() {
   var courseCodes = Object.keys(courses);
   
   let totalCards = courseCodes.length;
-  let totalSlides = totalCards;
+  let totalSlides = Math.ceil(totalCards / 3);
   
   enrolledCoursesCarousel.innerHTML = '';
 
   for (let i = 0; i < totalSlides; i++) {
-
     let carouselItem = document.createElement('div');
     carouselItem.className = 'carousel-item';
     if (i === 0) {
@@ -72,55 +82,63 @@ function UpdateCoursesList() {
     let cardDeck = document.createElement('div');
     cardDeck.className = 'card-deck d-flex justify-content-center';
 
-    // 3 cards to each slide
+    let cardsToShow = Math.min(3, totalCards - (i * 3));
+    
     for (let j = 0; j < 3; j++) {
-      let cardIndex = (i + j) % totalCards;
-      let courseCode = courseCodes[cardIndex];
+      if (j < cardsToShow) {
+        let cardIndex = (i * 3 + j);
+        let courseCode = courseCodes[cardIndex];
 
-      // Card
-      let card = document.createElement('div');
-      card.className = 'card mb-3';
+        // Card
+        let card = document.createElement('div');
+        card.className = 'card mb-3';
 
-      // Row and columns
-      let row = document.createElement('div');
-      row.className = 'row g-0';
+        // Row and columns
+        let row = document.createElement('div');
+        row.className = 'row g-0';
 
-      let colText = document.createElement('div');
-      colText.className = 'col-md-8';
+        let colText = document.createElement('div');
+        colText.className = 'col-md-8';
 
-      let cardBody = document.createElement('div');
-      cardBody.className = 'card-body';
+        let cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
 
-      let cardTitle = document.createElement('h5');
-      cardTitle.className = 'card-title';
-      cardTitle.textContent = courseCode;
+        let cardTitle = document.createElement('h5');
+        cardTitle.className = 'card-title';
+        cardTitle.textContent = courseCode;
 
-      let cardText = document.createElement('p');
-      cardText.className = 'card-text';
+        let cardText = document.createElement('p');
+        cardText.className = 'card-text';
 
-      let viewButton = document.createElement('a');
-      viewButton.className = 'btn btn-primary';
-      viewButton.setAttribute('href', '#');
-      viewButton.setAttribute('role', 'button');
-      viewButton.textContent = 'View';
+        let viewButton = document.createElement('a');
+        viewButton.className = 'btn btn-primary';
+        viewButton.setAttribute('href', '#');
+        viewButton.setAttribute('role', 'button');
+        viewButton.textContent = 'View';
 
-      cardText.appendChild(viewButton);
-      cardBody.appendChild(cardTitle);
-      cardBody.appendChild(cardText);
-      colText.appendChild(cardBody);
+        cardText.appendChild(viewButton);
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardText);
+        colText.appendChild(cardBody);
 
-      let colImg = document.createElement('div');
-      colImg.className = 'col-md-4';
+        let colImg = document.createElement('div');
+        colImg.className = 'col-md-4';
 
-      let img = document.createElement('img');
-      img.src = 'images/com.png';
-      img.className = 'img-fluid rounded-start';
+        let img = document.createElement('img');
+        img.src = 'images/com.png';
+        img.className = 'img-fluid rounded-start';
 
-      colImg.appendChild(img);
-      row.appendChild(colText);
-      row.appendChild(colImg);
-      card.appendChild(row);
-      cardDeck.appendChild(card);
+        colImg.appendChild(img);
+        row.appendChild(colText);
+        row.appendChild(colImg);
+        card.appendChild(row);
+        cardDeck.appendChild(card);
+      } else {
+        let emptyCard = document.createElement('div');
+        emptyCard.className = 'card mb-3';
+        emptyCard.style.visibility = 'hidden';
+        cardDeck.appendChild(emptyCard);
+      }
     }
     carouselItem.appendChild(cardDeck);
     enrolledCoursesCarousel.appendChild(carouselItem);

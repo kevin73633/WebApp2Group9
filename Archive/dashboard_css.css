@@ -1,0 +1,171 @@
+@charset "utf-8";
+@font-face{
+	font-family: myFirstFont;
+	font-family: 'Lobster', cursive;
+  	src: url("https://fonts.googleapis.com/css?family=Lobster");
+}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+html,body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+
+body{
+    justify-content: center; /* Center horizontally */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+    background-color: #e0e0e0; /* Background color */
+	background-image: url(images/login_bg.png);
+	background-position: center;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}
+
+/* Side Navigation */
+.nav-link {
+	color: white;
+	opacity: 0.5;
+	padding: 10px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+}
+
+.nav-link.active {
+	background-color: #0038FF;
+	opacity:1;
+}
+
+.nav-link i {
+	width: 20px;
+}
+.icon-text{
+	font-family: "Poppins", sans-serif;
+	font-weight: 600;
+	font-style: normal;
+	font-size:16px;
+}
+
+.icon-text-wrapper {
+    display: inline-flex;
+    align-items: center; /* Align icon and text vertically centered */
+}
+li{
+	margin: 15px;
+}
+
+#sidebar{
+	height: 100%;
+	background-color: black;
+	min-height: 100vh;
+	width: 250px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	padding: 20px;
+}
+
+#content {
+	margin-left: 250px;
+	padding: 20px;
+}
+#app{
+	color: white;
+}
+
+/* Profile */
+#profile_top{
+	color: white;
+	position: fixed;
+		top: 20px;
+		right: 20px;
+		display: flex;
+		align-items: center;
+		z-index: 1000;
+}
+
+.icon-circle {
+	width: 40px;
+	height: 40px;
+	background-color: #f0f4ff;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#welcome-banner {
+	background-color: #0038FF;
+	border-radius: 10px;
+	padding: 20px;
+	margin-bottom: 30px;
+}
+
+#friends{
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+	/* width: ; */
+}
+
+#steps, #stepsTagline{
+	font-family: Orbitron, sans-serif;
+	font-size: x-small;
+	display: block;
+}
+
+#nameheader
+{
+	display: flex;
+	color: white;
+}
+
+
+#courseTable
+{
+    align-items: center; /* Center vertically */
+}
+
+
+.carousel-item {
+	display: flex;
+	justify-content: space-between;
+  }
+  
+  .card-deck {
+	display: flex;
+	justify-content: space-between;
+	gap: 15px;
+  }
+  
+  .card {
+	flex: 1; /* Make sure all cards have equal width */
+	height:140px  !important;
+	display: flex;
+	justify-content: center;
+	border-radius: 20px !important;
+  }
+  
+  .card-body {
+	color: white;
+  }
+  
+  .card-title {
+	font-family: 'Orbitron', sans-serif;
+	font-size: 1.2rem;
+  }
+  
+  .carousel-item img {
+	width: 100px;
+	height: auto;
+  }
+  .card-text{
+	margin:20px 0;
+  }
+
+  #courseCarousel, #courseCarousel2, .course3{
+	margin:30px 10px;
+  }
