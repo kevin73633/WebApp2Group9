@@ -7,7 +7,7 @@
     <title>Subject Catalog</title>
 
     <!-- External CSS-->
-    <link href= "catalog_css.css" type="text/css" rel="stylesheet" />
+    <!-- <link href= "catalog_css.css" type="text/css" rel="stylesheet" /> -->
     <link href= "dashboard_css.css" type="text/css" rel="stylesheet" />
 
     <!-- Other CSS -->
@@ -81,86 +81,93 @@
 		</div>
 
         <main id="content" class="mt-5 pt-4 ">
-            <div class="container">
-                <div class="row" id="welcome-banner" >
-                    <small>{{ currentDate }}</small>
-                    <p id="banner_name" class="h3 mb-1"></p>
-                    <p class="mb-0">COURSE CATALOG</p>
+            <div class="row" id="welcome-banner" >
+                <small>{{ currentDate }}</small>
+                <p id="banner_name" class="h3 mb-1"></p>
+                <p class="mb-0">COURSE CATALOG</p>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="col-3">
+                <!-- Dropdown -->
+                    <select class="form-select rounded-5 bg-black text-white" aria-label="Category select" id="filterOptions"></select>
                 </div>
-                <div class="row py-3" id="filter-search">
-                    <div class="col-3">
-                    <!-- Dropdown -->
-                        <select class="form-select rounded-5 bg-black text-white" aria-label="Default select example" id="filterOptions"></select>
+                <div class="col-4">
+                    <!-- Empty -->
+                </div>
+                <div class="col-3">
+                    <!-- Search Bar -->
+                    <div class="input-group flex-nowrap">
+                        <input type="text" class="form-control rounded-5" placeholder="Code/Name of Module" aria-label="module_input" aria-describedby="basic-addon2">
                     </div>
-                    <div class="col-4">
-                        <!-- Empty -->
-                    </div>
-                    <div class="col-4">
-                        <!-- Search Bar -->
-                        <div class="input-group mb-3 flex-nowrap">
-                            <input type="text" class="form-control rounded-5" placeholder="Code/Name of Module" aria-label="module_input" aria-describedby="basic-addon2">
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <button type="button" class="btn btn-primary px-3 rounded-5" id="searchBtn">Search</button>
-                    </div>
+                </div>
+                <div class="col-1">
+                    <button type="button" class="btn btn-primary px-3 rounded-5" id="searchBtn">Search</button>
                 </div>
             </div>
 
-            <div class="container" id="courseTable">
-                <div class="row bg-white rounded-2">
-                    <!-- Create the table -->
-                    <table class="table" id="tableModules">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-body-tertiary">Select</th>
-                                <th scope="col" class="text-body-tertiary">Module Name</th>
-                                <th scope="col" class="text-body-tertiary">Code</th>
-                                <th scope="col" class="text-body-tertiary">Category</th>
-                                <th scope="col" class="text-body-tertiary">Status</th>
-                                <th scope="col"> </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="6" class="text-center text-secondary">Please enter module code/name in search bar</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="row bg-white rounded-2 mt-5">
+                <!-- Create the table -->
+                <table class="table" id="tableModules">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-body-tertiary">Select</th>
+                            <th scope="col" class="text-body-tertiary">Module Name</th>
+                            <th scope="col" class="text-body-tertiary">Code</th>
+                            <th scope="col" class="text-body-tertiary">Category</th>
+                            <th scope="col" class="text-body-tertiary">Status</th>
+                            <th scope="col"> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="6" class="text-center text-secondary">Please enter module code/name in search bar</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="modalInsert"></div>
+            
+            <div class="row py-2">
+                <div class="col-4">
+                    <button type="button" class="btn btn-primary px-4 rounded-5" id="addToPlanner" data-bs-toggle="modal" data-bs-target="#addToPlannerModal">Add to My Planner</button>
                 </div>
-                <div id="modalInsert"></div>
-                
-                <div class="row py-2">
-                    <div class="col-4">
-                        <button type="button" class="btn btn-primary px-4 rounded-5">Add to My Planner</button>
-                    </div>
-                    <div class="col-5">
-
-                    </div>
-                    <!-- <div class="col-1">
-                        <nav aria-label="Page navigation" >
-                            <ul class="pagination justify-content-end mx-1">
-                            <li class="page-item">
-                                <a class="page-link rounded-5" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link rounded-5" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link rounded-5" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link rounded-5" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link rounded-5" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                            </ul>
-                        </nav>
-                    </div> -->
-                </div>
+                <div class="col-5"></div>
+                <!-- <div class="col-1">
+                    <nav aria-label="Page navigation" >
+                        <ul class="pagination justify-content-end mx-1">
+                        <li class="page-item">
+                            <a class="page-link rounded-5" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link rounded-5" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link rounded-5" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link rounded-5" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link rounded-5" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        </ul>
+                    </nav>
+                </div> -->
             </div>
         </main>
     </div>
-    <div id="modals">
+    <div id="modals"></div>
+    <div class="modal fade" id="addToPlannerModal" tabindex="-1" aria-labelledby="Modal_${course.courseCode}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addToPlannerModal">Select the semester you would like to do in</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center" id="addToPlannerModalBody"></div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="buttonToAdd">Add to Planner</button>
+                </div>
+            </div>
+        </div>
     </div>
     
 

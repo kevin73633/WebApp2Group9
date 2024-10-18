@@ -11,6 +11,8 @@ const Categories = ["All Tracks"];
 // All the courses taken from database
 const Courses = [];
 
+/* Functions that interacts with db: FetchCourses() */
+
 function FetchCourses(selectedFilterOption="All Tracks")
 {
   get(global.coursesRef, "courses").then((snapshot) => {
@@ -43,8 +45,8 @@ function FetchCourses(selectedFilterOption="All Tracks")
 function createModulesTable() 
 {
     /*
-        This function creates the table of modules when user pressed "Search" button, 
-        also calls createFilterOptions() to create the filter
+        This function creates the table of modules and adds correct filter options 
+        when user pressed "Search" button
     */
 
     // Resets table
@@ -57,7 +59,8 @@ function createModulesTable()
     FetchCourses();
 }
 
-function removeTableItems() {
+function removeTableItems() 
+{
     /* This functions removes the items in the table if the search button has been pressed before*/
 
     // Get table rows
@@ -65,17 +68,22 @@ function removeTableItems() {
     tableModules.children[1].remove();
 }
 
-function resetTableConstVar() {
+function resetTableConstVar() 
+{
+    /* This function resets const Courses and const Categories */
     for (let i=0; i < Courses.length+2; i++) {
         Courses.pop();
     }
 
-    for (let i=0; i < Categories.length-1; i++) {
-        Categories.pop();
+    if (Categories.length > 1) {
+        for (let i=0; i < Categories.length; i++) {
+            Categories.pop();
+        }
     }
 }
 
-function createFilterOptions(selectedFilterOption) {
+function createFilterOptions(selectedFilterOption) 
+{
     /* This function creates the filter options*/
 
     // <option selected>All Tracks</option>
@@ -102,7 +110,8 @@ function createFilterOptions(selectedFilterOption) {
     }
 }
 
-function editModulesTable() {
+function editModulesTable() 
+{
     /* This function changes the table when there is a change in filter */
 
     // Get the selected option and table
@@ -115,7 +124,8 @@ function editModulesTable() {
     createRows(selectedFilterOption);
 }
 
-function createRows(selectedOption) {
+function createRows(selectedOption) 
+{
     /* Module that creates the rows and append to table */
 
     // Table example
@@ -147,7 +157,7 @@ function createRows(selectedOption) {
             var col = document.createElement("td");
             var checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
-            checkbox.value = courseCode;
+            checkbox.value = courseCode + ": " + courseName;
             col.appendChild(checkbox);
             row.appendChild(col);
 
@@ -188,7 +198,7 @@ function createRows(selectedOption) {
             row.appendChild(col);
 
             // Create Modal
-            var modalDiv = createModal(data_item);
+            var modalDiv = createCourseModal(data_item);
             document.getElementById("modals").innerHTML += modalDiv;
 
             // Append row to tbody
@@ -200,7 +210,8 @@ function createRows(selectedOption) {
     }
 }
 
-function createModal(course) {
+function createCourseModal(course) 
+{
     /* This function creates the modal and returns the div of the modal */
 
     // <!-- Modal -->
@@ -224,6 +235,59 @@ function createModal(course) {
     return modal
 }
 
+function getAllSelectedCourses() 
+{
+    /* This function is to handle "Add to Planner" button */
+
+    var selectedCourses = document.getElementsByTagName("input");
+    // If pressed search before "Add to Planner"
+    if (selectedCourses.length > 1) {
+        let courseIds = []
+        for (let i=1; i < selectedCourses.length; i++) {
+            let selection = selectedCourses[i];
+            if (selection.checked) {
+               courseIds.push(selection.value)
+            }
+        }
+        // If checked at least 1 checkboxes
+        if (courseIds.length > 0) {
+            createForm(document.getElementById("addToPlannerModalBody"), courseIds)
+            document.getElementById("buttonToAdd").disabled = false;
+        }
+        // If checked no checkboxes
+        else {
+            document.getElementById("addToPlannerModalBody").innerText = "Please select at least 1 module";
+            document.getElementById("addToPlannerModalBody")
+            document.getElementById("buttonToAdd").disabled = true;
+        }
+    }
+    // If DID NOT pressed search before "Add to Planner"
+    else {
+        document.getElementById("buttonToAdd").disabled = true;
+    }
+}
+
+function createForm(modalBody, courseIds) {
+    /* Creates form in modal */
+    modalBody.innerHTML = ""
+    for (let course of courseIds) {
+        var temp = course.split(": ")
+        var form = `<form id="selectSemester">
+                <div class="row mb-3 justify-content-center">
+                    <div class="col-5">
+                        <label for="course" class="form-label">${course}</label>
+                    </div>
+                    <div class="col-5">
+                        <select class="form-select rounded-5" aria-label="semester">
+                            <option value="${temp[0]} Y1S1">Y1S1</option>
+                        </select>
+                    <div>
+                </div>
+            </form>`
+            modalBody.innerHTML += form;
+    }
+}
+
 // Acts like "import"
 document.addEventListener('DOMContentLoaded', function() {
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
@@ -232,9 +296,11 @@ document.addEventListener('DOMContentLoaded', function() {
     createFilterOptions()
 
     // For the search button
-    var searchBtn = document.getElementById("searchBtn");
-    searchBtn.onclick = function() {createModulesTable();}
+    document.getElementById("searchBtn").onclick = function() {createModulesTable();}
     
     // For the filtering onchange
     document.getElementById("filterOptions").onchange = function() {editModulesTable()}
+
+    // For the 'Add to my Planner' button
+    document.getElementById("addToPlanner").onclick = function() {getAllSelectedCourses()}
 })
