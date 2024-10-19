@@ -268,6 +268,9 @@ function getAllSelectedCourses()
 }
 
 function createForm(modalBody, courseIds) {
+    console.log("Start createForm");
+    // <label for="course" class="form-label">${course}</label>
+
     /* Creates form in modal */
     modalBody.innerHTML = ""
     for (let course of courseIds) {
@@ -275,7 +278,7 @@ function createForm(modalBody, courseIds) {
         var form = `<form id="selectSemester">
                 <div class="row mb-3 justify-content-center">
                     <div class="col-5">
-                        <label for="course" class="form-label">${course}</label>
+                        ${course}
                     </div>
                     <div class="col-5">
                         <select class="form-select" aria-label="semester">

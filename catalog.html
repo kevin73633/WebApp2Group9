@@ -118,13 +118,18 @@
                                 <th scope="col"> </th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="6" class="text-center text-secondary">Please enter code/name into search bar</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
                 <div id="modalInsert"></div>
                 
                 <div class="row py-2">
                     <div class="col-4">
-                        <button type="button" class="btn btn-primary px-4 rounded-5">Add to My Planner</button>
+                        <button type="button" class="btn btn-primary px-4 rounded-5" id="addToPlanner" data-bs-toggle="modal" data-bs-target="#addToPlannerModal">Add to My Planner</button>
                     </div>
                     <div class="col-5">
 
@@ -153,7 +158,7 @@
         </main>
     </div>
     <div id="modals"></div>
-    <div class="modal fade" id="addToPlannerModal" tabindex="-1" aria-labelledby="Modal_${course.courseCode}" aria-hidden="true">
+    <div class="modal fade" id="addToPlannerModal" tabindex="-1" aria-labelledby="addToPlannerModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
