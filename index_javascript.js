@@ -79,8 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 //console.log(key + " -> " + user.username + " , " + user.gpa);
                 // .. process the data here! 
             }
-            console.log(global.allCourses);
-            sessionStorage.setItem("allCourses",  JSON.stringify(global.allCourses));
             var localuser =  ref(global.db, 'users/' + uid);
             get(localuser, `users/${uid}`).then((snapshot) => {
               if (snapshot.exists()) {
@@ -91,12 +89,16 @@ document.addEventListener('DOMContentLoaded', function() {
                   userCourses = [];
                 global.SetCurrentUser(new global.User(user.uid, userData["username"], userData["GPA"], userCourses));
                 sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
+                global.SetAllCourses(global.allCourses);
+                sessionStorage.setItem("allCourses",  JSON.stringify(global.allCourses));
+                global.currUser.AddNewCourse("IS111", "Y1S1");
                 GoToDashboard();
             
               }
               else
               {
                 global.CreateNewUser(user);
+                sessionStorage.setItem("allCourses",  JSON.stringify(global.allCourses));
                 //showpopup
                 GoToDashboard();
             

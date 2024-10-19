@@ -46,11 +46,25 @@ function logout () {
   }
 function SetCurrentUser(user)
 {
-    currUser = user;
+    currUser = new User(user.uid, user.username, user.gpa, user.courses);
 }
 function SetAllCourses(courses)
 {
-    allCourses = courses;
+    for (var course of courses)
+    {
+      allCourses.push(new Course(course.courseCode, course.courseName, course.courseCategory, course.courseDescription));
+    }
+    for (var course in currUser.courses)
+    {
+      var courseCode = course;
+      var yearAndSemTaken = currUser.courses[course];
+      var fullCourse = Course.GetByCourseCode(courseCode);
+      if (fullCourse != null)
+      {
+        fullCourse.status = "yes";
+        fullCourse.enrolled_year = yearAndSemTaken;
+      }
+    }
 }
 function CreateNewCourse(course) {
   set(ref(db, 'courses/' + course.courseCode), {
@@ -70,6 +84,16 @@ class Course
     this.status = "no";
     this.enrolled_year = null;
   }
+  static GetByCourseCode(courseCode)
+  {
+    for (let index = 0; index < allCourses.length; index++) {
+      const element = allCourses[index];
+      if (element.courseCode == courseCode)
+      {
+        return element;
+      }
+    }
+  }
 }
 class User
 {
@@ -79,7 +103,7 @@ class User
     this.gpa = gpa;
     this.courses = courses;
   }
-  AddNewCourse(courseCode, YearTaken)
+  AddNewCourse(courseCode, yearAndSemTaken)
   {
 
     // Get a key for a new Post.
@@ -88,8 +112,22 @@ class User
 
     // Write the new post's data simultaneously in the posts list and the user's post list.
     const updates = {};
-    updates[`users/${this.uid}/courses/${courseCode}`] = YearTaken;
-
+    updates[`users/${this.uid}/courses/${courseCode}`] = yearAndSemTaken;
+    var exists = false;
+    for (var course in currUser.courses)
+    {
+      if (courseCode == course)
+      {
+        currUser.courses[course] = yearAndSemTaken;
+        exists = true;
+      }
+    }
+    if (exists == false)
+    {
+      var newCourse = {};
+      newCourse[courseCode] = yearAndSemTaken;
+      currUser.courses.push(newCourse);
+    }
     return update(ref(db), updates);
   }
 

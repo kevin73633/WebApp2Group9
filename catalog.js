@@ -10,6 +10,7 @@ import * as global from './global.js';
 const Categories = ["All Tracks"];
 // All the courses taken from database
 var Courses = [];
+var SelectedCoursesList = [];
 
 /* Functions that interacts with db: FetchCourses() */
 
@@ -134,7 +135,7 @@ function createRows(selectedOption)
             var col = document.createElement("td");
             var checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
-            checkbox.value = courseCode + ": " + courseName;
+            checkbox.value = courseCode + ":" + courseName;
             col.appendChild(checkbox);
             row.appendChild(col);
 
@@ -211,19 +212,28 @@ function createCourseModal(course)
     </div>`
     return modal
 }
-
+function AddToPlanner()
+{
+    for (let index = 0; index < SelectedCoursesList.length; index++) {
+        const element = SelectedCoursesList[index];
+        var yearAndSemTaken = document.getElementById(element.courseCode+"_dropdown").value;
+        global.currUser.AddNewCourse(element.courseCode, yearAndSemTaken);
+    }
+    console.log(global.currUser.courses);
+}
 function getAllSelectedCourses() 
 {
     /* This function is to handle "Add to Planner" button */
-
     var selectedCourses = document.getElementsByTagName("input");
     // If pressed search before "Add to Planner"
     if (selectedCourses.length > 1) {
-        let courseIds = []
+        let courseIds = [];
+        SelectedCoursesList = [];
         for (let i=1; i < selectedCourses.length; i++) {
             let selection = selectedCourses[i];
             if (selection.checked) {
                courseIds.push(selection.value)
+               SelectedCoursesList.push(global.Course.GetByCourseCode(selection.value.split(":")[0]));
             }
         }
         // If checked at least 1 checkboxes
@@ -247,32 +257,31 @@ function getAllSelectedCourses()
 function createForm(modalBody, courseIds) {
     console.log("Start createForm");
     // <label for="course" class="form-label">${course}</label>
-
     /* Creates form in modal */
     modalBody.innerHTML = ""
     for (let course of courseIds) {
-        var temp = course.split(": ")
+        var temp = course.split(":")
         var form = `<form id="selectSemester">
                 <div class="row mb-3 justify-content-center">
                     <div class="col-5">
                          <label for="course" class="form-label">${course}</label>
                     </div>
                     <div class="col-5">
-                        <select class="form-select" aria-label="semester">
-                            <option value="${temp[0]} Y1S1">Y1S1</option>
-                            <option value="${temp[0]} Y1S2">Y1S2</option>
-                            <option value="${temp[0]} Y1S3a">Y1S3a</option>
-                            <option value="${temp[0]} Y1S3a">Y1S3b</option>
-                            <option value="${temp[0]} Y2S1">Y2S1</option>
-                            <option value="${temp[0]} Y2S2">Y2S2</option>
-                            <option value="${temp[0]} Y2S3a">Y2S3a</option>
-                            <option value="${temp[0]} Y2S3a">Y2S3b</option>
-                            <option value="${temp[0]} Y3S1">Y3S1</option>
-                            <option value="${temp[0]} Y3S2">Y3S2</option>
-                            <option value="${temp[0]} Y3S3a">Y3S3a</option>
-                            <option value="${temp[0]} Y3S3a">Y3S3b</option>
-                            <option value="${temp[0]} Y4S1">Y4S1</option>
-                            <option value="${temp[0]} Y4S2">Y4S2</option>
+                        <select id = "${temp[0]}_dropdown" class="form-select" aria-label="semester">
+                            <option value="Y1S1">Y1S1</option>
+                            <option value="Y1S2">Y1S2</option>
+                            <option value="Y1S3a">Y1S3a</option>
+                            <option value="Y1S3a">Y1S3b</option>
+                            <option value="Y2S1">Y2S1</option>
+                            <option value="Y2S2">Y2S2</option>
+                            <option value="Y2S3a">Y2S3a</option>
+                            <option value="Y2S3a">Y2S3b</option>
+                            <option value="Y3S1">Y3S1</option>
+                            <option value="Y3S2">Y3S2</option>
+                            <option value="Y3S3a">Y3S3a</option>
+                            <option value="Y3S3a">Y3S3b</option>
+                            <option value="Y4S1">Y4S1</option>
+                            <option value="Y4S2">Y4S2</option>
                         </select>
                     <div>
                 </div>
@@ -283,10 +292,9 @@ function createForm(modalBody, courseIds) {
 
 // Acts like "import"
 document.addEventListener('DOMContentLoaded', function() {
-    global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
+    global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
     // console.log(global.currUser);
-
     createFilterOptions();
     createModulesTable();
     // For the search button
@@ -297,4 +305,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // For the 'Add to my Planner' button
     document.getElementById("addToPlanner").onclick = function() {getAllSelectedCourses()}
+
+    document.getElementById("buttonToAdd").onclick = function() {AddToPlanner();};
 })
