@@ -50,6 +50,7 @@ function SetCurrentUser(user)
 }
 function SetAllCourses(courses)
 {
+  allCourses = [];
     for (var course of courses)
     {
       allCourses.push(new Course(course.courseCode, course.courseName, course.courseCategory, course.courseDescription));
