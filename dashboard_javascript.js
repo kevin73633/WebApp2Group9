@@ -9,8 +9,10 @@ import * as global from './global.js';
 
 document.addEventListener('DOMContentLoaded', function() {
   //ShowNumberOfUsers();
+  global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
   global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
   console.log(global.currUser);
+  console.log(global.allCourses);
   UpdateCoursesList();
   onAuthStateChanged(global.auth, (user) => {
     if (user) {

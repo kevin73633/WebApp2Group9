@@ -26,6 +26,7 @@ const db = getDatabase();
 const coursesRef = ref(db, 'courses/');
 
 var currUser = null;
+var allCourses = [];
 function CreateNewUser(user) {
     var initialGPA = 0.0;
     set(ref(db, 'users/' + user.uid), {
@@ -46,6 +47,10 @@ function logout () {
 function SetCurrentUser(user)
 {
     currUser = user;
+}
+function SetAllCourses(courses)
+{
+    allCourses = courses;
 }
 function CreateNewCourse(course) {
   set(ref(db, 'courses/' + course.courseCode), {
@@ -100,8 +105,10 @@ export
     Course,
     coursesRef,
     currUser,
+    allCourses,
+    SetAllCourses,
     CreateNewUser,
     SetCurrentUser,
-    logout
+    logout,
 
 }

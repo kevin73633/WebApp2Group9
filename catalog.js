@@ -9,36 +9,15 @@ import * as global from './global.js';
 // All the options in the filter
 const Categories = ["All Tracks"];
 // All the courses taken from database
-const Courses = [];
+var Courses = [];
 
 /* Functions that interacts with db: FetchCourses() */
 
 function FetchCourses(selectedFilterOption="All Tracks")
 {
-  get(global.coursesRef, "courses").then((snapshot) => {
-    if (snapshot.exists()) {
-        var result = snapshot.val();
-
-        for (var key of Object.keys(result)) {
-            // this will give you the key & values for all properties
-            var temp = result[key];
-            var currCourse = new global.Course(temp["courseCode"], temp["courseName"], temp["courseCategory"], temp["courseDescription"]);
-            //console.log(currCourse);
-            Courses.push(currCourse);
-            //console.log(key + " -> " + user.username + " , " + user.gpa);
-            // .. process the data here! 
-        }
-        // console.log(courses);
-        createRows(selectedFilterOption);
-        createFilterOptions(selectedFilterOption);
-    }
-    else
-    {
-    //   CreateNewCourse(new Course("IS111", "Intro to programming", "IS Core", "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications."));
-    //   CreateNewCourse(new Course("CS102", "Programming Fundamentals II", "CS Core", "This course focuses on fundamental concepts of developing programs using an object oriented approach. There will be an emphasis on writing clean and efficient code, and the ability to use an appropriate data structure or algorithm to solve problems. The Java programming language will be taught in depth."));
-    //   CreateNewCourse(new Course("IS112", "Data Mangement", "IS Core", "This course will cover the fundamentals of relational database theory, important data management concepts such as data modelling, database design, database implementation and search in unstructured data (i.e., text) in current business information systems. <br><br> A series of in-class exercises, tests, quizzes and course project will help students understand covered topics. Students are expected to apply knowledge learned in the classroom to solve many problems based on real-life business scenarios, while gaining hands-on experience in designing, implementing, and managing database systems."));
-    }
-  });
+    Courses = global.allCourses;
+    createRows(selectedFilterOption);
+    createFilterOptions(selectedFilterOption);
   
 }
 
@@ -71,9 +50,7 @@ function removeTableItems()
 function resetTableConstVar() 
 {
     /* This function resets const Courses and const Categories */
-    for (let i=0; i < Courses.length+2; i++) {
-        Courses.pop();
-    }
+    Courses = [];
 
     if (Categories.length > 1) {
         for (let i=0; i < Categories.length; i++) {
@@ -278,7 +255,7 @@ function createForm(modalBody, courseIds) {
         var form = `<form id="selectSemester">
                 <div class="row mb-3 justify-content-center">
                     <div class="col-5">
-                        ${course}
+                         <label for="course" class="form-label">${course}</label>
                     </div>
                     <div class="col-5">
                         <select class="form-select" aria-label="semester">
@@ -306,11 +283,12 @@ function createForm(modalBody, courseIds) {
 
 // Acts like "import"
 document.addEventListener('DOMContentLoaded', function() {
+    global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
     // console.log(global.currUser);
 
-    createFilterOptions()
-
+    createFilterOptions();
+    createModulesTable();
     // For the search button
     document.getElementById("searchBtn").onclick = function() {createModulesTable();}
     
