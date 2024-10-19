@@ -1,16 +1,83 @@
 // Import the functions you need from the SDKs you need
-import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-import { get, ref } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { get, getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import * as global from './global.js';
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCCo6vTfAeWwN4-dVCwcVozAkDSOlNEF_k",
+  authDomain: "wad2-b1ba1.firebaseapp.com",
+  databaseURL: "https://wad2-b1ba1-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "wad2-b1ba1",
+  storageBucket: "wad2-b1ba1.appspot.com",
+  messagingSenderId: "146287601431",
+  appId: "1:146287601431:web:845da202141a53e241f952"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Realtime Database and get a reference to the service
+
+//REALTIME DATABASE
+var currUser = null;
+const database = getDatabase(app);
+const db = getDatabase();
+function CreateNewUser(user) {
+  var initialGPA = 0.0;
+  set(ref(db, 'users/' + user.uid), {
+    username: user.displayName,
+    GPA: initialGPA,
+  });
+  currUser = new User(user.uid, user.displayName, initialGPA);
+}
+const usersRef = ref(db, 'users/');
+
+class User
+{
+  constructor(uid, username, gpa) {
+    this.uid = uid;
+    this.username = username;
+    this.gpa = gpa;
+  }
+}
+class Course
+{
+  constructor(courseCode, courseName) {
+    this.courseCode = courseCode;
+    this.courseName = this.courseName
+  }
+}
+
+
+// onValue(usersRef, (snapshot) => {
+//   const data = snapshot.val();
+//   //console.log(data);
+// });
+// onChildAdded(usersRef, (snapshot) => {
+//   const data = snapshot.val();
+//   //console.log(data["GPA"]);
+// });
+
+// onChildChanged(usersRef, (snapshot) => {
+//   const data = snapshot.val();
+//   //console.log(data["GPA"]);
+// });
+
+// onChildRemoved(usersRef, (snapshot) => {
+//   const data = snapshot.val();
+//   //console.log(data["GPA"]);
+// });
+//CreateNewUser("Test2");
 
 //AUTH
-
+const auth = getAuth();
 const form = document.getElementById('form');
 const provider = new GoogleAuthProvider();
 document.getElementById('GoogleLoginBtn').addEventListener('click',function(){
-  signInWithPopup(global.auth, provider)
+  signInWithPopup(auth, provider)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
     const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -52,34 +119,40 @@ document.getElementById('GoogleLoginBtn').addEventListener('click',function(){
   
 // });
 
+function logout () {
+  console.log("Logging out");
+  signOut(auth).then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+  });
+}
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
   //ShowNumberOfUsers();
-  onAuthStateChanged(global.auth, (user) => {
+  onAuthStateChanged(auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.uid;
       document.getElementById("GoogleLoginBtn").style.display = "none";
-      var localuser =  ref(global.db, 'users/' + uid);
+      console.log(user.metadata.creationTime + " , " + user.metadata.lastSignInTime);
+      var localuser =  ref(db, 'users/' + uid);
       get(localuser, `users/${uid}`).then((snapshot) => {
         if (snapshot.exists()) {
-          console.log("User Exists!");
-          var userData = snapshot.val();
-          global.SetCurrentUser(new global.User(user.uid, userData["username"], userData["GPA"], userData["courses"]));
-          sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
-          // GoToDashboard();
-          // Close the modal after saving
-        const userDetailsModal = bootstrap.Modal.getInstance(document.getElementById('userDetailsModal'));
-        userDetailsModal.show('show');
-
+          console.log("Exists!");
+          var userData = snapshot.val()[user.uid];
+          currUser = new User(user.uid, userData["username"], userData["GPA"]);
+          GoToDashboard();
       
         }
         else
         {
-          global.CreateNewUser(user);
+          CreateNewUser(user);
           //showpopup
-          // GoToDashboard();
+          GoToDashboard();
       
         }
       });    
@@ -105,51 +178,30 @@ function GoToDashboard()
   sleep(2000).then(() => { window.location.href = "dashboard.html"; });
   
 }
+function ShowNumberOfUsers() {
+  var counter = document.getElementById("currentuserscount");
+  counter.textContent = 0;
+
+  get(usersRef, "users").then((snapshot) => {
+    if (snapshot.exists()) {
+
+      var result = snapshot.val();
+      var values = Object.values(result);
+      counter.textContent = values.length;
 
 
-// Function to handle form submission and validation
-    function saveDetails() {
-        // Get the values from the form fields
-        const degree = degreeInput.value.trim();  // Trim spaces
-        const gpa = gpaInput.value.trim();  // Get GPA as string
-        const year = yearInput.value;
-        const semester = semesterInput.value;
-
-        // Check if any field is empty
-        if (!degree || !gpa || !year || !semester) {
-            alert('Please fill out all fields.');
-            return;
-        }
-
-        // Convert GPA to number and validate range
-        const gpaValue = parseFloat(gpa);
-        if (gpaValue < 0.01 || gpaValue > 4.3) {
-            alert('Please enter a GPA between 0.01 and 4.3.');
-            return;
-        }
-
-        // Log the collected details (replace this with your save action)
-        console.log({
-            degree: degree,
-            gpa: gpaValue,
-            year: year,
-            semester: semester
-        });
-
-        alert("Details saved successfully!");
-
-        // Close the modal after saving
-        const userDetailsModal = bootstrap.Modal.getInstance(document.getElementById('userDetailsModal'));
-        userDetailsModal.hide();
+      for (var key of Object.keys(result)) {
+        // this will give you the key & values for all properties
+        var temp = result[key];
+        currUser = new User(user.uid, temp["username"], temp["GPA"]);
+        //console.log(key + " -> " + user.username + " , " + user.gpa);
+        // .. process the data here! 
     }
 
-    // Trigger save on button click
-    saveDetailsBtn.addEventListener('click', saveDetails);
-
-    // Trigger save when pressing Enter key within the form
-    document.getElementById('userDetailsForm').addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();  // Prevent form submission or page reload
-            saveDetails();  // Call saveDetails function
-        }
-    });
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+}
