@@ -54,15 +54,12 @@ document.getElementById('GoogleLoginBtn').addEventListener('click',function(){
 // });
 
 
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
   //ShowNumberOfUsers();
   onAuthStateChanged(global.auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
+      // https://firebase.google.com/docs/reference/js/auth.user      
       const uid = user.uid;
       document.getElementById("GoogleLoginBtn").style.display = "none";
       var localuser =  ref(global.db, 'users/' + uid);
@@ -72,13 +69,21 @@ document.addEventListener('DOMContentLoaded', function() {
           var userData = snapshot.val();
           global.SetCurrentUser(new global.User(user.uid, userData["username"], userData["GPA"], userData["courses"]));
           sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
-          GoToDashboard();
+          // GoToDashboard();
+          // Close the modal after saving
+          const userDetailsModal = bootstrap.Modal.getInstance(document.getElementById('userDetailsModal'));
+          userDetailsModal.modal('show');
       
         }
         else
         {
           global.CreateNewUser(user);
           //showpopup
+          
+          // Close the modal after saving
+          const userDetailsModal = bootstrap.Modal.getInstance(document.getElementById('userDetailsModal'));
+          userDetailsModal.modal('show');
+          
           GoToDashboard();
       
         }
@@ -105,3 +110,50 @@ function GoToDashboard()
   sleep(2000).then(() => { window.location.href = "dashboard.html"; });
   
 }
+
+		// Function to handle form submission and validation
+		function saveDetails() {
+			// Get the values from the form fields
+			const degree = degreeInput.value.trim();  // Trim spaces
+			const gpa = gpaInput.value.trim();  // Get GPA as string
+			const year = yearInput.value;
+			const semester = semesterInput.value;
+
+			// Check if any field is empty
+			if (!degree || !gpa || !year || !semester) {
+				alert('Please fill out all fields.');
+				return;
+			}
+
+			// Convert GPA to number and validate range
+			const gpaValue = parseFloat(gpa);
+			if (gpaValue < 0.01 || gpaValue > 4.3) {
+				alert('Please enter a GPA between 0.01 and 4.3.');
+				return;
+			}
+
+			// Log the collected details (replace this with your save action)
+			console.log({
+				degree: degree,
+				gpa: gpaValue,
+				year: year,
+				semester: semester
+			});
+
+			alert("Details saved successfully!");
+
+			// Close the modal after saving
+			const userDetailsModal = bootstrap.Modal.getInstance(document.getElementById('userDetailsModal'));
+			userDetailsModal.hide();
+		}
+
+		// Trigger save on button click
+		saveDetailsBtn.addEventListener('click', saveDetails);
+
+		// Trigger save when pressing Enter key within the form
+		document.getElementById('userDetailsForm').addEventListener('keydown', function (event) {
+			if (event.key === 'Enter') {
+				event.preventDefault();  // Prevent form submission or page reload
+				saveDetails();  // Call saveDetails function
+			}
+		});

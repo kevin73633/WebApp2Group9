@@ -150,4 +150,16 @@ function FetchUsersCourses()
   
 }
 
+// date change
+function updateCurrentDate() {
+  const date = new Date();
+  var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const day = days[date.getDay()];
+  const dateNo = date.getDate();
+  const year = date.getFullYear();
+  const formattedDate = `${day} ${dateNo}, ${year}`;
 
+  document.getElementById('currentDate').textContent = formattedDate;
+    }
+
+  updateCurrentDate();
