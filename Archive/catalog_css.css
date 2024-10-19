@@ -1,0 +1,30 @@
+@charset "utf-8";
+@font-face{
+	font-family: myFirstFont;
+	font-family: 'Lobster', cursive;
+  	src: url("https://fonts.googleapis.com/css?family=Lobster");
+}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+html,body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+
+#app{
+	color: white;
+}
+
+body{
+    justify-content: center; /* Center horizontally */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+    background-color: #e0e0e0; /* Background color */
+	background-image: url(images/login_bg.png);
+	background-position: center;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}

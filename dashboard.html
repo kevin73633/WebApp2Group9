@@ -2,74 +2,54 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Untitled Document</title>
-<link href= "dashboard_css.css" type="text/css" rel="stylesheet" />
+<title>Dashboard</title>
+<link href= "styles.css" type="text/css" rel="stylesheet" />
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 
-<!-- <link href= "https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"/> -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-<!-- 
-	<style>
-        .friends-section {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-        }
-        
-        .friend-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        
-	</style> -->
-
-
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-	
 	<div id="app">
-
 		<!-- Sidebar -->
 		<nav id="sidebar" :class="{ 'active': sidebarActive }">
 
-			<div class="mb-5 pt-5">
+			<div class="d-none d-md-block mb-5 pt-5">
 				<h1 id="steps" class="fs-1 text-center">S T E P S</h1>
 				<p id="stepsTagline" class="text-center">SCIS TIMETABLE AND ENROLLMENT PLANNING SYSTEM</p>
 			</div>
-
 			<hr>
-
-
-			<ul class="nav nav-pills flex-column mb-auto d-flex ">
+			<ul class="nav nav-pills flex-column mb-auto d-flex">
 				<li class="nav-item">
-					<a href="#" class="nav-link active" aria-current="page">
+					<a href="dashboard.html" class="nav-link active" aria-current="page">
 						<svg class="bi me-2" width="16" height="16">
 							<use xlink:href="#home" />
 						</svg>
-						<i class="fas fa-home">Dashboard</i>
+						<i class="fas fa-home"></i>
+						<span class="d-none d-md-inline icon-text">Dashboard</span>
 					</a>
 				</li>
 				<li>
-					<a href="#" class="nav-link text-white">
+					<a href="catalog.html" class="nav-link text-white">
 						<svg class="bi me-2" width="16" height="16">
 							<use xlink:href="#speedometer2" />
 						</svg>
-						<i class="fas fa-book">Courses</i>
+						<i class="fas fa-book"></i>
+						<span class="d-none d-md-inline icon-text">Courses</span>
 					</a>
 				</li>
 				<li>
-					<a href="#" class="nav-link text-white">
+					<a href="planner.html" class="nav-link text-white">
 						<svg class="bi me-2" width="16" height="16">
 							<use xlink:href="#table" />
 						</svg>
-						<i class="fas fa-calendar">Planner</i>
+						<i class="fas fa-calendar"></i>
+						<span class="d-none d-md-inline  icon-text">Planner</span>
 					</a>
 				</li>
 				<li>
@@ -77,7 +57,8 @@
 						<svg class="bi me-2" width="16" height="16">
 							<use xlink:href="#grid" />
 						</svg>
-						<i class="fas fa-power-off">LogOut</i>
+						<i class="fas fa-power-off"></i>
+						<span class="d-none d-md-inline  icon-text">Logout</span>
 					</a>
 				</li>
 			</ul>
@@ -96,43 +77,295 @@
 			</div>
 		</div>
 
-		<!-- Main Content -->
-		<main id="content" class="mt-5 pt-4 ">
-			<div id="welcome-banner" class="container">
-				<small>{{ currentDate }}</small>
-				<p id="banner_name" class="h3 mb-1"></p>
+		 <!-- Main Content -->
+		<main id="content" class="pt-4">
+			<div id="welcome-banner" class="row">
+				<small id="currentDate"></small>
+				<p id="banner_name" class="h3 mb-1">Welcome Back, {{name}}!</p>
 				<p class="mb-0">Always stay updated in your student portal</p>
 			</div>
-	
-			<!-- Friends Section DO NOT TOUCH -->
-			<!-- <div class="friends-section d-md-3">         
-				<h6 class="mb-3">Friends</h6>
-				<div id="friends">
-					<div class="d-flex">
-						<img v-for="(friend, index) in friends" :key="index" src="images/justin1.jpg"
-							:alt="'Friend ' + (index + 1)" class="friend-circle">
-					</div>
-					<div class="d-flex">
-						<img v-for="(friend, index) in friends" :key="index" src="images/justin1.jpg" :alt="'Friend ' + (index + 1)"
-							class="friend-circle">
-					</div>
-					<div class="d-flex">
-						<img v-for="(friend, index) in friends" :key="index" src="images/justin1.jpg" :alt="'Friend ' + (index + 1)"
-							class="friend-circle">
-					</div>
+			<div id="enrolled">
+				<div class="d-flex justify-content-between align-items-center">
+					<h3>Enrolled Courses</h3>
 				</div>
-			</div> -->
-	
-			<!-- 
-			TO ADD ON FOR THE BLANK SPACE 
-			-->
+				<div id="courseCarousel" class="carousel slide" data-bs-ride="carousel">
+					<div class="carousel-inner">
+						<!-- Slide 1 -->
+						<div class="carousel-item active">
+							<div id="enrolledCourses" class="card-deck d-flex">
+								<!-- <div class="card mb-3">
+									<div class="row g-0">
+										<div class="col-md-8">
+											<div class="card-body">
+												<h5 class="card-title">Data Structures</h5>
+												<p class="card-text">
+													<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+												</p>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+										</div>
+									</div>
+								</div>
+								<div class="card mb-3">
+									<div class="row g-0">
+										<div class="col-md-8">
+											<div class="card-body">
+												<h5 class="card-title">Algorithms</h5>
+												<p class="card-text">
+													<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+												</p>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+										</div>
+									</div>
+								</div> -->
+							</div>
+						</div>
+						<!-- Slide 2 -->
+						<!-- <div class="carousel-item">
+							<div class="card-deck d-flex">
+								<div class="card mb-3">
+									<div class="row g-0">
+										<div class="col-md-8">
+											<div class="card-body">
+												<h5 class="card-title">Web Development</h5>
+												<p class="card-text">
+													<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+												</p>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+										</div>
+									</div>
+								</div>
+								<div class="card mb-3">
+									<div class="row g-0">
+										<div class="col-md-8">
+											<div class="card-body">
+												<h5 class="card-title">Machine Learning</h5>
+												<p class="card-text">
+													<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+												</p>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+										</div>
+									</div>
+								</div>
+								<div class="card mb-3">
+									<div class="row g-0">
+										<div class="col-md-8">
+											<div class="card-body">
+												<h5 class="card-title">Artificial Intelligence</h5>
+												<p class="card-text">
+													<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+												</p>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> -->
+					</div>
+					<!-- Carousel controls -->
+					<button class="carousel-control-prev" type="button" data-bs-target="#courseCarousel" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#courseCarousel" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+			</div>
 
+			<div id="planned">
+				<div class="d-flex justify-content-between align-items-center">
+					<h3>Planned Courses</h3>
+					<a href="planner.html" class="btn btn-link text-decoration-none text-white">View All &gt;</a>
+				</div>
+				<div class="carousel-inner">
+					<!-- Slide 1 -->
+					<!-- <div class="carousel-item active">
+						<div class="card-deck d-flex">
+							<div class="card mb-3">
+								<div class="row g-0">
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Object Oriented Programming</h5>
+											<p class="card-text">
+												<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+											</p>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+									</div>
+								</div>
+							</div>
+							<div class="card mb-3">
+								<div class="row g-0">
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Data Structures</h5>
+											<p class="card-text">
+												<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+											</p>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+									</div>
+								</div>
+							</div>
+							<div class="card mb-3">
+								<div class="row g-0">
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Algorithms</h5>
+											<p class="card-text">
+												<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+											</p>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+					<!-- Slide 2 -->
+					<!-- <div class="carousel-item">
+						<div class="card-deck d-flex">
+							<div class="card mb-3">
+								<div class="row g-0">
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Web Development</h5>
+											<p class="card-text">
+												<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+											</p>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+									</div>
+								</div>
+							</div>
+							<div class="card mb-3">
+								<div class="row g-0">
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Machine Learning</h5>
+											<p class="card-text">
+												<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+											</p>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+									</div>
+								</div>
+							</div>
+							<div class="card mb-3">
+								<div class="row g-0">
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Artificial Intelligence</h5>
+											<p class="card-text">
+												<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+											</p>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+				</div>
+			</div>
+
+			<div id="recommended">
+				<div class="d-flex justify-content-between align-items-center">
+					<h3>Recommended Courses</h3>
+				</div>
+				<div id="courseCarousel3" class="carousel slide" data-bs-ride="carousel">
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<!-- <div class="card-deck d-flex">
+								<div class="card mb-3">
+									<div class="row g-0">
+										<div class="col-md-8">
+											<div class="card-body">
+												<h5 class="card-title">Object Oriented Programming</h5>
+												<p class="card-text">
+													<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+												</p>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+										</div>
+									</div>
+								</div>
+								<div class="card mb-3">
+									<div class="row g-0">
+										<div class="col-md-8">
+											<div class="card-body">
+												<h5 class="card-title">Data Structures</h5>
+												<p class="card-text">
+													<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+												</p>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+										</div>
+									</div>
+								</div>
+								<div class="card mb-3">
+									<div class="row g-0">
+										<div class="col-md-8">
+											<div class="card-body">
+												<h5 class="card-title">Algorithms</h5>
+												<p class="card-text">
+													<a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">View</a>
+												</p>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<img src="images/com.png" class="img-fluid rounded-start" alt="...">
+										</div>
+									</div>
+								</div>
+							</div> -->
+						</div>
+					</div>
+					<!-- Carousel controls -->
+					<button class="carousel-control-prev" type="button" data-bs-target="#courseCarousel3" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#courseCarousel3" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+			</div>
 		</main>
-	
-
 	</div>
-	
-	
 	
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 	<script src="dashboard_javascript.js" type="module"></script>	
