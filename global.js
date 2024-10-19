@@ -50,7 +50,7 @@ function SetCurrentUser(user)
 }
 function SetAllCourses(courses)
 {
-  allCourses = [];
+    allCourses = [];
     for (var course of courses)
     {
       allCourses.push(new Course(course.courseCode, course.courseName, course.courseCategory, course.courseDescription));
@@ -98,11 +98,26 @@ class Course
 }
 class User
 {
-  constructor(uid, username, gpa, courses) {
+  constructor(uid, username, gpa, courses, degree = null, currentYearAndSem = "Y1S1") {
     this.uid = uid;
     this.username = username;
     this.gpa = gpa;
     this.courses = courses;
+    this.degree = degree;
+    this.currentYearAndSem = currentYearAndSem;
+  }
+  SetInitialValues(username = this.username, gpa = this.gpa, degree = this.degree, currentYearAndSem = this.currentYearAndSem)
+  {
+    this.username = username;
+    this.gpa = gpa;
+    this.degree = degree;
+    this.currentYearAndSem = currentYearAndSem;
+    set(ref(db, 'users/' + this.uid), {
+      username: this.username,
+      GPA: this.gpa,
+      degree: this.degree,
+      currentYearAndSem: this.currentYearAndSem
+    });
   }
   AddNewCourse(courseCode, yearAndSemTaken)
   {
@@ -127,8 +142,10 @@ class User
     {
       var newCourse = {};
       newCourse[courseCode] = yearAndSemTaken;
-      currUser.courses.push(newCourse);
+      currUser.courses[courseCode] = yearAndSemTaken;
     }
+    Course.GetByCourseCode(courseCode).enrolled_year = yearAndSemTaken;
+    Course.GetByCourseCode(courseCode).status = "yes";
     return update(ref(db), updates);
   }
 

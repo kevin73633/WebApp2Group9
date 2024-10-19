@@ -64,8 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
       // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.uid;
       document.getElementById("GoogleLoginBtn").style.display = "none";
-
-      console.log("bfre first get");
       get(global.coursesRef, "courses").then((snapshot) => {
         if (snapshot.exists()) {
             var result = snapshot.val();
@@ -100,7 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 global.CreateNewUser(user);
                 sessionStorage.setItem("allCourses",  JSON.stringify(global.allCourses));
                 //showpopup
-                GoToDashboard();
+                $('#userDetailsModal').show();
+                //GoToDashboard();
             
               }
             });
@@ -138,8 +137,7 @@ function GoToDashboard()
 }
 
 
-    
-// Function to handle form submission and validation
+		// Function to handle form submission and validation
 function saveDetails() {
     // Get the values from the form fields
     const degree = degreeInput.value.trim();  // Trim spaces
@@ -167,21 +165,22 @@ function saveDetails() {
         year: year,
         semester: semester
     });
-
-    alert("Details saved successfully!");
+    global.currUser.SetInitialValues(global.currUser.username, gpaValue, degree, year + semester)
+    //alert("Details saved successfully!");
 
     // Close the modal after saving
-    const userDetailsModal = bootstrap.Modal.getInstance(document.getElementById('userDetailsModal'));
-    userDetailsModal.hide();
+    $('#userDetailsModal').hide();
+    GoToDashboard();
 }
 
-// // Trigger save on button click
-// saveDetailsBtn.addEventListener('click', saveDetails);
+// Trigger save on button click
+saveDetailsBtn.addEventListener('click', saveDetails);
 
-// // Trigger save when pressing Enter key within the form
-// document.getElementById('userDetailsForm').addEventListener('keydown', function (event) {
-//     if (event.key === 'Enter') {
-//         event.preventDefault();  // Prevent form submission or page reload
-//         saveDetails();  // Call saveDetails function
-//     }
-// });
+// Trigger save when pressing Enter key within the form
+document.getElementById('userDetailsForm').addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();  // Prevent form submission or page reload
+        saveDetails();  // Call saveDetails function
+    }
+});
+    

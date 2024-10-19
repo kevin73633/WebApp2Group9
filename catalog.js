@@ -52,7 +52,7 @@ function resetTableConstVar()
 {
     /* This function resets const Courses and const Categories */
     Courses = [];
-
+    document.getElementById("modals").innerHTML = "";
     if (Categories.length > 1) {
         for (let i=0; i < Categories.length; i++) {
             Categories.pop();
@@ -219,6 +219,7 @@ function AddToPlanner()
         var yearAndSemTaken = document.getElementById(element.courseCode+"_dropdown").value;
         global.currUser.AddNewCourse(element.courseCode, yearAndSemTaken);
     }
+    createModulesTable();
     console.log(global.currUser.courses);
 }
 function getAllSelectedCourses() 
