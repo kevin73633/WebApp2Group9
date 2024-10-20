@@ -6,14 +6,13 @@
 html{
     background-color: black;
 }
-
 body {
 	margin: 0;
 	padding: 0;
 	height: 100%;
 	width: 100%;
     color:white;
-	background-image: url(images/login_bg.png);
+	background-image: url(images/background2.png);
     margin: 0;
     background-position: center;
 	background-size: cover;
@@ -22,6 +21,18 @@ body {
     justify-content: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+table {
+	width:auto;
+}
+
+.button-primary {
+	background-color: #040B31;
+	font-family: "Poppins", sans-serif;
+	font-size:13px;
+	color:white;
+	padding: 8px 2px;
+	border:0px;
 }
 
 .steps h1 {
@@ -48,6 +59,7 @@ body {
 	height: 100vh;
 	margin: 0;
 	font-family: "Orbitron", sans-serif;
+	background-image: url(images/login_background.png) !important;
 }
 
 /* Side Navigation */
@@ -85,7 +97,7 @@ li{
 
 #sidebar{
 	height: 100%;
-	background-color: black;
+	background-color: #040B31;
 	min-height: 100vh;
 	width: 250px;
 	position: fixed;
@@ -100,12 +112,13 @@ li{
 	font-size:45px;
 }
 
-.steps h4{
+h4{
 	margin-bottom: 40px;
+	text-align:center;
 }
 
 .google-button {
-	background-color: #ffffff;
+	background-color: #ffffff  !important;
 	border: 1px solid #dcdcdc;
 	border-radius: 5px;
 	color: #333333;
@@ -162,7 +175,7 @@ li{
 }
 
 #welcome-banner {
-	background-color: #0038FF;
+	background-color: #040B31;
 	border-radius: 10px;
 	padding: 20px;
 	margin-bottom: 30px;
@@ -243,4 +256,10 @@ li{
 
 #courseCarousel, #courseCarousel2, .course3{
 	margin:30px 10px;
+}
+
+.form-select{
+	background-color: #040B31 !important;
+	color: white !important;
+
 }
