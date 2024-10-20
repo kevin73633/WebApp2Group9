@@ -115,16 +115,21 @@
                                 <th scope="col" class="text-body-tertiary">Code</th>
                                 <th scope="col" class="text-body-tertiary">Category</th>
                                 <th scope="col" class="text-body-tertiary">Status</th>
-                                <th> </th>
+                                <th scope="col"> </th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="6" class="text-center text-secondary">Please enter code/name into search bar</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
                 <div id="modalInsert"></div>
                 
                 <div class="row py-2">
                     <div class="col-4">
-                        <button type="button" class="btn btn-primary px-4 rounded-5">Add to My Planner</button>
+                        <button type="button" class="btn btn-primary px-4 rounded-5" id="addToPlanner" data-bs-toggle="modal" data-bs-target="#addToPlannerModal">Add to My Planner</button>
                     </div>
                     <div class="col-5">
 
@@ -152,7 +157,20 @@
             </div>
         </main>
     </div>
-    <div id="modals">
+    <div id="modals"></div>
+    <div class="modal fade" id="addToPlannerModal" tabindex="-1" aria-labelledby="addToPlannerModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addToPlannerModal">Select the semester you would like to do in</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center" id="addToPlannerModalBody"></div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="buttonToAdd">Add to Planner</button>
+                </div>
+            </div>
+        </div>
     </div>
     
 

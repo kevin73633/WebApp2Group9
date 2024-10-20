@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-import { get, getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { get, ref } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import * as global from './global.js';
@@ -65,24 +64,55 @@ document.addEventListener('DOMContentLoaded', function() {
       // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.uid;
       document.getElementById("GoogleLoginBtn").style.display = "none";
-      var localuser =  ref(global.db, 'users/' + uid);
-      get(localuser, `users/${uid}`).then((snapshot) => {
+      get(global.coursesRef, "courses").then((snapshot) => {
         if (snapshot.exists()) {
-          console.log("User Exists!");
-          var userData = snapshot.val();
-          global.SetCurrentUser(new global.User(user.uid, userData["username"], userData["GPA"], userData["courses"]));
-          sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
-          GoToDashboard();
-      
+            var result = snapshot.val();
+    
+            for (var key of Object.keys(result)) {
+                // this will give you the key & values for all properties
+                var temp = result[key];
+                var currCourse = new global.Course(temp["courseCode"], temp["courseName"], temp["courseCategory"], temp["courseDescription"]);
+                //console.log(currCourse);
+                global.allCourses.push(currCourse);
+                //console.log(key + " -> " + user.username + " , " + user.gpa);
+                // .. process the data here! 
+            }
+            var localuser =  ref(global.db, 'users/' + uid);
+            get(localuser, `users/${uid}`).then((snapshot) => {
+              if (snapshot.exists()) {
+                console.log("User Exists!");
+                var userData = snapshot.val();
+                var userCourses = userData["courses"];
+                if (userCourses == null)
+                  userCourses = [];
+                global.SetCurrentUser(new global.User(user.uid, userData["username"], userData["GPA"], userCourses));
+                sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
+                global.SetAllCourses(global.allCourses);
+                sessionStorage.setItem("allCourses",  JSON.stringify(global.allCourses));
+                // global.currUser.AddNewCourse("IS111", "Y1S1");
+                GoToDashboard();
+            
+              }
+              else
+              {
+                global.CreateNewUser(user);
+                sessionStorage.setItem("allCourses",  JSON.stringify(global.allCourses));
+                //showpopup
+                $('#userDetailsModal').show();
+                //GoToDashboard();
+            
+              }
+            });
         }
         else
         {
-          global.CreateNewUser(user);
-          //showpopup
-          GoToDashboard();
-      
+        //   CreateNewCourse(new Course("IS111", "Intro to programming", "IS Core", "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications."));
+        //   CreateNewCourse(new Course("CS102", "Programming Fundamentals II", "CS Core", "This course focuses on fundamental concepts of developing programs using an object oriented approach. There will be an emphasis on writing clean and efficient code, and the ability to use an appropriate data structure or algorithm to solve problems. The Java programming language will be taught in depth."));
+        //   CreateNewCourse(new Course("IS112", "Data Mangement", "IS Core", "This course will cover the fundamentals of relational database theory, important data management concepts such as data modelling, database design, database implementation and search in unstructured data (i.e., text) in current business information systems. <br><br> A series of in-class exercises, tests, quizzes and course project will help students understand covered topics. Students are expected to apply knowledge learned in the classroom to solve many problems based on real-life business scenarios, while gaining hands-on experience in designing, implementing, and managing database systems."));
         }
-      });    
+      });
+
+          
       
       // ...
     } else {
@@ -105,3 +135,52 @@ function GoToDashboard()
   sleep(2000).then(() => { window.location.href = "dashboard.html"; });
   
 }
+
+
+		// Function to handle form submission and validation
+function saveDetails() {
+    // Get the values from the form fields
+    const degree = degreeInput.value.trim();  // Trim spaces
+    const gpa = gpaInput.value.trim();  // Get GPA as string
+    const year = yearInput.value;
+    const semester = semesterInput.value;
+
+    // Check if any field is empty
+    if (!degree || !gpa || !year || !semester) {
+        alert('Please fill out all fields.');
+        return;
+    }
+
+    // Convert GPA to number and validate range
+    const gpaValue = parseFloat(gpa);
+    if (gpaValue < 0.01 || gpaValue > 4.3) {
+        alert('Please enter a GPA between 0.01 and 4.3.');
+        return;
+    }
+
+    // Log the collected details (replace this with your save action)
+    console.log({
+        degree: degree,
+        gpa: gpaValue,
+        year: year,
+        semester: semester
+    });
+    global.currUser.SetInitialValues(global.currUser.username, gpaValue, degree, year + semester)
+    //alert("Details saved successfully!");
+
+    // Close the modal after saving
+    $('#userDetailsModal').hide();
+    GoToDashboard();
+}
+
+// Trigger save on button click
+saveDetailsBtn.addEventListener('click', saveDetails);
+
+// Trigger save when pressing Enter key within the form
+document.getElementById('userDetailsForm').addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();  // Prevent form submission or page reload
+        saveDetails();  // Call saveDetails function
+    }
+});
+    

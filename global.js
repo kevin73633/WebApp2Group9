@@ -26,6 +26,7 @@ const db = getDatabase();
 const coursesRef = ref(db, 'courses/');
 
 var currUser = null;
+var allCourses = [];
 function CreateNewUser(user) {
     var initialGPA = 0.0;
     set(ref(db, 'users/' + user.uid), {
@@ -45,7 +46,26 @@ function logout () {
   }
 function SetCurrentUser(user)
 {
-    currUser = user;
+    currUser = new User(user.uid, user.username, user.gpa, user.courses);
+}
+function SetAllCourses(courses)
+{
+    allCourses = [];
+    for (var course of courses)
+    {
+      allCourses.push(new Course(course.courseCode, course.courseName, course.courseCategory, course.courseDescription));
+    }
+    for (var course in currUser.courses)
+    {
+      var courseCode = course;
+      var yearAndSemTaken = currUser.courses[course];
+      var fullCourse = Course.GetByCourseCode(courseCode);
+      if (fullCourse != null)
+      {
+        fullCourse.status = "yes";
+        fullCourse.enrolled_year = yearAndSemTaken;
+      }
+    }
 }
 function CreateNewCourse(course) {
   set(ref(db, 'courses/' + course.courseCode), {
@@ -65,16 +85,41 @@ class Course
     this.status = "no";
     this.enrolled_year = null;
   }
+  static GetByCourseCode(courseCode)
+  {
+    for (let index = 0; index < allCourses.length; index++) {
+      const element = allCourses[index];
+      if (element.courseCode == courseCode)
+      {
+        return element;
+      }
+    }
+  }
 }
 class User
 {
-  constructor(uid, username, gpa, courses) {
+  constructor(uid, username, gpa, courses, degree = null, currentYearAndSem = "Y1S1") {
     this.uid = uid;
     this.username = username;
     this.gpa = gpa;
     this.courses = courses;
+    this.degree = degree;
+    this.currentYearAndSem = currentYearAndSem;
   }
-  AddNewCourse(courseCode, YearTaken)
+  SetInitialValues(username = this.username, gpa = this.gpa, degree = this.degree, currentYearAndSem = this.currentYearAndSem)
+  {
+    this.username = username;
+    this.gpa = gpa;
+    this.degree = degree;
+    this.currentYearAndSem = currentYearAndSem;
+    set(ref(db, 'users/' + this.uid), {
+      username: this.username,
+      GPA: this.gpa,
+      degree: this.degree,
+      currentYearAndSem: this.currentYearAndSem
+    });
+  }
+  AddNewCourse(courseCode, yearAndSemTaken)
   {
 
     // Get a key for a new Post.
@@ -83,8 +128,24 @@ class User
 
     // Write the new post's data simultaneously in the posts list and the user's post list.
     const updates = {};
-    updates[`users/${this.uid}/courses/${courseCode}`] = YearTaken;
-
+    updates[`users/${this.uid}/courses/${courseCode}`] = yearAndSemTaken;
+    var exists = false;
+    for (var course in currUser.courses)
+    {
+      if (courseCode == course)
+      {
+        currUser.courses[course] = yearAndSemTaken;
+        exists = true;
+      }
+    }
+    if (exists == false)
+    {
+      var newCourse = {};
+      newCourse[courseCode] = yearAndSemTaken;
+      currUser.courses[courseCode] = yearAndSemTaken;
+    }
+    Course.GetByCourseCode(courseCode).enrolled_year = yearAndSemTaken;
+    Course.GetByCourseCode(courseCode).status = "yes";
     return update(ref(db), updates);
   }
 
@@ -100,8 +161,10 @@ export
     Course,
     coursesRef,
     currUser,
+    allCourses,
+    SetAllCourses,
     CreateNewUser,
     SetCurrentUser,
-    logout
+    logout,
 
 }
