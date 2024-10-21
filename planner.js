@@ -308,5 +308,4 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("addToPlanner").onclick = function() {getAllSelectedCourses()}
 
     document.getElementById("buttonToAdd").onclick = function() {AddToPlanner();};
-    document.getElementById("logoutBtn").onclick = function() {global.logout();};
 })
