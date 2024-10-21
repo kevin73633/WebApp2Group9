@@ -88,7 +88,7 @@ function UpdateCoursesList() {
       if (j < cardsToShow) {
         let cardIndex = (i * 3 + j);
         let courseCode = courseCodes[cardIndex];
-
+        //console.log(global.Course.GetByCourseCode(courseCode))
         // Card
         let card = document.createElement('div');
         card.className = 'card mb-3';
@@ -167,7 +167,6 @@ function FetchUsersCourses()
     }
     else
     {
-      CreateNewCourse(new Course("IS111", "Intro to programming"));
     }
   });
   

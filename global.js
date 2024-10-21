@@ -60,7 +60,7 @@ function SetAllCourses(courses)
     allCourses = [];
     for (var course of courses)
     {
-      allCourses.push(new Course(course.courseCode, course.courseName, course.courseCategory, course.courseDescription));
+      allCourses.push(new Course(course.courseCode, course.courseName, course.courseCategory, course.recommendedYearAndSem, course.courseDescription));
     }
     for (var course in currUser.courses)
     {
@@ -75,20 +75,24 @@ function SetAllCourses(courses)
     }
 }
 function CreateNewCourse(course) {
+  console.log(course);
   set(ref(db, 'courses/' + course.courseCode), {
     courseCode: course.courseCode,
     courseName: course.courseName,
-    courseCategory: course.courseCategory
+    courseCategory: course.courseCategory,
+    courseDescription: course.courseDescription,
+    recommendedYearAndSem: course.recommendedYearAndSem,
   });
 }
 
 class Course
 {
-  constructor(courseCode, courseName, courseCategory, courseDescription = "") {
+  constructor(courseCode, courseName, courseCategory, recommendedYearAndSem = "Y1S1", courseDescription = "") {
     this.courseCode = courseCode;
     this.courseName = courseName;
     this.courseCategory = courseCategory;
     this.courseDescription = courseDescription;
+    this.recommendedYearAndSem = recommendedYearAndSem;
     this.status = "no";
     this.enrolled_year = null;
   }
@@ -167,6 +171,7 @@ export
     User,
     Course,
     coursesRef,
+    CreateNewCourse,
     currUser,
     allCourses,
     SetAllCourses,
