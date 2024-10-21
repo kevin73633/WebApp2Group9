@@ -111,7 +111,7 @@ function UpdateCoursesList() {
         cardText.className = 'card-text';
 
         let viewButton = document.createElement('a');
-        viewButton.className = 'btn';
+        viewButton.className = 'btn-course';
         viewButton.setAttribute('href', '#');
         viewButton.setAttribute('role', 'button');
         viewButton.textContent = 'View';

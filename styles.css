@@ -25,7 +25,9 @@ body {
 table {
 	width:auto;
 }
-
+.cat-heading{
+	color:black;
+}
 .button-primary {
 	background-color: #040B31;
 	font-family: "Poppins", sans-serif;
@@ -33,6 +35,16 @@ table {
 	color:white;
 	padding: 8px 2px;
 	border:0px;
+}
+.btn-course{
+	background-color: #040B31;
+	font-family: "Poppins", sans-serif;
+	font-size:13px;
+	color:white;
+	padding: 10px 30px;
+	border-radius: 20px;
+	border:0px;
+	text-decoration: none;
 }
 
 .steps h1 {
@@ -72,7 +84,8 @@ table {
 }
 
 .nav-link.active {
-	background-color: #0038FF;
+	background-color: white !important;
+	color:#040B31 !important;
 	opacity:1;
 }
 
@@ -155,7 +168,7 @@ h4{
 
 /* Profile */
 #profile_top{
-	color: white;
+	color: black;
 	position: fixed;
 	top: 20px;
 	right: 20px;
@@ -167,7 +180,7 @@ h4{
 .icon-circle {
 	width: 40px;
 	height: 40px;
-	background-color: #f0f4ff;
+	background-color: black;
 	border-radius: 50%;
 	display: flex;
 	align-items: center;
@@ -210,7 +223,7 @@ h4{
 #nameheader
 {
 	display: flex;
-	color: white;
+	color: black;
 }
 
 #courseTable
@@ -261,5 +274,5 @@ h4{
 .form-select{
 	background-color: #040B31 !important;
 	color: white !important;
-
 }
+
