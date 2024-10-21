@@ -38,8 +38,15 @@ function CreateNewUser(user) {
 }
 function logout () {
     console.log("Logging out");
-    signOut(global.auth).then(() => {
+    signOut(auth).then(() => {
         // Sign-out successful.
+        //clear curruser and allcourses
+        currUser = null;
+        allCourses = null;
+        sessionStorage.setItem("allCourses",  null);
+        sessionStorage.setItem("currUser",  null);
+        window.location.href = "index.html"; 
+        //
       }).catch((error) => {
         // An error happened.
     });
