@@ -12,300 +12,37 @@ const Categories = ["All Tracks"];
 var Courses = [];
 var SelectedCoursesList = [];
 
-/* Functions that interacts with db: FetchCourses() */
-
-function FetchCourses(selectedFilterOption="All Tracks")
-{
-    Courses = global.allCourses;
-    createRows(selectedFilterOption);
-    createFilterOptions(selectedFilterOption);
-  
-}
-
-function createModulesTable() 
-{
-    /*
-        This function creates the table of modules and adds correct filter options 
-        when user pressed "Search" button
-    */
-
-    // Resets table
-    removeTableItems();
-
-    // Reset Courses and Categories
-    resetTableConstVar();
-
-    // Get Courses from db and create table
-    FetchCourses();
-}
-
-function removeTableItems() 
-{
-    /* This functions removes the items in the table if the search button has been pressed before*/
-
-    // Get table rows
-    var tableModules = document.getElementById("tableModules");
-    tableModules.children[1].remove();
-}
-
-function resetTableConstVar() 
-{
-    /* This function resets const Courses and const Categories */
-    Courses = [];
-    document.getElementById("modals").innerHTML = "";
-    if (Categories.length > 1) {
-        for (let i=0; i < Categories.length; i++) {
-            Categories.pop();
-        }
-    }
-}
-
-function createFilterOptions(selectedFilterOption) 
-{
-    /* This function creates the filter options*/
-
-    // <option selected>All Tracks</option>
-    //   <option value="1">...</option>
-    //   <option value="2">..</option>
-    var select = document.getElementById("filterOptions");
-    select.innerHTML = "";
-
-    for (var data_item of Courses) {
-        var courseCategory = data_item.courseCategory;
-        if (Categories.indexOf(courseCategory) == -1) {
-            Categories.push(courseCategory);
-        }
-    }
-
-    for (let courseCategory of Categories) {
-        var options = document.createElement("option");
-        options.setAttribute("value", courseCategory);
-        options.innerText = courseCategory;
-        if (selectedFilterOption == courseCategory) {
-            options.selected = true;
-        }
-        select.appendChild(options);
-    }
-}
-
-function editModulesTable() 
-{
-    /* This function changes the table when there is a change in filter */
-
-    // Get the selected option and table
-    var selectedFilterOption = document.getElementById("filterOptions").value;
-
-    // Resets table
-    removeTableItems();
-
-    // Create filtered table
-    createRows(selectedFilterOption);
-}
-
-function createRows(selectedOption) 
-{
-    /* Module that creates the rows and append to table */
-
-    // Table example
-    //   <td><input type="checkbox"></td>
-    //   <td>Introduction to Programming</td>
-    //   <td>111</td>
-    //   <td>IS Core</td>
-    //   <td>Enrolled Y1</td>
-    //   <td><button type="button" class="btn btn-secondary px-3 rounded-2">View More</button></td>
-
-    // Get tableModule
-    var tableModules = document.getElementById("tableModules");
-
-    // Create Element: Table Body
-    var tableBody = document.createElement("tbody");
-
-    for (var data_item of Courses) {
-        if (data_item.courseCategory === selectedOption || selectedOption === "All Tracks") {
-            //Create Table Row
-            var row = document.createElement("tr");
-
-            var courseName = data_item.courseName;
-            var courseCode = data_item.courseCode;
-            var courseCategory = data_item.courseCategory;
-            var tookCourse = data_item.status;
-            var enrolledYear = data_item.enrolled_year;
-            
-            // Create checkbox
-            var col = document.createElement("td");
-            var checkbox = document.createElement("input");
-            checkbox.setAttribute("type", "checkbox");
-            checkbox.value = courseCode + ":" + courseName;
-            col.appendChild(checkbox);
-            row.appendChild(col);
-
-            // Create the other columns
-            var col = document.createElement("td");
-            col.innerText = courseName;
-            row.appendChild(col);
-
-            var col = document.createElement("td");
-            col.innerText = courseCode;
-            row.appendChild(col);
-
-            var col = document.createElement("td");
-            col.innerText = courseCategory;
-            row.appendChild(col);
-
-            var col = document.createElement("td");
-            // For enrolled or not, use if-else
-            if (tookCourse === "yes") {
-                col.innerText = "Enrolled " + enrolledYear;
-                col.setAttribute("class", "text-success");
-            }
-            else {
-                col.innerText = "Not Enrolled";
-                col.setAttribute("class", "text-danger");
-            }
-            row.appendChild(col);
-
-            // Create button
-            var col = document.createElement("td");
-            var button = document.createElement("button");
-            button.setAttribute("type", "button");
-            button.setAttribute("class", "btn btn-secondary px-3 rounded-2");
-            button.setAttribute("data-bs-toggle", "modal");
-            button.setAttribute("data-bs-target",`#Modal_${courseCode}`);
-            button.innerText = "View More";
-            col.appendChild(button);
-            row.appendChild(col);
-
-            // Create Modal
-            var modalDiv = createCourseModal(data_item);
-            document.getElementById("modals").innerHTML += modalDiv;
-
-            // Append row to tbody
-            tableBody.appendChild(row);
-        }
-
-        //Append row to table
-        tableModules.appendChild(tableBody);
-    }
-}
-
-function createCourseModal(course) 
-{
-    /* This function creates the modal and returns the div of the modal */
-
-    // <!-- Modal -->
-    var modal = null;
-    modal = `<div class="modal fade" id="Modal_${course.courseCode}" tabindex="-1" aria-labelledby="Modal_${course.courseCode}" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="Modal_${course.courseCode}">${course.courseName}</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ${course.courseDescription}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>`
-    return modal
-}
-function AddToPlanner()
-{
-    for (let index = 0; index < SelectedCoursesList.length; index++) {
-        const element = SelectedCoursesList[index];
-        var yearAndSemTaken = document.getElementById(element.courseCode+"_dropdown").value;
-        global.currUser.AddNewCourse(element.courseCode, yearAndSemTaken);
-    }
-    createModulesTable();
-    console.log(global.currUser.courses);
-}
-function getAllSelectedCourses() 
-{
-    /* This function is to handle "Add to Planner" button */
-    var selectedCourses = document.getElementsByTagName("input");
-    // If pressed search before "Add to Planner"
-    if (selectedCourses.length > 1) {
-        let courseIds = [];
-        SelectedCoursesList = [];
-        for (let i=1; i < selectedCourses.length; i++) {
-            let selection = selectedCourses[i];
-            if (selection.checked) {
-               courseIds.push(selection.value)
-               SelectedCoursesList.push(global.Course.GetByCourseCode(selection.value.split(":")[0]));
-            }
-        }
-        // If checked at least 1 checkboxes
-        if (courseIds.length > 0) {
-            createForm(document.getElementById("addToPlannerModalBody"), courseIds)
-            document.getElementById("buttonToAdd").disabled = false;
-        }
-        // If checked no checkboxes
-        else {
-            document.getElementById("addToPlannerModalBody").innerText = "Please select at least 1 module";
-            document.getElementById("buttonToAdd").disabled = true;
-        }
-    }
-    // If DID NOT pressed search before "Add to Planner"
-    else {
-        document.getElementById("addToPlannerModalBody").innerText = "Please select at least 1 module";
-        document.getElementById("buttonToAdd").disabled = true;
-    }
-}
-
-function createForm(modalBody, courseIds) {
-    console.log("Start createForm");
-    // <label for="course" class="form-label">${course}</label>
-    /* Creates form in modal */
-    modalBody.innerHTML = ""
-    for (let course of courseIds) {
-        var temp = course.split(":")
-        var form = `<form id="selectSemester">
-                <div class="row mb-3 justify-content-center">
-                    <div class="col-5">
-                         <label for="course" class="form-label">${course}</label>
-                    </div>
-                    <div class="col-5">
-                        <select id = "${temp[0]}_dropdown" class="form-select" aria-label="semester">
-                            <option value="Y1S1">Y1S1</option>
-                            <option value="Y1S2">Y1S2</option>
-                            <option value="Y1S3a">Y1S3a</option>
-                            <option value="Y1S3b">Y1S3b</option>
-                            <option value="Y2S1">Y2S1</option>
-                            <option value="Y2S2">Y2S2</option>
-                            <option value="Y2S3a">Y2S3a</option>
-                            <option value="Y2S3b">Y2S3b</option>
-                            <option value="Y3S1">Y3S1</option>
-                            <option value="Y3S2">Y3S2</option>
-                            <option value="Y3S3a">Y3S3a</option>
-                            <option value="Y3S3b">Y3S3b</option>
-                            <option value="Y4S1">Y4S1</option>
-                            <option value="Y4S2">Y4S2</option>
-                        </select>
-                    <div>
-                </div>
-            </form>`
-            modalBody.innerHTML += form;
-    }
-}
-
 // Acts like "import"
+function ShowPlanner()
+{
+    var table = document.getElementById("plannerTable").getElementsByTagName("thead")[0];
+    var headers = table.getElementsByTagName("tr")[0];
+    for (var course in global.currUser.courses)
+    {
+        var row = document.createElement("tr");
+        var td = document.createElement("td");
+        td.textContent = global.Course.GetByCourseCode(course).courseName;
+        row.appendChild(td);
+        
+        for (let index = 1; index < 17; index++) 
+        {
+            td = document.createElement("td");
+            var currHeader = headers.getElementsByTagName("th");
+            console.log(currHeader[index].getAttribute("value") + " " + global.currUser.courses[course]);
+            if (currHeader[index].getAttribute("value") == global.currUser.courses[course])
+            {
+                td.style.backgroundColor = "red";
+            }
+            row.appendChild(td);
+        }
+        table.appendChild(row);
+        //td.style.backgroundColor = "red";
+    }
+}
 document.addEventListener('DOMContentLoaded', function() {
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
     global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
-    // console.log(global.currUser);
-    createFilterOptions();
-    createModulesTable();
-    // For the search button
-    document.getElementById("searchBtn").onclick = function() {createModulesTable();}
+    global.currUser.SortCourses();
+    ShowPlanner();
     
-    // For the filtering onchange
-    document.getElementById("filterOptions").onchange = function() {editModulesTable()}
-
-    // For the 'Add to my Planner' button
-    document.getElementById("addToPlanner").onclick = function() {getAllSelectedCourses()}
-
-    document.getElementById("buttonToAdd").onclick = function() {AddToPlanner();};
 })

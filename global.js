@@ -129,6 +129,7 @@ class User
       degree: this.degree,
       currentYearAndSem: this.currentYearAndSem
     });
+    sessionStorage.setItem("currUser",  JSON.stringify(currUser));
   }
   AddNewCourse(courseCode, yearAndSemTaken)
   {
@@ -157,9 +158,36 @@ class User
     }
     Course.GetByCourseCode(courseCode).enrolled_year = yearAndSemTaken;
     Course.GetByCourseCode(courseCode).status = "yes";
+    console.log(this.courses);
+    sessionStorage.setItem("currUser",  JSON.stringify(currUser));
     return update(ref(db), updates);
   }
-
+  SortCourses()
+  {
+    var temp = [];
+    for (var course in currUser.courses)
+    {
+      var yearAndSemTaken = currUser.courses[course];
+      var sem = yearAndSemTaken.split("S")[1];
+      var backChar = "";
+      if (sem == "3a" || sem == "3b")
+      {
+        backChar = sem[1];
+        sem = "3";
+      }
+      temp.push({"courseCode" : course, "year" : yearAndSemTaken.split("S")[0].split("Y")[1], "Sem" : sem, "backChar" : backChar}) 
+    }
+    temp.sort(function (a, b) {
+      return a.year - b.year || a.Sem - b.Sem || a.backChar.localeCompare(b.backChar);
+    });
+    currUser.courses = {};
+    for (var course in temp)
+    {
+      var curr = temp[course];
+      currUser.courses[curr.courseCode] = "Y" + curr.year + "S" + curr.Sem + curr.backChar;
+    }
+    sessionStorage.setItem("currUser",  JSON.stringify(currUser));
+  }
 }
 
 export
