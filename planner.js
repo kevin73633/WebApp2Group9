@@ -28,7 +28,6 @@ function ShowPlanner()
         {
             td = document.createElement("td");
             var currHeader = headers.getElementsByTagName("th");
-            console.log(currHeader[index].getAttribute("value") + " " + global.currUser.courses[course]);
             if (currHeader[index].getAttribute("value") == global.currUser.courses[course])
             {
                 td.style.backgroundColor = "red";
