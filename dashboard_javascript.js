@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
   global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
   UpdateCoursesList();
+  document.getElementById("logoutBtn").onclick = function() {global.logout();};
   onAuthStateChanged(global.auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties

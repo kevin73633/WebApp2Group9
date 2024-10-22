@@ -41,6 +41,7 @@ function ShowPlanner()
 document.addEventListener('DOMContentLoaded', function() {
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
     global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
+    document.getElementById("logoutBtn").onclick = function() {global.logout();};
     global.currUser.SortCourses();
     ShowPlanner();
     
