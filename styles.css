@@ -164,7 +164,8 @@ h4{
 /* DASHBOARD PAGE*/
 #content {
 	margin-left: 250px;
-	padding: 20px;
+	padding-left: 30px;
+	padding-right: 30px;
 }
 #app{
 	color: white;
@@ -173,12 +174,11 @@ h4{
 /* Profile */
 #profile_top{
 	color: black;
-	position: fixed;
-	top: 20px;
-	right: 20px;
 	display: flex;
 	align-items: center;
 	z-index: 1000;
+	float:right;
+	margin-bottom: 20px;
 }
 
 .icon-circle {
@@ -192,11 +192,11 @@ h4{
 }
 
 #welcome-banner {
+	clear: both;
 	background-color: #040B31;
 	border-radius: 10px;
 	padding: 20px;
 	margin-bottom: 30px;
-    margin-top:50px;
 }
 
 #friends{
@@ -234,9 +234,10 @@ h4{
 {
     align-items: center; /* Center vertically */
 }
+.text-center {
+    text-align: center;
+}
 
-
-  
 .card-deck {
 	display: flex;
 	justify-content: space-between;
@@ -248,7 +249,7 @@ h4{
 	display: flex;
 	justify-content: center;
 	border-radius: 20px !important;
-	padding:20px 10px;
+	padding:12px 5px;
 }
   
 .card-body {

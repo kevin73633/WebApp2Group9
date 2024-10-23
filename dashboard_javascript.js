@@ -71,9 +71,11 @@ function UpdateCoursesList() {
   let cardsPerSlide = 3; // Default for tablet/laptop
 
   // Determine cards per slide based on screen size
-  if (window.innerWidth >= 1200) { // Desktop
-    cardsPerSlide = 4;
-  } else if (window.innerWidth >= 768) { // Laptop/Tablet
+  if (window.innerWidth >= 1500) { // Desktop
+    cardsPerSlide = 4; // Adjust as needed
+  } else if (window.innerWidth >= 992) { // Laptop
+    cardsPerSlide = 3;
+  } else if (window.innerWidth >= 768) { // Tablet
     cardsPerSlide = 2;
   } else { // Mobile
     cardsPerSlide = 1;
@@ -145,7 +147,7 @@ function UpdateCoursesList() {
 
         let img = document.createElement('img');
         img.src = 'images/com.png';
-        img.className = 'img-fluid rounded-start';
+        img.className = 'img-fluid rounded-start d-none d-md-block';
 
         colImg.appendChild(img);
         row.appendChild(colText);

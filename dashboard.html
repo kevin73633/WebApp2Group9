@@ -17,68 +17,53 @@
 <body>
 	<div id="app">
 		<!-- Sidebar -->
-		<nav id="sidebar" :class="{ 'active': sidebarActive }">
-
-			<div class="d-none d-md-block mb-5 pt-md-5">
-				<h1 id="steps" class="fs-1 text-center">S T E P S</h1>
-				<p id="stepsTagline" class="text-center">SCIS TIMETABLE AND ENROLLMENT PLANNING SYSTEM</p>
-			</div>
-			<hr>
-			<ul class="nav nav-pills flex-column mb-auto d-flex">
-				<li class="nav-item">
-					<a href="dashboard.html" class="nav-link active" aria-current="page">
-						<svg class="bi me-2" width="16" height="16">
-							<use xlink:href="#home" />
-						</svg>
-						<i class="fas fa-home"></i>
-						<span class="d-none d-sm-inline icon-text">Dashboard</span>
-					</a>
-				</li>
-				<li>
-					<a href="catalog.html" class="nav-link text-white">
-						<svg class="bi me-2" width="16" height="16">
-							<use xlink:href="#speedometer2" />
-						</svg>
-						<i class="fas fa-book"></i>
-						<span class="d-none d-md-inline icon-text">Courses</span>
-					</a>
-				</li>
-				<li>
-					<a href="planner.html" class="nav-link text-white">
-						<svg class="bi me-2" width="16" height="16">
-							<use xlink:href="#table" />
-						</svg>
-						<i class="fas fa-calendar"></i>
-						<span class="d-none d-md-inline  icon-text">Planner</span>
-					</a>
-				</li>
-				<li>
-					<a href="#" id = "logoutBtn" class="nav-link text-white">
-						<svg class="bi me-2" width="16" height="16">
-							<use xlink:href="#grid" />
-						</svg>
-						<i class="fas fa-power-off"></i>
-						<span class="d-none d-md-inline icon-text">Logout</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
-	
-		<!-- profile at the top right -->
-		<div id="profile_top" class="position-fixed top-0 end-0 p-3 d-flex align-items-center">
-			<img src="images/justin1.jpg" alt="Profile" width="32" height="32" class="rounded-circle me-2">
-			<div class="me-3">
-				<strong id="nameheader">Nil</strong>
-				<small>XXXX year, X.XX GPA</small>
-			</div>
-			
-			<div id="bell" >
-				<i class="fa fa-bell" aria-hidden="true"></i>
-			</div>
-		</div>
-
+        <nav id="sidebar" class="d-none d-sm-block">
+            <div class="d-none d-md-block mb-5 pt-md-5">
+                <h1 id="steps" class="fs-1 text-center">S T E P S</h1>
+                <p id="stepsTagline" class="text-center">SCIS TIMETABLE AND ENROLLMENT PLANNING SYSTEM</p>
+            </div>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto d-flex">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link active" aria-current="page">
+                        <i class="fas fa-home" aria-hidden="true"></i>
+                        <span class="d-none d-md-inline icon-text">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="catalog.html" class="nav-link text-white">
+                        <i class="fas fa-book" aria-hidden="true"></i>
+                        <span class="d-none d-md-inline icon-text">Courses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="planner.html" class="nav-link text-white">
+                        <i class="fas fa-calendar" aria-hidden="true"></i>
+                        <span class="d-none d-md-inline icon-text">Planner</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="logoutBtn" class="nav-link text-white">
+                        <i class="fas fa-power-off" aria-hidden="true"></i>
+                        <span class="d-none d-md-inline icon-text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 		 <!-- Main Content -->
 		<main id="content" class="pt-4">
+			<!-- profile at the top right -->
+			<div id="profile_top" class="d-flex align-items-center">
+				<img src="images/justin1.jpg" alt="Profile" width="32" height="32" class="rounded-circle me-2">
+				<div class="me-3">
+					<strong id="nameheader">Nil</strong>
+					<small>XXXX year, X.XX GPA</small>
+				</div>
+				<div id="bell" >
+					<i class="fa fa-bell" aria-hidden="true"></i>
+				</div>
+			</div>
+
 			<div id="welcome-banner" class="row">
 				<small id="currentDate"></small>
 				<p id="banner_name" class="h3 mb-1">Welcome Back, {{name}}!</p>
