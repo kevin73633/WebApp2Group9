@@ -89,7 +89,10 @@ function UpdateCoursesList() {
       if (j < cardsToShow) {
         let cardIndex = (i * 3 + j);
         let courseCode = courseCodes[cardIndex];
-        //console.log(global.Course.GetByCourseCode(courseCode))
+        
+        // Fetch the course name for the current course code
+        let courseName = global.Course.GetByCourseCode(courseCode).courseName; // Adjust this based on your actual data structure
+
         // Card
         let card = document.createElement('div');
         card.className = 'card mb-3';
@@ -108,6 +111,10 @@ function UpdateCoursesList() {
         cardTitle.className = 'card-title';
         cardTitle.textContent = courseCode;
 
+        let courseNameElement = document.createElement('p'); // New element for course name
+        courseNameElement.className = 'card-course-name';
+        courseNameElement.textContent = courseName;
+
         let cardText = document.createElement('p');
         cardText.className = 'card-text';
 
@@ -119,6 +126,7 @@ function UpdateCoursesList() {
 
         cardText.appendChild(viewButton);
         cardBody.appendChild(cardTitle);
+        cardBody.appendChild(courseNameElement);
         cardBody.appendChild(cardText);
         colText.appendChild(cardBody);
 
@@ -145,7 +153,6 @@ function UpdateCoursesList() {
     enrolledCoursesCarousel.appendChild(carouselItem);
   }
 }
-
 
 
 function FetchUsersCourses()

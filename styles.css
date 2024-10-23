@@ -34,16 +34,22 @@ table {
 	padding: 8px 2px;
 	border:0px;
 }
-.btn-course{
-	background-color: #040B31;
-	font-family: "Poppins", sans-serif;
-	font-size:13px;
-	color:white;
-	padding: 10px 30px;
-	border-radius: 20px;
-	border:0px;
-	text-decoration: none;
+.btn-course {
+    background-color: #040B31;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 20px;
+    border: 0;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.btn-course:hover {
+    background-color: #0A1E4D;
+}
+
 
 .steps h1 {
 	text-align: center;
@@ -239,10 +245,10 @@ h4{
   
 .card {
 	flex: 1; /* Make sure all cards have equal width */
-	height:140px  !important;
 	display: flex;
 	justify-content: center;
-	border-radius: 10px !important;
+	border-radius: 20px !important;
+	padding:20px 10px;
 }
   
 .card-body {
@@ -254,6 +260,10 @@ h4{
 .card-title {
 	font-family: 'Orbitron', sans-serif;
 	font-size: 1.2rem;
+}
+.card-course-name{
+	font-family: 'Orbitron', sans-serif;
+	font-size: 1rem;
 }
 .carousel-inner{
 	padding:1em;
@@ -280,4 +290,21 @@ h4{
   border-radius: 50% !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
+  padding:10px !important;
+}
+.row.g-0 {
+    display: flex; /* Ensure the row uses flexbox */
+    align-items: center; /* Vertically center items in the row */
+}
+
+.col-md-8 {
+    display: flex; /* Use flexbox for text column */
+    flex-direction: column; /* Arrange items vertically */
+    justify-content: center; /* Center content vertically */
+}
+
+.col-md-4 {
+    display: flex; /* Use flexbox for image column */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
 }
