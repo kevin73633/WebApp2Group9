@@ -62,14 +62,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
-
 function UpdateCoursesList() {
   var enrolledCoursesCarousel = document.querySelector(".carousel-inner");
   var courses = global.currUser.courses;
   var courseCodes = Object.keys(courses);
   
   let totalCards = courseCodes.length;
-  let totalSlides = Math.ceil(totalCards / 3);
+  let cardsPerSlide = 3; // Default for tablet/laptop
+
+  // Determine cards per slide based on screen size
+  if (window.innerWidth >= 1200) { // Desktop
+    cardsPerSlide = 4;
+  } else if (window.innerWidth >= 768) { // Laptop/Tablet
+    cardsPerSlide = 2;
+  } else { // Mobile
+    cardsPerSlide = 1;
+  }
+
+  let totalSlides = Math.ceil(totalCards / cardsPerSlide);
   
   enrolledCoursesCarousel.innerHTML = '';
 
@@ -83,15 +93,15 @@ function UpdateCoursesList() {
     let cardDeck = document.createElement('div');
     cardDeck.className = 'card-deck d-flex justify-content-center';
 
-    let cardsToShow = Math.min(3, totalCards - (i * 3));
+    let cardsToShow = Math.min(cardsPerSlide, totalCards - (i * cardsPerSlide));
     
-    for (let j = 0; j < 3; j++) {
+    for (let j = 0; j < cardsPerSlide; j++) {
       if (j < cardsToShow) {
-        let cardIndex = (i * 3 + j);
+        let cardIndex = (i * cardsPerSlide + j);
         let courseCode = courseCodes[cardIndex];
         
         // Fetch the course name for the current course code
-        let courseName = global.Course.GetByCourseCode(courseCode).courseName; // Adjust this based on your actual data structure
+        let courseName = global.Course.GetByCourseCode(courseCode).courseName;
 
         // Card
         let card = document.createElement('div');
@@ -111,7 +121,7 @@ function UpdateCoursesList() {
         cardTitle.className = 'card-title';
         cardTitle.textContent = courseCode;
 
-        let courseNameElement = document.createElement('p'); // New element for course name
+        let courseNameElement = document.createElement('p');
         courseNameElement.className = 'card-course-name';
         courseNameElement.textContent = courseName;
 
@@ -154,6 +164,8 @@ function UpdateCoursesList() {
   }
 }
 
+// Optionally, call the function on window resize to adapt to size changes
+window.addEventListener('resize', UpdateCoursesList);
 
 function FetchUsersCourses()
 {
