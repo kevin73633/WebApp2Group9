@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             for (var key of Object.keys(result)) {
                 // this will give you the key & values for all properties
                 var temp = result[key];
-                var currCourse = new global.Course(temp["courseCode"], temp["courseName"], temp["courseCategory"], temp["courseDescription"]);
+                var currCourse = new global.Course(temp["courseCode"], temp["courseName"], temp["courseCategory"], temp["recommendedYearAndSem"], temp["courseDescription"]);
                 //console.log(currCourse);
                 global.allCourses.push(currCourse);
                 //console.log(key + " -> " + user.username + " , " + user.gpa);
@@ -89,7 +89,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
                 global.SetAllCourses(global.allCourses);
                 sessionStorage.setItem("allCourses",  JSON.stringify(global.allCourses));
-                // global.currUser.AddNewCourse("IS111", "Y1S1");
+                // global.CreateNewCourse(new global.Course("IS111", "Intro to programming", "IS Core", "Y1S1", "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications."));
+                // global.CreateNewCourse(new global.Course("CS102", "Programming Fundamentals II", "CS Core", "Y2S1", "This course focuses on fundamental concepts of developing programs using an object oriented approach. There will be an emphasis on writing clean and efficient code, and the ability to use an appropriate data structure or algorithm to solve problems. The Java programming language will be taught in depth."));
+                // global.CreateNewCourse(new global.Course("IS112", "Data Mangement", "IS Core", "Y1S2", "This course will cover the fundamentals of relational database theory, important data management concepts such as data modelling, database design, database implementation and search in unstructured data (i.e., text) in current business information systems. <br><br> A series of in-class exercises, tests, quizzes and course project will help students understand covered topics. Students are expected to apply knowledge learned in the classroom to solve many problems based on real-life business scenarios, while gaining hands-on experience in designing, implementing, and managing database systems."));
                 GoToDashboard();
             
               }
@@ -106,9 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else
         {
-        //   CreateNewCourse(new Course("IS111", "Intro to programming", "IS Core", "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications."));
-        //   CreateNewCourse(new Course("CS102", "Programming Fundamentals II", "CS Core", "This course focuses on fundamental concepts of developing programs using an object oriented approach. There will be an emphasis on writing clean and efficient code, and the ability to use an appropriate data structure or algorithm to solve problems. The Java programming language will be taught in depth."));
-        //   CreateNewCourse(new Course("IS112", "Data Mangement", "IS Core", "This course will cover the fundamentals of relational database theory, important data management concepts such as data modelling, database design, database implementation and search in unstructured data (i.e., text) in current business information systems. <br><br> A series of in-class exercises, tests, quizzes and course project will help students understand covered topics. Students are expected to apply knowledge learned in the classroom to solve many problems based on real-life business scenarios, while gaining hands-on experience in designing, implementing, and managing database systems."));
+           
         }
       });
 
