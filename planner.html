@@ -55,7 +55,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="#" class="nav-link text-white">
+					<a href="#" id = "logoutBtn" class="nav-link text-white">
 						<svg class="bi me-2" width="16" height="16">
 							<use xlink:href="#grid" />
 						</svg>
@@ -65,7 +65,7 @@
 				</li>
 			</ul>
 		</nav>
-
+		
         <!-- profile at the top right -->
 		<div id="profile_top" class="position-fixed top-0 end-0 p-3 d-flex align-items-center">
 			<img src="images/justin1.jpg" alt="Profile" width="32" height="32" class="rounded-circle me-2">
@@ -78,11 +78,91 @@
 				<i class="fa fa-bell" aria-hidden="true"></i>
 			</div>
 		</div>
+		<main id="content" class="pt-4 ">
+            <div class="container">
+                <div class="row" id="welcome-banner" >
+                    <p id="banner_name" class="h3 mb-1">Planner</p>
+                </div>
+                <!-- <div class="row py-3" id="filter-search">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-4">
+                        <div class="input-group mb-3 flex-nowrap">
+                            <input type="text" class="form-control rounded-5" placeholder="Code/Name of Module" aria-label="module_input" aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="button-primary px-3 rounded-5" id="searchBtn">Search</button>
+                    </div>
+                </div> -->
+            </div>
 
+            <div class="container" id="coursePlanner">
+                <!-- <div class="row bg-white rounded-3"> -->
+                    <!-- Create the table -->
+                    <table class="table rounded-3" id="plannerTable">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-body-tertiary">Module Name</th>
+                                <th scope="col" value = "Y1S1" class="text-body-tertiary">Y1S1</th>
+                                <th scope="col" value = "Y1S2" class="text-body-tertiary">Y1S2</th>
+                                <th scope="col" value = "Y1S3a" class="text-body-tertiary">Y1S3A</th>
+                                <th scope="col" value = "Y1S3b" class="text-body-tertiary">Y1S3B</th>
+                                <th scope="col" value = "Y2S1" class="text-body-tertiary">Y2S1</th>
+                                <th scope="col" value = "Y2S2" class="text-body-tertiary">Y2S2</th>
+                                <th scope="col" value = "Y2S3a" class="text-body-tertiary">Y2S3A</th>
+                                <th scope="col" value = "Y2S3b" class="text-body-tertiary">Y2S3B</th>
+								<th scope="col" value = "Y3S1" class="text-body-tertiary">Y3S1</th>
+                                <th scope="col" value = "Y3S2" class="text-body-tertiary">Y3S2</th>
+                                <th scope="col" value = "Y3S3a" class="text-body-tertiary">Y3S3A</th>
+                                <th scope="col" value = "Y3S3b" class="text-body-tertiary">Y3S3B</th>
+								<th scope="col" value = "Y4S1" class="text-body-tertiary">Y4S1</th>
+                                <th scope="col" value = "Y4S2" class="text-body-tertiary">Y4S2</th>
+                                <th scope="col" value = "Y4S3a" class="text-body-tertiary">Y4S3A</th>
+                                <th scope="col" value = "Y4S3b" class="text-body-tertiary">Y4S3B</th>
+                                <th scope="col"> </th>
+                            </tr>
+							
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                <!-- </div> -->
+                <div id="modalInsert"></div>
+                
+                <div class="row py-2">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-5">
+
+                    </div>
+                    <!-- <div class="col-1">
+                        <nav aria-label="Page navigation" >
+                            <ul class="pagination justify-content-end mx-1">
+                            <li class="page-item">
+                                <a class="page-link rounded-5" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link rounded-5" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link rounded-5" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link rounded-5" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link rounded-5" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            </ul>
+                        </nav>
+                    </div> -->
+                </div>
+            </div>
+        </main>
     </div>
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="catalog.js" type="module"></script>	
+    <script src="planner.js" type="module"></script>	
 </body>
 </html>

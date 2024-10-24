@@ -272,15 +272,15 @@ function createForm(modalBody, courseIds) {
                             <option value="Y1S1">Y1S1</option>
                             <option value="Y1S2">Y1S2</option>
                             <option value="Y1S3a">Y1S3a</option>
-                            <option value="Y1S3a">Y1S3b</option>
+                            <option value="Y1S3b">Y1S3b</option>
                             <option value="Y2S1">Y2S1</option>
                             <option value="Y2S2">Y2S2</option>
                             <option value="Y2S3a">Y2S3a</option>
-                            <option value="Y2S3a">Y2S3b</option>
+                            <option value="Y2S3b">Y2S3b</option>
                             <option value="Y3S1">Y3S1</option>
                             <option value="Y3S2">Y3S2</option>
                             <option value="Y3S3a">Y3S3a</option>
-                            <option value="Y3S3a">Y3S3b</option>
+                            <option value="Y3S3b">Y3S3b</option>
                             <option value="Y4S1">Y4S1</option>
                             <option value="Y4S2">Y4S2</option>
                         </select>
@@ -308,4 +308,5 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("addToPlanner").onclick = function() {getAllSelectedCourses()}
 
     document.getElementById("buttonToAdd").onclick = function() {AddToPlanner();};
+    document.getElementById("logoutBtn").onclick = function() {global.logout();};
 })

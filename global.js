@@ -38,8 +38,15 @@ function CreateNewUser(user) {
 }
 function logout () {
     console.log("Logging out");
-    signOut(global.auth).then(() => {
+    signOut(auth).then(() => {
         // Sign-out successful.
+        //clear curruser and allcourses
+        currUser = null;
+        allCourses = null;
+        sessionStorage.setItem("allCourses",  null);
+        sessionStorage.setItem("currUser",  null);
+        window.location.href = "index.html"; 
+        //
       }).catch((error) => {
         // An error happened.
     });
@@ -53,7 +60,7 @@ function SetAllCourses(courses)
     allCourses = [];
     for (var course of courses)
     {
-      allCourses.push(new Course(course.courseCode, course.courseName, course.courseCategory, course.courseDescription));
+      allCourses.push(new Course(course.courseCode, course.courseName, course.courseCategory, course.recommendedYearAndSem, course.courseDescription));
     }
     for (var course in currUser.courses)
     {
@@ -68,20 +75,24 @@ function SetAllCourses(courses)
     }
 }
 function CreateNewCourse(course) {
+  console.log(course);
   set(ref(db, 'courses/' + course.courseCode), {
     courseCode: course.courseCode,
     courseName: course.courseName,
-    courseCategory: course.courseCategory
+    courseCategory: course.courseCategory,
+    courseDescription: course.courseDescription,
+    recommendedYearAndSem: course.recommendedYearAndSem,
   });
 }
 
 class Course
 {
-  constructor(courseCode, courseName, courseCategory, courseDescription = "") {
+  constructor(courseCode, courseName, courseCategory, recommendedYearAndSem = "Y1S1", courseDescription = "") {
     this.courseCode = courseCode;
     this.courseName = courseName;
     this.courseCategory = courseCategory;
     this.courseDescription = courseDescription;
+    this.recommendedYearAndSem = recommendedYearAndSem;
     this.status = "no";
     this.enrolled_year = null;
   }
@@ -118,6 +129,7 @@ class User
       degree: this.degree,
       currentYearAndSem: this.currentYearAndSem
     });
+    sessionStorage.setItem("currUser",  JSON.stringify(currUser));
   }
   AddNewCourse(courseCode, yearAndSemTaken)
   {
@@ -146,9 +158,36 @@ class User
     }
     Course.GetByCourseCode(courseCode).enrolled_year = yearAndSemTaken;
     Course.GetByCourseCode(courseCode).status = "yes";
+    console.log(this.courses);
+    sessionStorage.setItem("currUser",  JSON.stringify(currUser));
     return update(ref(db), updates);
   }
-
+  SortCourses()
+  {
+    var temp = [];
+    for (var course in currUser.courses)
+    {
+      var yearAndSemTaken = currUser.courses[course];
+      var sem = yearAndSemTaken.split("S")[1];
+      var backChar = "";
+      if (sem == "3a" || sem == "3b")
+      {
+        backChar = sem[1];
+        sem = "3";
+      }
+      temp.push({"courseCode" : course, "year" : yearAndSemTaken.split("S")[0].split("Y")[1], "Sem" : sem, "backChar" : backChar}) 
+    }
+    temp.sort(function (a, b) {
+      return a.year - b.year || a.Sem - b.Sem || a.backChar.localeCompare(b.backChar);
+    });
+    currUser.courses = {};
+    for (var course in temp)
+    {
+      var curr = temp[course];
+      currUser.courses[curr.courseCode] = "Y" + curr.year + "S" + curr.Sem + curr.backChar;
+    }
+    sessionStorage.setItem("currUser",  JSON.stringify(currUser));
+  }
 }
 
 export
@@ -160,6 +199,7 @@ export
     User,
     Course,
     coursesRef,
+    CreateNewCourse,
     currUser,
     allCourses,
     SetAllCourses,

@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
   global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
   UpdateCoursesList();
+  document.getElementById("logoutBtn").onclick = function() {global.logout();};
   onAuthStateChanged(global.auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
@@ -88,7 +89,7 @@ function UpdateCoursesList() {
       if (j < cardsToShow) {
         let cardIndex = (i * 3 + j);
         let courseCode = courseCodes[cardIndex];
-
+        //console.log(global.Course.GetByCourseCode(courseCode))
         // Card
         let card = document.createElement('div');
         card.className = 'card mb-3';
@@ -111,7 +112,7 @@ function UpdateCoursesList() {
         cardText.className = 'card-text';
 
         let viewButton = document.createElement('a');
-        viewButton.className = 'btn';
+        viewButton.className = 'btn-course';
         viewButton.setAttribute('href', '#');
         viewButton.setAttribute('role', 'button');
         viewButton.textContent = 'View';
@@ -167,7 +168,6 @@ function FetchUsersCourses()
     }
     else
     {
-      CreateNewCourse(new Course("IS111", "Intro to programming"));
     }
   });
   
