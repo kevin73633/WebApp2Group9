@@ -13,27 +13,17 @@ document.addEventListener('DOMContentLoaded', function() {
   global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
   UpdateCoursesList();
   document.getElementById("logoutBtn").onclick = function() {global.logout();};
-  onAuthStateChanged(global.auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
-      
-      let str = user.displayName;
-      // Remove trailing underscores using regular expression
-      let trimmedStr = str.replace(/_+$/, ' ');
+  // User is signed in, see docs for a list of available properties
+  // https://firebase.google.com/docs/reference/js/auth.user
+  const uid = global.currUser.uid;
+  // Remove trailing underscores using regular expression
 
-      document.getElementById("nameheader").textContent = trimmedStr;
-      FetchUsersCourses();
-      // ...
-    } else {
-      // User is signed out
-      // ...
-    }
-  });
-	//window.onmousemove  = function() {myFunction()};
+  FetchUsersCourses();
+  document.getElementById("nameheader").textContent = global.currUser.username.replace(/_+$/, ' ');
+
+  document.getElementById("banner_name").textContent = `Welcome back, ${global.currUser.username ? global.currUser.username.replace(/_+$/, '') : 'User'}!`;
 	
-	
+	document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
 })
 
 //Get Current Date
@@ -45,23 +35,6 @@ function formatDate(date) {
   const currentDateElement = document.getElementById('currentDate');
   const currentDate = new Date();
   currentDateElement.textContent = formatDate(currentDate);
-
-
-// added for dashboardbanner line 88 block
-document.addEventListener('DOMContentLoaded', function() {
-  onAuthStateChanged(global.auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-      
-      let str = user.displayName;
-      let trimmedStr = str ? str.replace(/_+$/, '') : 'User';
-
-      document.getElementById("banner_name").textContent = `Welcome back, ${trimmedStr}!`;
-      
-      FetchUsersCourses();
-    }
-  });
-});
 
 function UpdateCoursesList() {
   var enrolledCoursesCarousel = document.querySelector(".carousel-inner");
@@ -174,3 +147,41 @@ function FetchUsersCourses()
 }
 
 
+// Function to handle form submission and validation
+function saveDetails() {
+  // Get the values from the form fields
+  const degree = degreeInput.value.trim();  // Trim spaces
+  const gpa = gpaInput.value.trim();  // Get GPA as string
+  const year = yearInput.value;
+  const semester = semesterInput.value;
+
+  // Check if any field is empty
+  if (!degree || !gpa || !year || !semester) {
+      alert('Please fill out all fields.');
+      return;
+  }
+
+  // Convert GPA to number and validate range
+  const gpaValue = parseFloat(gpa);
+  if (gpaValue < 0.01 || gpaValue > 4.3) {
+      alert('Please enter a GPA between 0.01 and 4.3.');
+      return;
+  }
+
+  // Log the collected details (replace this with your save action)
+  console.log({
+      degree: degree,
+      gpa: gpaValue,
+      year: year,
+      semester: semester
+  });
+  //global.currUser.SetInitialValues(global.currUser.username, gpaValue, degree, year + semester)
+  //alert("Details saved successfully!");
+
+  // Close the modal after saving
+  $('#userDetailsModal').hide();
+  GoToDashboard();
+}
+
+// Trigger save on button click
+saveDetailsBtn.addEventListener('click', saveDetails);
