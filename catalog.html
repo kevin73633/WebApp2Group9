@@ -1,4 +1,3 @@
-<!-- Skeletal Structure of Subject Catalog -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subject Catalog</title>
 
-    <!-- External CSS-->
-    <link href= "styles.css" type="text/css" rel="stylesheet"/>
+    <!-- External CSS -->
+    <link href="styles.css" type="text/css" rel="stylesheet"/>
 
     <!-- Other CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -19,208 +18,182 @@
 <body>
     <div id="app">
 		<!-- Sidebar -->
-		<nav id="sidebar" class=" d-none d-sm-block">
-
-			<div class="d-none d-md-block mb-5 pt-md-5">
-				<h1 id="steps" class="fs-1 text-center">S T E P S</h1>
-				<p id="stepsTagline" class="text-center">SCIS TIMETABLE AND ENROLLMENT PLANNING SYSTEM</p>
-			</div>
-			<hr>
-			<ul class="nav nav-pills flex-column mb-auto d-flex">
-				<li class="nav-item">
-					<a href="dashboard.html" class="nav-link text-white" aria-current="page">
-						<svg class="bi me-2" width="16" height="16">
-							<use xlink:href="#home" />
-						</svg>
-						<i class="fas fa-home"></i>
-						<span class="d-none d-md-inline icon-text">Dashboard</span>
-					</a>
-				</li>
-				<li>
-					<a href="catalog.html" class="nav-link active">
-						<svg class="bi me-2" width="16" height="16">
-							<use xlink:href="#speedometer2" />
-						</svg>
-						<i class="fas fa-book"></i>
-						<span class="d-none d-md-inline icon-text">Courses</span>
-					</a>
-				</li>
-				<li>
-					<a href="planner.html" class="nav-link text-white">
-						<svg class="bi me-2" width="16" height="16">
-							<use xlink:href="#table" />
-						</svg>
-						<i class="fas fa-calendar"></i>
-						<span class="d-none d-md-inline  icon-text">Planner</span>
-					</a>
-				</li>
-				<li>
-					<a href="#" id="logoutBtn" class="nav-link text-white">
-						<svg class="bi me-2" width="16" height="16">
-							<use xlink:href="#grid" />
-						</svg>
-						<i class="fas fa-power-off"></i>
-						<span class="d-none d-md-inline icon-text">Logout</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
-
-        <!-- profile at the top right -->
-		<div id="profile_top" class="position-fixed top-0 end-0 p-3 d-flex align-items-center">
-            <button type="button" id="ProfileBtn" data-bs-toggle="modal" data-bs-target="#userDetailsModal">
-                <img src="images/justin1.jpg" alt="Profile" width="32" height="32" class="rounded-circle me-2">
-            </button>
-			<div class="me-3">
-				<strong id="nameheader">Nil</strong>
-				<small id = "profileData">XXXX year, X.XX GPA</small>
-			</div>
-			
-			<div id="bell" >
-				<i class="fa fa-bell" aria-hidden="true"></i>
-			</div>
-		</div>
-        <div class="modal" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="userDetailsModalLabel">Provide Your Academic Details</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="userDetailsForm">
-                            <!-- Degree Input -->
-                            <div class="mb-3">
-                                <label for="degreeInput" class="form-label">Degree</label>
-                                <select class="form-select" id="degreeInput">
-                                    <option value="CS">Computer Science</option>
-                                    <option value="IS">Information Systems</option>
-                                    <option value="SE">Software Engineering</option>
-                                    <option value="C&L">Computing and Law</option>
-                                </select>
-                            </div>
-        
-                            <!-- GPA Input -->
-                            <div class="mb-3">
-                                <label for="gpaInput" class="form-label">GPA</label>
-                                <input type="number" step="0.01" min="0.01" max="4.3" class="form-control" id="gpaInput"
-                                    placeholder="Enter your GPA">
-                            </div>
-        
-                            <!-- Current Year Input -->
-                            <div class="mb-3">
-                                <label for="yearInput" class="form-label">Current Year</label>
-                                <select class="form-select" id="yearInput">
-                                    <option value="Y1">Year 1</option>
-                                    <option value="Y2">Year 2</option>
-                                    <option value="Y3">Year 3</option>
-                                    <option value="Y4">Year 4</option>
-                                </select>
-                            </div>
-        
-                            <!-- Semester Input -->
-                            <div class="mb-3">
-                                <label for="semesterInput" class="form-label">Semester</label>
-                                <select class="form-select" id="semesterInput">
-                                    <option value="S1">Semester 1</option>
-                                    <option value="S2">Semester 2</option>
-                                    <option value="S3a">Semester 3A</option>
-                                    <option value="S3b">Semester 3B</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="saveDetailsBtn">Save Details</button>
-                    </div>
+        <header>
+            <nav id="sidebar" class="d-none d-sm-block">
+                <div class="d-none d-md-block mb-5 pt-md-5">
+                    <h1 id="steps" class="fs-1 text-center">S T E P S</h1>
+                    <p id="stepsTagline" class="text-center">SCIS TIMETABLE AND ENROLLMENT PLANNING SYSTEM</p>
                 </div>
-            </div>
-        </div>
-        <main id="content" class="pt-4 ">
-            <div class="container">
-                <div class="row" id="welcome-banner" >
-                    <p id="banner_name" class="h3 mb-1">Course Catalogue</p>
-                </div>
-                <div class="row py-3" id="filter-search">
-                    <div class="col-3">
-                    <!-- Dropdown -->
-                        <select class="form-select rounded-5 text-white" aria-label="Default select example" id="filterOptions"></select>
-                    </div>
-                    <div class="col-4">
-                        <!-- Empty -->
-                    </div>
-                    <div class="col-4">
-                        <!-- Search Bar -->
-                        <div class="input-group mb-3 flex-nowrap">
-                            <input type="text" class="form-control rounded-5" placeholder="Code/Name of Module" aria-label="module_input" aria-describedby="basic-addon2">
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto d-flex">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link text-white" aria-current="page">
+                            <svg class="bi me-2" width="16" height="16">
+                                <use xlink:href="#home" />
+                            </svg>
+                            <i class="fas fa-home"></i>
+                            <span class="d-none d-md-inline icon-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="catalog.html" class="nav-link active">
+                            <svg class="bi me-2" width="16" height="16">
+                                <use xlink:href="#speedometer2" />
+                            </svg>
+                            <i class="fas fa-book"></i>
+                            <span class="d-none d-md-inline icon-text">Courses</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="planner.html" class="nav-link text-white">
+                            <svg class="bi me-2" width="16" height="16">
+                                <use xlink:href="#table" />
+                            </svg>
+                            <i class="fas fa-calendar"></i>
+                            <span class="d-none d-md-inline  icon-text">Planner</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="logoutBtn" class="nav-link text-white">
+                            <svg class="bi me-2" width="16" height="16">
+                                <use xlink:href="#grid" />
+                            </svg>
+                            <i class="fas fa-power-off"></i>
+                            <span class="d-none d-md-inline icon-text">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="modal" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="userDetailsModalLabel">Provide Your Academic Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="userDetailsForm">
+                                <!-- Degree Input -->
+                                <div class="mb-3">
+                                    <label for="degreeInput" class="form-label">Degree</label>
+                                    <select class="form-select" id="degreeInput">
+                                        <option value="CS">Computer Science</option>
+                                        <option value="IS">Information Systems</option>
+                                        <option value="SE">Software Engineering</option>
+                                        <option value="C&L">Computing and Law</option>
+                                    </select>
+                                </div>
+            
+                                <!-- GPA Input -->
+                                <div class="mb-3">
+                                    <label for="gpaInput" class="form-label">GPA</label>
+                                    <input type="number" step="0.01" min="0.01" max="4.3" class="form-control" id="gpaInput"
+                                        placeholder="Enter your GPA">
+                                </div>
+            
+                                <!-- Current Year Input -->
+                                <div class="mb-3">
+                                    <label for="yearInput" class="form-label">Current Year</label>
+                                    <select class="form-select" id="yearInput">
+                                        <option value="Y1">Year 1</option>
+                                        <option value="Y2">Year 2</option>
+                                        <option value="Y3">Year 3</option>
+                                        <option value="Y4">Year 4</option>
+                                    </select>
+                                </div>
+            
+                                <!-- Semester Input -->
+                                <div class="mb-3">
+                                    <label for="semesterInput" class="form-label">Semester</label>
+                                    <select class="form-select" id="semesterInput">
+                                        <option value="S1">Semester 1</option>
+                                        <option value="S2">Semester 2</option>
+                                        <option value="S3a">Semester 3A</option>
+                                        <option value="S3b">Semester 3B</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="saveDetailsBtn">Save Details</button>
                         </div>
                     </div>
-                    <div class="col-1">
-                        <button type="button" class="button-primary px-3 rounded-5" id="searchBtn">Search</button>
+                </div>
+            </div>
+            
+        </header>
+
+        <main id="content" class="pt-4">
+            <div id="profile_top" class="d-flex align-items-center">
+				<button type="button" id="ProfileBtn" data-bs-toggle="modal" data-bs-target="#userDetailsModal">
+					<img src="images/justin1.jpg" alt="Profile" width="32" height="32" class="rounded-circle me-2">
+				</button>
+				<div class="me-3">
+					<strong id="nameheader">Nil</strong>
+					<small id = "profileData">XXXX year, X.XX GPA</small>
+				</div>
+				<div id="bell" >
+					<i class="fa fa-bell" aria-hidden="true"></i>
+				</div>
+			</div>
+            <div class="row" id="welcome-banner">
+                <p id="banner_name" class="h3 mb-1">Course Catalogue</p>
+            </div>
+            <div class="row py-3" id="filter-search">
+                <div class="col-3">
+                    <!-- Dropdown -->
+                    <select class="form-select rounded-5 text-white" aria-label="Filter options" id="filterOptions"></select>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <!-- Search Bar -->
+                    <div class="input-group mb-3 flex-nowrap">
+                        <input type="text" class="form-control rounded-5" placeholder="Code/Name of Module" aria-label="module_input">
                     </div>
+                </div>
+                <div class="col-1">
+                    <button type="button" class="button-primary px-3 rounded-5" id="searchBtn">Search</button>
                 </div>
             </div>
 
-            <div class="container" id="courseTable">
-                <!-- <div class="row bg-white rounded-3"> -->
-                    <!-- Create the table -->
-                    <table class="table rounded-3" id="tableModules">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-body-tertiary">Select</th>
-                                <th scope="col" class="text-body-tertiary">Module Name</th>
-                                <th scope="col" class="text-body-tertiary">Code</th>
-                                <th scope="col" class="text-body-tertiary">Category</th>
-                                <th scope="col" class="text-body-tertiary">Status</th>
-                                <th scope="col"> </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="6" class="text-center text-secondary">Please enter code/name into search bar</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                <!-- </div> -->
+            <div id="courseTable">
+                <table class="table rounded-3" id="tableModules">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-body-tertiary text-center">Select</th>
+                            <th scope="col" class="text-body-tertiary">Module Name</th>
+                            <th scope="col" class="text-body-tertiary">Code</th>
+                            <th scope="col" class="text-body-tertiary">Category</th>
+                            <th scope="col" class="text-body-tertiary ">Status</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="6" class="text-center text-secondary">Please enter code/name into search bar</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
                 <div id="modalInsert"></div>
-                
+
                 <div class="row py-2">
                     <div class="col-4">
                         <button type="button" class="button-primary px-4 rounded-5" id="addToPlanner" data-bs-toggle="modal" data-bs-target="#addToPlannerModal">Add to My Planner</button>
                     </div>
-                    <div class="col-5">
-
-                    </div>
-                    <!-- <div class="col-1">
-                        <nav aria-label="Page navigation" >
-                            <ul class="pagination justify-content-end mx-1">
-                            <li class="page-item">
-                                <a class="page-link rounded-5" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link rounded-5" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link rounded-5" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link rounded-5" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link rounded-5" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                            </ul>
-                        </nav>
-                    </div> -->
+                    <div class="col-5"></div>
                 </div>
-            </div>
         </main>
     </div>
+
     <div id="modals"></div>
-    <div class="modal fade" id="addToPlannerModal" tabindex="-1" aria-labelledby="addToPlannerModal" aria-hidden="true">
+    <div class="modal fade" id="addToPlannerModal" tabindex="-1" aria-labelledby="addToPlannerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addToPlannerModal">Select the semester you would like to do in</h1>
+                    <h1 class="modal-title fs-5" id="addToPlannerModalLabel">Select the semester you would like to do in</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center" id="addToPlannerModalBody"></div>
@@ -232,6 +205,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="catalog.js" type="module"></script>	
+    <script src="catalog.js" type="module"></script>
 </body>
 </html>

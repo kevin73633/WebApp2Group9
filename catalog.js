@@ -133,6 +133,7 @@ function createRows(selectedOption)
             
             // Create checkbox
             var col = document.createElement("td");
+            col.setAttribute("class", "text-center");
             var checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
             checkbox.value = courseCode + ":" + courseName;
