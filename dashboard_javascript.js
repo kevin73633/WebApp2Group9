@@ -202,7 +202,6 @@ function saveDetails() {
 
   // Close the modal after saving
   $('#userDetailsModal').hide();
-  GoToDashboard();
 }
 
 // Trigger save on button click
