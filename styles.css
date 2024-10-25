@@ -19,6 +19,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     justify-content: center;
+	font-family: "Poppins", sans-serif !important;
 }
 table {
 	width:auto;
@@ -308,4 +309,27 @@ h4{
     display: flex; /* Use flexbox for image column */
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
+}
+
+
+/* Catalog Table */
+table {
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+table thead {
+    border-radius: 15px;
+}
+
+table th, 
+table td {
+    border: none;
+}
+
+table th {
+	background-color: #ECECEC !important;
+    padding-top: 20px!important;
+	padding-bottom: 20px!important;
 }
