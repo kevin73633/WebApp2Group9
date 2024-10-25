@@ -131,6 +131,7 @@ function createRows(selectedOption)
             var courseCategory = data_item.courseCategory;
             var tookCourse = data_item.status;
             var enrolledYear = data_item.enrolled_year;
+            var recommendedYearAndSem = data_item.recommendedYearAndSem;
             
             // Create checkbox
             var col = document.createElement("td");
@@ -154,6 +155,10 @@ function createRows(selectedOption)
             col.innerText = courseCategory;
             row.appendChild(col);
 
+            var col = document.createElement("td");
+            col.innerText = recommendedYearAndSem;
+            row.appendChild(col);
+            
             var col = document.createElement("td");
             // For enrolled or not, use if-else
             if (tookCourse === "yes") {
