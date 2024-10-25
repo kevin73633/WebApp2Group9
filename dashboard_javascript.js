@@ -78,6 +78,7 @@ function UpdateCoursesList() {
         
         // Fetch the course name for the current course code
         let courseName = global.Course.GetByCourseCode(courseCode).courseName;
+        let courseDescription = global.Course.GetByCourseCode(courseCode).courseDescription;
 
         // Card
         let card = document.createElement('div');
@@ -104,11 +105,21 @@ function UpdateCoursesList() {
         let cardText = document.createElement('p');
         cardText.className = 'card-text';
 
+        //Button
         let viewButton = document.createElement('a');
         viewButton.className = 'btn-course';
         viewButton.setAttribute('href', '#');
-        viewButton.setAttribute('role', 'button');
+
+        //View Button
+        viewButton.setAttribute("type", "button");
+        viewButton.setAttribute("class", "btn-course");
+        viewButton.setAttribute("data-bs-toggle", "modal");
+        viewButton.setAttribute("data-bs-target",`#Modal_${courseCode}`);
         viewButton.textContent = 'View';
+        
+        // Create Modal
+        createCourseModal(courseCode,courseName,courseDescription );
+        
 
         cardText.appendChild(viewButton);
         cardBody.appendChild(cardTitle);
@@ -139,6 +150,65 @@ function UpdateCoursesList() {
     enrolledCoursesCarousel.appendChild(carouselItem);
   }
 }
+
+function createCourseModal(courseCode, courseName, courseDescription) {
+  let modalsContainer = document.getElementById("modals");
+
+  let modalDiv = document.createElement('div');
+  modalDiv.className = 'modal fade';
+  modalDiv.id = `Modal_${courseCode}`;
+  modalDiv.setAttribute('tabindex', '-1');
+  modalDiv.setAttribute('aria-labelledby', `Modal_${courseCode}`);
+  modalDiv.setAttribute('aria-hidden', 'true');
+
+  let modalDialog = document.createElement('div');
+  modalDialog.className = 'modal-dialog';
+
+  let modalContent = document.createElement('div');
+  modalContent.className = 'modal-content';
+
+  let modalHeader = document.createElement('div');
+  modalHeader.className = 'modal-header';
+
+  let modalTitle = document.createElement('h1');
+  modalTitle.className = 'modal-title fs-5';
+  modalTitle.id = `Modal_${courseCode}`;
+  modalTitle.textContent = courseName;
+
+  let closeButton = document.createElement('button');
+  closeButton.type = 'button';
+  closeButton.className = 'btn-close';
+  closeButton.setAttribute('data-bs-dismiss', 'modal');
+  closeButton.setAttribute('aria-label', 'Close');
+
+  modalHeader.appendChild(modalTitle);
+  modalHeader.appendChild(closeButton);
+
+  let modalBody = document.createElement('div');
+  modalBody.className = 'modal-body';
+  modalBody.textContent = courseDescription;
+
+  let modalFooter = document.createElement('div');
+  modalFooter.className = 'modal-footer';
+
+  let closeFooterButton = document.createElement('button');
+  closeFooterButton.type = 'button';
+  closeFooterButton.className = 'btn btn-secondary';
+  closeFooterButton.setAttribute('data-bs-dismiss', 'modal');
+  closeFooterButton.textContent = 'Close';
+
+  modalFooter.appendChild(closeFooterButton);
+
+  modalContent.appendChild(modalHeader);
+  modalContent.appendChild(modalBody);
+  modalContent.appendChild(modalFooter);
+  modalDialog.appendChild(modalContent);
+  modalDiv.appendChild(modalDialog);
+  
+  modalsContainer.appendChild(modalDiv);
+}
+
+
 
 // Optionally, call the function on window resize to adapt to size changes
 window.addEventListener('resize', UpdateCoursesList);

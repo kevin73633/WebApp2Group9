@@ -123,6 +123,7 @@ function createRows(selectedOption)
     for (var data_item of Courses) {
         if (data_item.courseCategory === selectedOption || selectedOption === "All Tracks") {
             //Create Table Row
+            console.log(data_item)
             var row = document.createElement("tr");
 
             var courseName = data_item.courseName;
@@ -213,6 +214,7 @@ function createCourseModal(course)
     </div>`
     return modal
 }
+
 function AddToPlanner()
 {
     for (let index = 0; index < SelectedCoursesList.length; index++) {
