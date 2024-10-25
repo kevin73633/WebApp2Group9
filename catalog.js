@@ -127,10 +127,10 @@ function createRows(selectedOption)
 
             var courseName = data_item.courseName;
             var courseCode = data_item.courseCode;
-            var courseCategory = data_item.courseCategory;
+            var courseCategory = data_item.GetDegreeSpecificCourseCategory();
             var tookCourse = data_item.status;
             var enrolledYear = data_item.enrolled_year;
-            var recommendedYearAndSem = data_item.recommendedYearAndSem;
+            var recommendedYearAndSem = data_item.GetDegreeSpecificRecommendedDate();
             
             // Create checkbox
             var col = document.createElement("td");

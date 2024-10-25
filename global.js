@@ -53,7 +53,7 @@ function logout () {
   }
 function SetCurrentUser(user)
 {
-    currUser = new User(user.uid, user.username, user.gpa, user.courses);
+    currUser = new User(user.uid, user.username, user.gpa, user.courses, user.degree, user.currentYearAndSem);
 }
 function SetAllCourses(courses)
 {
@@ -105,6 +105,46 @@ class Course
         return element;
       }
     }
+  }
+  GetDegreeSpecificCourseCategory()
+  {
+    if (this.courseCategory.includes(","))
+    {
+        var coursesInCategories = this.courseCategory.split(",");
+        for (let index = 0; index < coursesInCategories.length; index++) {
+            const element = coursesInCategories[index];
+            if (element == currUser.degree)
+            {
+              return element;
+            }
+        }
+        return coursesInCategories[0];
+
+    }
+    else
+      return this.courseCategory;
+  }
+  GetDegreeSpecificRecommendedDate()
+  {
+    if (this.recommendedYearAndSem.includes(","))
+      {
+          var coursesInCategories = this.recommendedYearAndSem.split(",");
+          for (let index = 0; index < coursesInCategories.length; index++) {
+              const element = coursesInCategories[index];
+              if (element.split("_")[1] == currUser.degree)
+              {
+                return element.split("_")[0];
+              }
+          }
+          return coursesInCategories[0].split("_")[0];
+  
+      }
+      else
+      {
+        if (this.recommendedYearAndSem.includes("_"))
+          return this.recommendedYearAndSem.split("_")[0];
+        return this.recommendedYearAndSem;
+      }
   }
 }
 class User
