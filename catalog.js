@@ -123,7 +123,6 @@ function createRows(selectedOption)
     for (var data_item of Courses) {
         if (data_item.courseCategory === selectedOption || selectedOption === "All Tracks") {
             //Create Table Row
-            console.log(data_item)
             var row = document.createElement("tr");
 
             var courseName = data_item.courseName;
@@ -158,7 +157,7 @@ function createRows(selectedOption)
             var col = document.createElement("td");
             col.innerText = recommendedYearAndSem;
             row.appendChild(col);
-            
+
             var col = document.createElement("td");
             // For enrolled or not, use if-else
             if (tookCourse === "yes") {
@@ -228,7 +227,6 @@ function AddToPlanner()
         global.currUser.AddNewCourse(element.courseCode, yearAndSemTaken);
     }
     createModulesTable();
-    console.log(global.currUser.courses);
 }
 function getAllSelectedCourses() 
 {

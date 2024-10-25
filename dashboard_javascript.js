@@ -105,6 +105,8 @@ function UpdateCoursesList() {
         let cardText = document.createElement('p');
         cardText.className = 'card-text';
 
+        let cardText2 = document.createElement('p');
+        cardText2.className = 'card-text2';
         //Button
         let viewButton = document.createElement('a');
         viewButton.className = 'btn-course';
@@ -117,12 +119,27 @@ function UpdateCoursesList() {
         viewButton.setAttribute("data-bs-target",`#Modal_${courseCode}`);
         viewButton.textContent = 'View';
         
+
+        let deleteButton = document.createElement('a');
+        deleteButton.className = 'btn-course-delete';
+        deleteButton.setAttribute('href', '#');
+
+        //Delete Button
+        deleteButton.setAttribute("type", "button");
+        deleteButton.setAttribute("class", "btn-course-delete");
+        deleteButton.onclick = function() {global.currUser.DeleteCourse(courseCode);};
+        var trashImg = document.createElement("img");
+        trashImg.setAttribute('src', "images/trash.png");
+        trashImg.style.height = "25px"
+        trashImg.style.width = "25px"
+        deleteButton.appendChild(trashImg);
         // Create Modal
         createCourseModal(courseCode,courseName,courseDescription );
         
 
         cardText.appendChild(viewButton);
-        cardBody.appendChild(cardTitle);
+        cardText2.appendChild(cardTitle);
+        cardText2.appendChild(deleteButton);
         cardBody.appendChild(courseNameElement);
         cardBody.appendChild(cardText);
         colText.appendChild(cardBody);
@@ -137,6 +154,7 @@ function UpdateCoursesList() {
         colImg.appendChild(img);
         row.appendChild(colText);
         row.appendChild(colImg);
+        card.appendChild(cardText2);
         card.appendChild(row);
         cardDeck.appendChild(card);
       } else {
