@@ -53,7 +53,8 @@ function createFilterOptions(search=false)
     //   <option value="2">..</option>
     var select = document.getElementById("filterOptions");
     select.innerHTML = "";
-    Categories = Categories.slice(0,1);
+    Categories = Categories.slice(0, 1);
+    //console.log(Categories);
 
     // Based on if is searched or not
     if (search===true) {
@@ -66,11 +67,14 @@ function createFilterOptions(search=false)
     // To split up all categories (esp those with ',')
     for (var data_item of loopCourses) {
         var courseCategory = data_item.courseCategory.split(',');
-        for (var title of courseCategory)
-        if (Categories.indexOf(title) == -1) {
-            Categories.push(title);
+        for (var title of courseCategory) {
+            if (Categories.indexOf(title) == -1) {
+                Categories.push(title);
+            }
         }
     }
+
+    console.log(Categories);
 
     for (let courseCategory of Categories) {
         var options = document.createElement("option");
@@ -93,7 +97,7 @@ function editModulesTable()
     removeTableItems();
 
     // Create filtered table;
-    if (searchInput ==="") {
+    if (searchInput === "") {
         createRows(selectedFilterOption)
     }
     else {
@@ -144,12 +148,12 @@ function createRows(selectedOption, search=false)
             //Create Table Row
             var row = document.createElement("tr");
 
-        var courseName = data_item.courseName;
-        var courseCode = data_item.courseCode;
-        var courseCategory = data_item.GetDegreeSpecificCourseCategory();
-        var tookCourse = data_item.status;
-        var enrolledYear = data_item.enrolled_year;
-        var recommendedYearAndSem = data_item.GetDegreeSpecificRecommendedDate();
+            var courseName = data_item.courseName;
+            var courseCode = data_item.courseCode;
+            var courseCategory = data_item.GetDegreeSpecificCourseCategory();
+            var tookCourse = data_item.status;
+            var enrolledYear = data_item.enrolled_year;
+            var recommendedYearAndSem = data_item.GetDegreeSpecificRecommendedDate();
 
             if (selectedOption=="All Tracks" || courseCategory.indexOf(selectedOption) != -1) {
                 // Create checkbox
@@ -170,13 +174,13 @@ function createRows(selectedOption, search=false)
                 col.innerText = courseCode;
                 row.appendChild(col);
 
-            var col = document.createElement("td");
-            col.innerText = courseCategory;
-            row.appendChild(col);
+                var col = document.createElement("td");
+                col.innerText = courseCategory;
+                row.appendChild(col);
 
-            var col = document.createElement("td");
-            col.innerText = recommendedYearAndSem;
-            row.appendChild(col);
+                var col = document.createElement("td");
+                col.innerText = recommendedYearAndSem;
+                row.appendChild(col);
 
                 var col = document.createElement("td");
                 // For enrolled or not, use if-else
