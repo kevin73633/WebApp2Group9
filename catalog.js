@@ -17,47 +17,34 @@ var SelectedCoursesList = [];
 function FetchCourses(selectedFilterOption="All Tracks")
 {
     Courses = global.allCourses;
+    removeTableItems();
     createRows(selectedFilterOption);
     createFilterOptions(selectedFilterOption);
   
 }
 
-function createModulesTable() 
+function createModulesTable(selectedFilterOption='All Tracks') 
 {
     /*
         This function creates the table of modules and adds correct filter options 
-        when user pressed "Search" button
+        when user first entered the webpage
     */
 
     // Resets table
     removeTableItems();
 
-    // Reset Courses and Categories
-    resetTableConstVar();
-
-    // Get Courses from db and create table
-    FetchCourses();
+    // Get Courses const variable
+    createRows(selectedFilterOption);
 }
 
 function removeTableItems() 
 {
     /* This functions removes the items in the table if the search button has been pressed before*/
-
+    console.log("removeTableItems()")
     // Get table rows
     var tableModules = document.getElementById("tableModules");
     tableModules.children[1].remove();
-}
-
-function resetTableConstVar() 
-{
-    /* This function resets const Courses and const Categories */
-    Courses = [];
-    document.getElementById("modals").innerHTML = "";
-    if (Categories.length > 1) {
-        for (let i=0; i < Categories.length; i++) {
-            Categories.pop();
-        }
-    }
+    //console.log(tableModules);
 }
 
 function createFilterOptions(selectedFilterOption) 
@@ -70,10 +57,12 @@ function createFilterOptions(selectedFilterOption)
     var select = document.getElementById("filterOptions");
     select.innerHTML = "";
 
+    // To split up all categories (esp those with ',')
     for (var data_item of Courses) {
-        var courseCategory = data_item.courseCategory;
-        if (Categories.indexOf(courseCategory) == -1) {
-            Categories.push(courseCategory);
+        var courseCategory = data_item.courseCategory.split(',');
+        for (var title of courseCategory)
+        if (Categories.indexOf(title) == -1) {
+            Categories.push(title);
         }
     }
 
@@ -81,9 +70,6 @@ function createFilterOptions(selectedFilterOption)
         var options = document.createElement("option");
         options.setAttribute("value", courseCategory);
         options.innerText = courseCategory;
-        if (selectedFilterOption == courseCategory) {
-            options.selected = true;
-        }
         select.appendChild(options);
     }
 }
@@ -94,6 +80,7 @@ function editModulesTable()
 
     // Get the selected option and table
     var selectedFilterOption = document.getElementById("filterOptions").value;
+    //console.log(selectedFilterOption);
 
     // Resets table
     removeTableItems();
@@ -121,17 +108,17 @@ function createRows(selectedOption)
     var tableBody = document.createElement("tbody");
 
     for (var data_item of Courses) {
-        if (data_item.courseCategory === selectedOption || selectedOption === "All Tracks") {
-            //Create Table Row
-            console.log(data_item)
-            var row = document.createElement("tr");
+        //Create Table Row
+        //console.log(data_item)
+        var row = document.createElement("tr");
 
-            var courseName = data_item.courseName;
-            var courseCode = data_item.courseCode;
-            var courseCategory = data_item.courseCategory;
-            var tookCourse = data_item.status;
-            var enrolledYear = data_item.enrolled_year;
-            
+        var courseName = data_item.courseName;
+        var courseCode = data_item.courseCode;
+        var courseCategory = data_item.courseCategory;
+        var tookCourse = data_item.status;
+        var enrolledYear = data_item.enrolled_year;
+
+        if (selectedOption=="All Tracks" || courseCategory.indexOf(selectedOption) != -1) {
             // Create checkbox
             var col = document.createElement("td");
             col.setAttribute("class", "text-center");
@@ -184,7 +171,6 @@ function createRows(selectedOption)
             // Append row to tbody
             tableBody.appendChild(row);
         }
-
         //Append row to table
         tableModules.appendChild(tableBody);
     }
@@ -215,16 +201,6 @@ function createCourseModal(course)
     return modal
 }
 
-function AddToPlanner()
-{
-    for (let index = 0; index < SelectedCoursesList.length; index++) {
-        const element = SelectedCoursesList[index];
-        var yearAndSemTaken = document.getElementById(element.courseCode+"_dropdown").value;
-        global.currUser.AddNewCourse(element.courseCode, yearAndSemTaken);
-    }
-    createModulesTable();
-    console.log(global.currUser.courses);
-}
 function getAllSelectedCourses() 
 {
     /* This function is to handle "Add to Planner" button */
@@ -294,6 +270,18 @@ function createForm(modalBody, courseIds) {
     }
 }
 
+function AddToPlanner()
+{
+    for (let index = 0; index < SelectedCoursesList.length; index++) {
+        const element = SelectedCoursesList[index];
+        var yearAndSemTaken = document.getElementById(element.courseCode+"_dropdown").value;
+        global.currUser.AddNewCourse(element.courseCode, yearAndSemTaken);
+    }
+    FetchCourses();
+    createModulesTable();
+    console.log(global.currUser.courses);
+}
+
 // Acts like "import"
 document.addEventListener('DOMContentLoaded', function() {
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
@@ -301,6 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("nameheader").textContent = global.currUser.username.replace(/_+$/, ' ');
     document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     // console.log(global.currUser);
+    FetchCourses();
     createFilterOptions();
     createModulesTable();
     // For the search button
