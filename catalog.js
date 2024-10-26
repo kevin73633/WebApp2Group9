@@ -127,72 +127,85 @@ function createRows(selectedOption, search=false)
         var loopCourses = Courses;
     }
 
-    for (var data_item of loopCourses) {
-        //Create Table Row
+    if (loopCourses.length == 0) {
         var row = document.createElement("tr");
+        var col = document.createElement("td");
+        col.innerText = 'Please enter code/name into search bar';
+        col.setAttribute('colspan', '6');
+        col.setAttribute('class', 'text-center text-secondary')
+        row.appendChild(col)
+        tableBody.appendChild(row)
 
-        var courseName = data_item.courseName;
-        var courseCode = data_item.courseCode;
-        var courseCategory = data_item.courseCategory;
-        var tookCourse = data_item.status;
-        var enrolledYear = data_item.enrolled_year;
-
-        if (selectedOption=="All Tracks" || courseCategory.indexOf(selectedOption) != -1) {
-            // Create checkbox
-            var col = document.createElement("td");
-            col.setAttribute("class", "text-center");
-            var checkbox = document.createElement("input");
-            checkbox.setAttribute("type", "checkbox");
-            checkbox.value = courseCode + ":" + courseName;
-            col.appendChild(checkbox);
-            row.appendChild(col);
-
-            // Create the other columns
-            var col = document.createElement("td");
-            col.innerText = courseName;
-            row.appendChild(col);
-
-            var col = document.createElement("td");
-            col.innerText = courseCode;
-            row.appendChild(col);
-
-            var col = document.createElement("td");
-            col.innerText = courseCategory;
-            row.appendChild(col);
-
-            var col = document.createElement("td");
-            // For enrolled or not, use if-else
-            if (tookCourse === "yes") {
-                col.innerText = "Enrolled " + enrolledYear;
-                col.setAttribute("class", "text-success");
-            }
-            else {
-                col.innerText = "Not Enrolled";
-                col.setAttribute("class", "text-danger");
-            }
-            row.appendChild(col);
-
-            // Create button
-            var col = document.createElement("td");
-            var button = document.createElement("button");
-            button.setAttribute("type", "button");
-            button.setAttribute("class", "btn btn-secondary px-3 rounded-2");
-            button.setAttribute("data-bs-toggle", "modal");
-            button.setAttribute("data-bs-target",`#Modal_${courseCode}`);
-            button.innerText = "View More";
-            col.appendChild(button);
-            row.appendChild(col);
-
-            // Create Modal
-            var modalDiv = createCourseModal(data_item);
-            document.getElementById("modals").innerHTML += modalDiv;
-
-            // Append row to tbody
-            tableBody.appendChild(row);
-        }
-        //Append row to table
-        tableModules.appendChild(tableBody);
     }
+    else {
+
+        for (var data_item of loopCourses) {
+            //Create Table Row
+            var row = document.createElement("tr");
+
+            var courseName = data_item.courseName;
+            var courseCode = data_item.courseCode;
+            var courseCategory = data_item.courseCategory;
+            var tookCourse = data_item.status;
+            var enrolledYear = data_item.enrolled_year;
+
+            if (selectedOption=="All Tracks" || courseCategory.indexOf(selectedOption) != -1) {
+                // Create checkbox
+                var col = document.createElement("td");
+                col.setAttribute("class", "text-center");
+                var checkbox = document.createElement("input");
+                checkbox.setAttribute("type", "checkbox");
+                checkbox.value = courseCode + ":" + courseName;
+                col.appendChild(checkbox);
+                row.appendChild(col);
+
+                // Create the other columns
+                var col = document.createElement("td");
+                col.innerText = courseName;
+                row.appendChild(col);
+
+                var col = document.createElement("td");
+                col.innerText = courseCode;
+                row.appendChild(col);
+
+                var col = document.createElement("td");
+                col.innerText = courseCategory;
+                row.appendChild(col);
+
+                var col = document.createElement("td");
+                // For enrolled or not, use if-else
+                if (tookCourse === "yes") {
+                    col.innerText = "Enrolled " + enrolledYear;
+                    col.setAttribute("class", "text-success");
+                }
+                else {
+                    col.innerText = "Not Enrolled";
+                    col.setAttribute("class", "text-danger");
+                }
+                row.appendChild(col);
+
+                // Create button
+                var col = document.createElement("td");
+                var button = document.createElement("button");
+                button.setAttribute("type", "button");
+                button.setAttribute("class", "btn btn-secondary px-3 rounded-2");
+                button.setAttribute("data-bs-toggle", "modal");
+                button.setAttribute("data-bs-target",`#Modal_${courseCode}`);
+                button.innerText = "View More";
+                col.appendChild(button);
+                row.appendChild(col);
+
+                // Create Modal
+                var modalDiv = createCourseModal(data_item);
+                document.getElementById("modals").innerHTML += modalDiv;
+
+                // Append row to tbody
+                tableBody.appendChild(row);
+            }
+        }
+    }
+    //Append row to table
+    tableModules.appendChild(tableBody);
 }
 
 function createCourseModal(course) 
