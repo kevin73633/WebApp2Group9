@@ -36,9 +36,8 @@ function formatDate(date) {
   const currentDate = new Date();
   currentDateElement.textContent = formatDate(currentDate);
 
-function UpdateCoursesList() {
-  var enrolledCoursesCarousel = document.querySelector(".carousel-inner");
-  var courses = global.currUser.courses;
+function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true)
+{
   var courseCodes = Object.keys(courses);
   
   let totalCards = courseCodes.length;
@@ -105,6 +104,8 @@ function UpdateCoursesList() {
         let cardText = document.createElement('p');
         cardText.className = 'card-text';
 
+        let cardText2 = document.createElement('p');
+        cardText2.className = 'card-text2';
         //Button
         let viewButton = document.createElement('a');
         viewButton.className = 'btn-course';
@@ -116,13 +117,35 @@ function UpdateCoursesList() {
         viewButton.setAttribute("data-bs-toggle", "modal");
         viewButton.setAttribute("data-bs-target",`#Modal_${courseCode}`);
         viewButton.textContent = 'View';
-        
+        var deleteButton = null
+        if (showDeleteBtn)
+        {
+          deleteButton = document.createElement('a');
+          deleteButton.className = 'btn-course-delete';
+          deleteButton.setAttribute('href', '#');
+
+          //Delete Button
+          deleteButton.setAttribute("type", "button");
+          deleteButton.setAttribute("class", "btn-course-delete");
+          deleteButton.onclick = function() {
+            global.currUser.DeleteCourse(courseCode);
+            UpdateCoursesList();
+          };
+          var trashImg = document.createElement("img");
+          trashImg.setAttribute('src', "images/trash.png");
+          trashImg.style.height = "25px"
+          trashImg.style.width = "25px"
+          deleteButton.appendChild(trashImg);
+        }
+
         // Create Modal
         createCourseModal(courseCode,courseName,courseDescription );
         
 
         cardText.appendChild(viewButton);
-        cardBody.appendChild(cardTitle);
+        cardText2.appendChild(cardTitle);
+        if (showDeleteBtn)
+          cardText2.appendChild(deleteButton);
         cardBody.appendChild(courseNameElement);
         cardBody.appendChild(cardText);
         colText.appendChild(cardBody);
@@ -137,6 +160,7 @@ function UpdateCoursesList() {
         colImg.appendChild(img);
         row.appendChild(colText);
         row.appendChild(colImg);
+        card.appendChild(cardText2);
         card.appendChild(row);
         cardDeck.appendChild(card);
       } else {
@@ -149,6 +173,46 @@ function UpdateCoursesList() {
     carouselItem.appendChild(cardDeck);
     enrolledCoursesCarousel.appendChild(carouselItem);
   }
+}
+function UpdateCoursesList() {
+  var courses = global.currUser.courses;
+  var currentYear = global.currUser.currentYearAndSem.split("S")[0].split("Y")[1];
+  var currentSem = global.currUser.currentYearAndSem.split("S")[1];
+  if (currentSem == "3a")
+    currentSem = 3;
+  if (currentSem == "3b")
+    currentSem = 4;
+  var enrolledcourses = {};
+  var plannedcourses = {};
+  var recommendedcourses = {};
+  var completedcourses = {};
+  for (var course in courses)
+  {
+    var courseYear = courses[course].split("S")[0].split("Y")[1];
+    var courseSem = courses[course].split("S")[1];
+    if (courseSem == "3a")
+      courseSem = 3;
+    if (courseSem == "3b")
+      courseSem = 4;
+    console.log(courses[course] + " " + global.currUser.currentYearAndSem)
+    if (courseSem == currentSem && courseYear == currentYear)
+      enrolledcourses[course] = courses[course];
+    else if (courseSem > currentSem && courseYear == currentYear || courseYear > currentYear)
+      plannedcourses[course] = courses[course];
+    else if (courseSem < currentSem && courseYear == currentYear || courseYear < currentYear)
+      completedcourses[course] = courses[course];
+  }
+  for (var course of global.Course.GetAllCoursesForDegree())
+  {
+    if (global.currUser.courses[course.courseCode] == null)
+    {
+      recommendedcourses[course.courseCode] = course.GetDegreeSpecificRecommendedDate();
+    }
+  }
+  FillCourseList(document.getElementById("enrolledCarousel").children[0], enrolledcourses);
+  FillCourseList(document.getElementById("plannedCarousel").children[0], plannedcourses);
+  FillCourseList(document.getElementById("recommendedCarousel").children[0], recommendedcourses, false);
+  FillCourseList(document.getElementById("completedCarousel").children[0], completedcourses);
 }
 
 function createCourseModal(courseCode, courseName, courseDescription) {
@@ -272,7 +336,6 @@ function saveDetails() {
 
   // Close the modal after saving
   $('#userDetailsModal').hide();
-  GoToDashboard();
 }
 
 // Trigger save on button click

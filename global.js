@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import  { getDatabase, ref, get, push, set, update, child, onValue, onChildAdded, onChildChanged, onChildRemoved}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import  { getDatabase, ref, get, push, set, update, remove, child, onValue, onChildAdded, onChildChanged, onChildRemoved}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 import  { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -53,7 +53,7 @@ function logout () {
   }
 function SetCurrentUser(user)
 {
-    currUser = new User(user.uid, user.username, user.gpa, user.courses);
+    currUser = new User(user.uid, user.username, user.gpa, user.courses, user.degree, user.currentYearAndSem);
 }
 function SetAllCourses(courses)
 {
@@ -106,6 +106,58 @@ class Course
       }
     }
   }
+  static GetAllCoursesForDegree()
+  {
+    var returnedCourseList = [];
+    for (let index = 0; index < allCourses.length; index++) {
+      const element = allCourses[index];
+      if (element.courseCategory.includes(currUser.degree))
+      {
+        returnedCourseList.push(element)
+      }
+    }
+    return returnedCourseList;
+  }
+  GetDegreeSpecificCourseCategory()
+  {
+    if (this.courseCategory.includes(","))
+    {
+        var coursesInCategories = this.courseCategory.split(",");
+        for (let index = 0; index < coursesInCategories.length; index++) {
+            const element = coursesInCategories[index];
+            if (element == currUser.degree)
+            {
+              return element;
+            }
+        }
+        return coursesInCategories[0];
+
+    }
+    else
+      return this.courseCategory;
+  }
+  GetDegreeSpecificRecommendedDate()
+  {
+    if (this.recommendedYearAndSem.includes(","))
+      {
+          var coursesInCategories = this.recommendedYearAndSem.split(",");
+          for (let index = 0; index < coursesInCategories.length; index++) {
+              const element = coursesInCategories[index];
+              if (element.split("_")[1] == currUser.degree)
+              {
+                return element.split("_")[0];
+              }
+          }
+          return coursesInCategories[0].split("_")[0];
+  
+      }
+      else
+      {
+        if (this.recommendedYearAndSem.includes("_"))
+          return this.recommendedYearAndSem.split("_")[0];
+        return this.recommendedYearAndSem;
+      }
+  }
 }
 class User
 {
@@ -133,10 +185,9 @@ class User
   }
   AddNewCourse(courseCode, yearAndSemTaken)
   {
-
+    console.log(currUser.courses);
     // Get a key for a new Post.
     var localuser =  ref(db,`users/${this.uid}`);
-    const newPostKey = push(child(localuser, 'posts')).key;
 
     // Write the new post's data simultaneously in the posts list and the user's post list.
     const updates = {};
@@ -159,8 +210,42 @@ class User
     Course.GetByCourseCode(courseCode).enrolled_year = yearAndSemTaken;
     Course.GetByCourseCode(courseCode).status = "yes";
     console.log(this.courses);
+    this.SortCourses();
     sessionStorage.setItem("currUser",  JSON.stringify(currUser));
     return update(ref(db), updates);
+  }
+  DeleteCourse(courseCode)
+  {
+    var temp = [];
+    for (var course in currUser.courses)
+    {
+      var yearAndSemTaken = currUser.courses[course];
+      var sem = yearAndSemTaken.split("S")[1];
+      var backChar = "";
+      if (sem == "3a" || sem == "3b")
+      {
+        backChar = sem[1];
+        sem = "3";
+      }
+      temp.push({"courseCode" : course, "year" : yearAndSemTaken.split("S")[0].split("Y")[1], "Sem" : sem, "backChar" : backChar}) 
+    }
+    currUser.courses = {};
+    for (var course in temp)
+    {
+      var curr = temp[course];
+      if (curr.courseCode != courseCode)
+      {
+        currUser.courses[curr.courseCode] = "Y" + curr.year + "S" + curr.Sem + curr.backChar;
+      }
+      else
+      {
+        Course.GetByCourseCode(courseCode).enrolled_year = yearAndSemTaken;
+        Course.GetByCourseCode(courseCode).status = "yes";
+      }
+    }
+    remove(ref(db, 'users/' + currUser.uid + "/courses/" + courseCode));
+    this.SortCourses();
+    sessionStorage.setItem("currUser",  JSON.stringify(currUser));
   }
   SortCourses()
   {

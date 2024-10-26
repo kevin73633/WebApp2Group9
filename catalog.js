@@ -119,6 +119,7 @@ function createRows(selectedOption, search=false)
     // Create Element: Table Body
     var tableBody = document.createElement("tbody");
 
+
     // Based on if is searched or not
     if (search===true) {
         var loopCourses = SearchCourses;
@@ -143,11 +144,12 @@ function createRows(selectedOption, search=false)
             //Create Table Row
             var row = document.createElement("tr");
 
-            var courseName = data_item.courseName;
-            var courseCode = data_item.courseCode;
-            var courseCategory = data_item.courseCategory;
-            var tookCourse = data_item.status;
-            var enrolledYear = data_item.enrolled_year;
+        var courseName = data_item.courseName;
+        var courseCode = data_item.courseCode;
+        var courseCategory = data_item.GetDegreeSpecificCourseCategory();
+        var tookCourse = data_item.status;
+        var enrolledYear = data_item.enrolled_year;
+        var recommendedYearAndSem = data_item.GetDegreeSpecificRecommendedDate();
 
             if (selectedOption=="All Tracks" || courseCategory.indexOf(selectedOption) != -1) {
                 // Create checkbox
@@ -168,9 +170,13 @@ function createRows(selectedOption, search=false)
                 col.innerText = courseCode;
                 row.appendChild(col);
 
-                var col = document.createElement("td");
-                col.innerText = courseCategory;
-                row.appendChild(col);
+            var col = document.createElement("td");
+            col.innerText = courseCategory;
+            row.appendChild(col);
+
+            var col = document.createElement("td");
+            col.innerText = recommendedYearAndSem;
+            row.appendChild(col);
 
                 var col = document.createElement("td");
                 // For enrolled or not, use if-else
@@ -332,7 +338,7 @@ function searchCourse()
     else {
         for (var data_item of Courses) 
         {
-            if (data_item.courseName.indexOf(searchInput) != -1 || data_item.courseCode.indexOf(searchInput) != -1) {
+            if (data_item.courseName.toLowerCase().indexOf(searchInput.toLowerCase()) != -1 || data_item.courseCode.toLowerCase().indexOf(searchInput.toLowerCase()) != -1) {
                 SearchCourses.push(data_item);
             }
         }
@@ -361,6 +367,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById("buttonToAdd").onclick = function() {AddToPlanner();};
     document.getElementById("logoutBtn").onclick = function() {global.logout();};
+    document.getElementById("searchInput").addEventListener("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+          // Cancel the default action, if needed
+          event.preventDefault();
+          // Trigger the button element with a click
+          document.getElementById("searchBtn").click();
+        }
+      });
 })
 
 // Function to handle form submission and validation
@@ -396,7 +411,6 @@ function saveDetails() {
 
     // Close the modal after saving
     $('#userDetailsModal').hide();
-    GoToDashboard();
 }
 
 // Trigger save on button click
