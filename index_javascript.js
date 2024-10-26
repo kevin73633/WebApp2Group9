@@ -176,11 +176,4 @@ function saveDetails() {
 // Trigger save on button click
 saveDetailsBtn.addEventListener('click', saveDetails);
 
-// Trigger save when pressing Enter key within the form
-document.getElementById('userDetailsForm').addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();  // Prevent form submission or page reload
-        saveDetails();  // Call saveDetails function
-    }
-});
     

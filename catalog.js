@@ -123,6 +123,7 @@ function createRows(selectedOption)
     for (var data_item of Courses) {
         if (data_item.courseCategory === selectedOption || selectedOption === "All Tracks") {
             //Create Table Row
+            console.log(data_item)
             var row = document.createElement("tr");
 
             var courseName = data_item.courseName;
@@ -133,6 +134,7 @@ function createRows(selectedOption)
             
             // Create checkbox
             var col = document.createElement("td");
+            col.setAttribute("class", "text-center");
             var checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
             checkbox.value = courseCode + ":" + courseName;
@@ -212,6 +214,7 @@ function createCourseModal(course)
     </div>`
     return modal
 }
+
 function AddToPlanner()
 {
     for (let index = 0; index < SelectedCoursesList.length; index++) {
@@ -295,6 +298,8 @@ function createForm(modalBody, courseIds) {
 document.addEventListener('DOMContentLoaded', function() {
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
     global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
+    document.getElementById("nameheader").textContent = global.currUser.username.replace(/_+$/, ' ');
+    document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     // console.log(global.currUser);
     createFilterOptions();
     createModulesTable();
@@ -310,3 +315,42 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("buttonToAdd").onclick = function() {AddToPlanner();};
     document.getElementById("logoutBtn").onclick = function() {global.logout();};
 })
+
+// Function to handle form submission and validation
+function saveDetails() {
+    // Get the values from the form fields
+    const degree = degreeInput.value.trim();  // Trim spaces
+    const gpa = gpaInput.value.trim();  // Get GPA as string
+    const year = yearInput.value;
+    const semester = semesterInput.value;
+
+    // Check if any field is empty
+    if (!degree || !gpa || !year || !semester) {
+        alert('Please fill out all fields.');
+        return;
+    }
+
+    // Convert GPA to number and validate range
+    const gpaValue = parseFloat(gpa);
+    if (gpaValue < 0.01 || gpaValue > 4.3) {
+        alert('Please enter a GPA between 0.01 and 4.3.');
+        return;
+    }
+
+    // Log the collected details (replace this with your save action)
+    console.log({
+        degree: degree,
+        gpa: gpaValue,
+        year: year,
+        semester: semester
+    });
+    //global.currUser.SetInitialValues(global.currUser.username, gpaValue, degree, year + semester)
+    //alert("Details saved successfully!");
+
+    // Close the modal after saving
+    $('#userDetailsModal').hide();
+    GoToDashboard();
+}
+
+// Trigger save on button click
+saveDetailsBtn.addEventListener('click', saveDetails);

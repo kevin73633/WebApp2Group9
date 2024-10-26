@@ -3,24 +3,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /* COMMON */
-html{
-    background-color: black;
+html {
+    height: 100%;
+    margin: 0; /* Ensure no default margin */
+	background-color: #E0E0E0;
 }
+
 body {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	width: 100%;
-    color:white;
-	background-image: url(images/background2.png);
     margin: 0;
+    padding: 0;
+    height: 100%;
+    color: white;
+    background-image: url(images/background2.png);
     background-position: center;
-	background-size: cover;
-	background-position: center;
-    height: 100vh;
-    justify-content: center;
-    background-repeat: no-repeat;
     background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+	font-family: "Poppins", sans-serif !important;
 }
 table {
 	width:auto;
@@ -36,16 +35,22 @@ table {
 	padding: 8px 2px;
 	border:0px;
 }
-.btn-course{
-	background-color: #040B31;
-	font-family: "Poppins", sans-serif;
-	font-size:13px;
-	color:white;
-	padding: 10px 30px;
-	border-radius: 20px;
-	border:0px;
-	text-decoration: none;
+.btn-course {
+    background-color: #040B31;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 20px;
+    border: 0;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.btn-course:hover {
+    background-color: #0A1E4D;
+}
+
 
 .steps h1 {
 	text-align: center;
@@ -160,7 +165,8 @@ h4{
 /* DASHBOARD PAGE*/
 #content {
 	margin-left: 250px;
-	padding: 20px;
+	padding-left: 30px;
+	padding-right: 30px;
 }
 #app{
 	color: white;
@@ -169,12 +175,11 @@ h4{
 /* Profile */
 #profile_top{
 	color: black;
-	position: fixed;
-	top: 20px;
-	right: 20px;
 	display: flex;
 	align-items: center;
 	z-index: 1000;
+	float:right;
+	margin-bottom: 20px;
 }
 
 .icon-circle {
@@ -188,11 +193,11 @@ h4{
 }
 
 #welcome-banner {
+	clear: both;
 	background-color: #040B31;
 	border-radius: 10px;
 	padding: 20px;
 	margin-bottom: 30px;
-    margin-top:50px;
 }
 
 #friends{
@@ -230,12 +235,10 @@ h4{
 {
     align-items: center; /* Center vertically */
 }
-
-.carousel-item {
-	display: flex;
-	justify-content: space-between;
+.text-center {
+    text-align: center;
 }
-  
+
 .card-deck {
 	display: flex;
 	justify-content: space-between;
@@ -244,35 +247,89 @@ h4{
   
 .card {
 	flex: 1; /* Make sure all cards have equal width */
-	height:140px  !important;
 	display: flex;
 	justify-content: center;
 	border-radius: 20px !important;
+	padding:12px 5px;
 }
   
 .card-body {
 	color: white;
 }
-  
+.card-text{
+	margin:20px 0;
+}
 .card-title {
 	font-family: 'Orbitron', sans-serif;
 	font-size: 1.2rem;
+}
+.card-course-name{
+	font-family: 'Orbitron', sans-serif;
+	font-size: 1rem;
+}
+.carousel-inner{
+	padding:1em;
+}
+.carousel-item {
+	display: flex;
+	justify-content: space-between;
 }
   
 .carousel-item img {
 	width: 100px;
 	height: auto;
 }
-.card-text{
-	margin:20px 0;
-}
-
-#courseCarousel, #courseCarousel2, .course3{
-	margin:30px 10px;
-}
-
 .form-select{
 	background-color: #040B31 !important;
 	color: white !important;
 }
 
+.carousel-control-prev,
+.carousel-control-next {
+  background-color: #252525 !important;
+  width: 5vh !important;
+  height: 5vh !important;
+  border-radius: 50% !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  padding:10px !important;
+}
+.row.g-0 {
+    display: flex; /* Ensure the row uses flexbox */
+    align-items: center; /* Vertically center items in the row */
+}
+
+.col-md-8 {
+    display: flex; /* Use flexbox for text column */
+    flex-direction: column; /* Arrange items vertically */
+    justify-content: center; /* Center content vertically */
+}
+
+.col-md-4 {
+    display: flex; /* Use flexbox for image column */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+}
+
+
+/* Catalog Table */
+table {
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+table thead {
+    border-radius: 15px;
+}
+
+table th, 
+table td {
+    border: none;
+}
+
+table th {
+	background-color: #ECECEC !important;
+    padding-top: 20px!important;
+	padding-bottom: 20px!important;
+}
