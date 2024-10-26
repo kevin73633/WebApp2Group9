@@ -325,7 +325,7 @@ function searchCourse()
     else {
         for (var data_item of Courses) 
         {
-            if (data_item.courseName.indexOf(searchInput) != -1 || data_item.courseCode.indexOf(searchInput) != -1) {
+            if (data_item.courseName.toLowerCase().indexOf(searchInput.toLowerCase()) != -1 || data_item.courseCode.toLowerCase().indexOf(searchInput.toLowerCase()) != -1) {
                 SearchCourses.push(data_item);
             }
         }
@@ -354,6 +354,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById("buttonToAdd").onclick = function() {AddToPlanner();};
     document.getElementById("logoutBtn").onclick = function() {global.logout();};
+    document.getElementById("searchInput").addEventListener("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+          // Cancel the default action, if needed
+          event.preventDefault();
+          // Trigger the button element with a click
+          document.getElementById("searchBtn").click();
+        }
+      });
 })
 
 // Function to handle form submission and validation
