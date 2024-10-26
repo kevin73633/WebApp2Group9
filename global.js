@@ -106,6 +106,18 @@ class Course
       }
     }
   }
+  static GetAllCoursesForDegree()
+  {
+    var returnedCourseList = [];
+    for (let index = 0; index < allCourses.length; index++) {
+      const element = allCourses[index];
+      if (element.courseCategory.includes(currUser.degree))
+      {
+        returnedCourseList.push(element)
+      }
+    }
+    return returnedCourseList;
+  }
   GetDegreeSpecificCourseCategory()
   {
     if (this.courseCategory.includes(","))
