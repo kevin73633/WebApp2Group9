@@ -6,24 +6,19 @@ import { get, getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/1
 // https://firebase.google.com/docs/web/setup#available-libraries
 import * as global from './global.js';
 
-// All the options in the filter
-const Categories = ["All Tracks"];
-// All the courses taken from database
+// All 'global variables'
+var Categories = ["All Tracks"];
 var Courses = [];
+var SearchCourses = [];
 var SelectedCoursesList = [];
 
-/* Functions that interacts with db: FetchCourses() */
-
-function FetchCourses(selectedFilterOption="All Tracks")
+function FetchCourses()
 {
+    // Fetch from Database
     Courses = global.allCourses;
-    removeTableItems();
-    createRows(selectedFilterOption);
-    createFilterOptions(selectedFilterOption);
-  
 }
 
-function createModulesTable(selectedFilterOption='All Tracks') 
+function createModulesTable(selectedFilterOption='All Tracks', search=false) 
 {
     /*
         This function creates the table of modules and adds correct filter options 
@@ -34,20 +29,22 @@ function createModulesTable(selectedFilterOption='All Tracks')
     removeTableItems();
 
     // Get Courses const variable
-    createRows(selectedFilterOption);
+    createRows(selectedFilterOption,search);
+
+    // Create filter
+    createFilterOptions(search);
 }
 
 function removeTableItems() 
 {
     /* This functions removes the items in the table if the search button has been pressed before*/
-    console.log("removeTableItems()")
+    
     // Get table rows
     var tableModules = document.getElementById("tableModules");
     tableModules.children[1].remove();
-    //console.log(tableModules);
 }
 
-function createFilterOptions(selectedFilterOption) 
+function createFilterOptions(search=false) 
 {
     /* This function creates the filter options*/
 
@@ -56,9 +53,18 @@ function createFilterOptions(selectedFilterOption)
     //   <option value="2">..</option>
     var select = document.getElementById("filterOptions");
     select.innerHTML = "";
+    Categories = Categories.slice(0,1);
+
+    // Based on if is searched or not
+    if (search===true) {
+        var loopCourses = SearchCourses;
+    }
+    else {
+        var loopCourses = Courses;
+    }
 
     // To split up all categories (esp those with ',')
-    for (var data_item of Courses) {
+    for (var data_item of loopCourses) {
         var courseCategory = data_item.courseCategory.split(',');
         for (var title of courseCategory)
         if (Categories.indexOf(title) == -1) {
@@ -80,16 +86,22 @@ function editModulesTable()
 
     // Get the selected option and table
     var selectedFilterOption = document.getElementById("filterOptions").value;
-    //console.log(selectedFilterOption);
+    var searchInput = document.getElementById("searchInput").value;
+    searchInput = searchInput.trim();
 
     // Resets table
     removeTableItems();
 
-    // Create filtered table
-    createRows(selectedFilterOption);
+    // Create filtered table;
+    if (searchInput ==="") {
+        createRows(selectedFilterOption)
+    }
+    else {
+        createRows(selectedFilterOption,true)
+    }
 }
 
-function createRows(selectedOption) 
+function createRows(selectedOption, search=false) 
 {
     /* Module that creates the rows and append to table */
 
@@ -107,9 +119,16 @@ function createRows(selectedOption)
     // Create Element: Table Body
     var tableBody = document.createElement("tbody");
 
-    for (var data_item of Courses) {
+    // Based on if is searched or not
+    if (search===true) {
+        var loopCourses = SearchCourses;
+    }
+    else {
+        var loopCourses = Courses;
+    }
+
+    for (var data_item of loopCourses) {
         //Create Table Row
-        //console.log(data_item)
         var row = document.createElement("tr");
 
         var courseName = data_item.courseName;
@@ -272,6 +291,8 @@ function createForm(modalBody, courseIds) {
 
 function AddToPlanner()
 {
+    /* This function adds to database when course is selected and then withdraws from database latest update*/
+
     for (let index = 0; index < SelectedCoursesList.length; index++) {
         const element = SelectedCoursesList[index];
         var yearAndSemTaken = document.getElementById(element.courseCode+"_dropdown").value;
@@ -279,7 +300,32 @@ function AddToPlanner()
     }
     FetchCourses();
     createModulesTable();
-    console.log(global.currUser.courses);
+    //console.log(global.currUser.courses);
+}
+
+function searchCourse() 
+{
+    /* This function deals with searches when user use to search function*/
+
+    // Handle search button when pressed
+    SearchCourses = []
+    var searchInput = document.getElementById("searchInput").value;
+    searchInput = searchInput.trim();
+
+    // Based on if user input anything or not
+    if (searchInput==="") {
+        createModulesTable('All Tracks')
+    }
+    else {
+        for (var data_item of Courses) 
+        {
+            if (data_item.courseName.indexOf(searchInput) != -1 || data_item.courseCode.indexOf(searchInput) != -1) {
+                SearchCourses.push(data_item);
+            }
+        }
+        createModulesTable('All Tracks', true)
+    }
+
 }
 
 // Acts like "import"
@@ -290,10 +336,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     // console.log(global.currUser);
     FetchCourses();
-    createFilterOptions();
     createModulesTable();
     // For the search button
-    document.getElementById("searchBtn").onclick = function() {createModulesTable();}
+    document.getElementById("searchBtn").onclick = function() {searchCourse();}
     
     // For the filtering onchange
     document.getElementById("filterOptions").onchange = function() {editModulesTable()}
