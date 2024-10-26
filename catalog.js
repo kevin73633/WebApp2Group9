@@ -150,7 +150,7 @@ function createRows(selectedOption, search=false)
 
             var courseName = data_item.courseName;
             var courseCode = data_item.courseCode;
-            var courseCategory = data_item.GetDegreeSpecificCourseCategory();
+            var courseCategory = data_item.courseCategory;
             var tookCourse = data_item.status;
             var enrolledYear = data_item.enrolled_year;
             var recommendedYearAndSem = data_item.GetDegreeSpecificRecommendedDate();
