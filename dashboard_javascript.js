@@ -13,27 +13,17 @@ document.addEventListener('DOMContentLoaded', function() {
   global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
   UpdateCoursesList();
   document.getElementById("logoutBtn").onclick = function() {global.logout();};
-  onAuthStateChanged(global.auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
-      
-      let str = user.displayName;
-      // Remove trailing underscores using regular expression
-      let trimmedStr = str.replace(/_+$/, ' ');
+  // User is signed in, see docs for a list of available properties
+  // https://firebase.google.com/docs/reference/js/auth.user
+  const uid = global.currUser.uid;
+  // Remove trailing underscores using regular expression
 
-      document.getElementById("nameheader").textContent = trimmedStr;
-      FetchUsersCourses();
-      // ...
-    } else {
-      // User is signed out
-      // ...
-    }
-  });
-	//window.onmousemove  = function() {myFunction()};
+  FetchUsersCourses();
+  document.getElementById("nameheader").textContent = global.currUser.username.replace(/_+$/, ' ');
+
+  document.getElementById("banner_name").textContent = `Welcome back, ${global.currUser.username ? global.currUser.username.replace(/_+$/, '') : 'User'}!`;
 	
-	
+	document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
 })
 
 //Get Current Date
@@ -46,22 +36,6 @@ function formatDate(date) {
   const currentDate = new Date();
   currentDateElement.textContent = formatDate(currentDate);
 
-
-// added for dashboardbanner line 88 block
-document.addEventListener('DOMContentLoaded', function() {
-  onAuthStateChanged(global.auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-      
-      let str = user.displayName;
-      let trimmedStr = str ? str.replace(/_+$/, '') : 'User';
-
-      document.getElementById("banner_name").textContent = `Welcome back, ${trimmedStr}!`;
-      
-      FetchUsersCourses();
-    }
-  });
-});
 function UpdateCoursesList() {
   var enrolledCoursesCarousel = document.querySelector(".carousel-inner");
   var courses = global.currUser.courses;
@@ -104,6 +78,7 @@ function UpdateCoursesList() {
         
         // Fetch the course name for the current course code
         let courseName = global.Course.GetByCourseCode(courseCode).courseName;
+        let courseDescription = global.Course.GetByCourseCode(courseCode).courseDescription;
 
         // Card
         let card = document.createElement('div');
@@ -130,14 +105,41 @@ function UpdateCoursesList() {
         let cardText = document.createElement('p');
         cardText.className = 'card-text';
 
+        let cardText2 = document.createElement('p');
+        cardText2.className = 'card-text2';
+        //Button
         let viewButton = document.createElement('a');
         viewButton.className = 'btn-course';
         viewButton.setAttribute('href', '#');
-        viewButton.setAttribute('role', 'button');
+
+        //View Button
+        viewButton.setAttribute("type", "button");
+        viewButton.setAttribute("class", "btn-course");
+        viewButton.setAttribute("data-bs-toggle", "modal");
+        viewButton.setAttribute("data-bs-target",`#Modal_${courseCode}`);
         viewButton.textContent = 'View';
+        
+
+        let deleteButton = document.createElement('a');
+        deleteButton.className = 'btn-course-delete';
+        deleteButton.setAttribute('href', '#');
+
+        //Delete Button
+        deleteButton.setAttribute("type", "button");
+        deleteButton.setAttribute("class", "btn-course-delete");
+        deleteButton.onclick = function() {global.currUser.DeleteCourse(courseCode);};
+        var trashImg = document.createElement("img");
+        trashImg.setAttribute('src', "images/trash.png");
+        trashImg.style.height = "25px"
+        trashImg.style.width = "25px"
+        deleteButton.appendChild(trashImg);
+        // Create Modal
+        createCourseModal(courseCode,courseName,courseDescription );
+        
 
         cardText.appendChild(viewButton);
-        cardBody.appendChild(cardTitle);
+        cardText2.appendChild(cardTitle);
+        cardText2.appendChild(deleteButton);
         cardBody.appendChild(courseNameElement);
         cardBody.appendChild(cardText);
         colText.appendChild(cardBody);
@@ -152,6 +154,7 @@ function UpdateCoursesList() {
         colImg.appendChild(img);
         row.appendChild(colText);
         row.appendChild(colImg);
+        card.appendChild(cardText2);
         card.appendChild(row);
         cardDeck.appendChild(card);
       } else {
@@ -165,6 +168,65 @@ function UpdateCoursesList() {
     enrolledCoursesCarousel.appendChild(carouselItem);
   }
 }
+
+function createCourseModal(courseCode, courseName, courseDescription) {
+  let modalsContainer = document.getElementById("modals");
+
+  let modalDiv = document.createElement('div');
+  modalDiv.className = 'modal fade';
+  modalDiv.id = `Modal_${courseCode}`;
+  modalDiv.setAttribute('tabindex', '-1');
+  modalDiv.setAttribute('aria-labelledby', `Modal_${courseCode}`);
+  modalDiv.setAttribute('aria-hidden', 'true');
+
+  let modalDialog = document.createElement('div');
+  modalDialog.className = 'modal-dialog';
+
+  let modalContent = document.createElement('div');
+  modalContent.className = 'modal-content';
+
+  let modalHeader = document.createElement('div');
+  modalHeader.className = 'modal-header';
+
+  let modalTitle = document.createElement('h1');
+  modalTitle.className = 'modal-title fs-5';
+  modalTitle.id = `Modal_${courseCode}`;
+  modalTitle.textContent = courseName;
+
+  let closeButton = document.createElement('button');
+  closeButton.type = 'button';
+  closeButton.className = 'btn-close';
+  closeButton.setAttribute('data-bs-dismiss', 'modal');
+  closeButton.setAttribute('aria-label', 'Close');
+
+  modalHeader.appendChild(modalTitle);
+  modalHeader.appendChild(closeButton);
+
+  let modalBody = document.createElement('div');
+  modalBody.className = 'modal-body';
+  modalBody.textContent = courseDescription;
+
+  let modalFooter = document.createElement('div');
+  modalFooter.className = 'modal-footer';
+
+  let closeFooterButton = document.createElement('button');
+  closeFooterButton.type = 'button';
+  closeFooterButton.className = 'btn btn-secondary';
+  closeFooterButton.setAttribute('data-bs-dismiss', 'modal');
+  closeFooterButton.textContent = 'Close';
+
+  modalFooter.appendChild(closeFooterButton);
+
+  modalContent.appendChild(modalHeader);
+  modalContent.appendChild(modalBody);
+  modalContent.appendChild(modalFooter);
+  modalDialog.appendChild(modalContent);
+  modalDiv.appendChild(modalDialog);
+  
+  modalsContainer.appendChild(modalDiv);
+}
+
+
 
 // Optionally, call the function on window resize to adapt to size changes
 window.addEventListener('resize', UpdateCoursesList);
@@ -195,3 +257,40 @@ function FetchUsersCourses()
 }
 
 
+// Function to handle form submission and validation
+function saveDetails() {
+  // Get the values from the form fields
+  const degree = degreeInput.value.trim();  // Trim spaces
+  const gpa = gpaInput.value.trim();  // Get GPA as string
+  const year = yearInput.value;
+  const semester = semesterInput.value;
+
+  // Check if any field is empty
+  if (!degree || !gpa || !year || !semester) {
+      alert('Please fill out all fields.');
+      return;
+  }
+
+  // Convert GPA to number and validate range
+  const gpaValue = parseFloat(gpa);
+  if (gpaValue < 0.01 || gpaValue > 4.3) {
+      alert('Please enter a GPA between 0.01 and 4.3.');
+      return;
+  }
+
+  // Log the collected details (replace this with your save action)
+  console.log({
+      degree: degree,
+      gpa: gpaValue,
+      year: year,
+      semester: semester
+  });
+  //global.currUser.SetInitialValues(global.currUser.username, gpaValue, degree, year + semester)
+  //alert("Details saved successfully!");
+
+  // Close the modal after saving
+  $('#userDetailsModal').hide();
+}
+
+// Trigger save on button click
+saveDetailsBtn.addEventListener('click', saveDetails);

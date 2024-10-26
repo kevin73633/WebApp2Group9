@@ -6,61 +6,45 @@ import { get, getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/1
 // https://firebase.google.com/docs/web/setup#available-libraries
 import * as global from './global.js';
 
-// All the options in the filter
-const Categories = ["All Tracks"];
-// All the courses taken from database
+// All 'global variables'
+var Categories = ["All Tracks"];
 var Courses = [];
+var SearchCourses = [];
 var SelectedCoursesList = [];
 
-/* Functions that interacts with db: FetchCourses() */
-
-function FetchCourses(selectedFilterOption="All Tracks")
+function FetchCourses()
 {
+    // Fetch from Database
     Courses = global.allCourses;
-    createRows(selectedFilterOption);
-    createFilterOptions(selectedFilterOption);
-  
 }
 
-function createModulesTable() 
+function createModulesTable(selectedFilterOption='All Tracks', search=false) 
 {
     /*
         This function creates the table of modules and adds correct filter options 
-        when user pressed "Search" button
+        when user first entered the webpage
     */
 
     // Resets table
     removeTableItems();
 
-    // Reset Courses and Categories
-    resetTableConstVar();
+    // Get Courses const variable
+    createRows(selectedFilterOption,search);
 
-    // Get Courses from db and create table
-    FetchCourses();
+    // Create filter
+    createFilterOptions(search);
 }
 
 function removeTableItems() 
 {
     /* This functions removes the items in the table if the search button has been pressed before*/
-
+    
     // Get table rows
     var tableModules = document.getElementById("tableModules");
     tableModules.children[1].remove();
 }
 
-function resetTableConstVar() 
-{
-    /* This function resets const Courses and const Categories */
-    Courses = [];
-    document.getElementById("modals").innerHTML = "";
-    if (Categories.length > 1) {
-        for (let i=0; i < Categories.length; i++) {
-            Categories.pop();
-        }
-    }
-}
-
-function createFilterOptions(selectedFilterOption) 
+function createFilterOptions(search=false) 
 {
     /* This function creates the filter options*/
 
@@ -69,11 +53,22 @@ function createFilterOptions(selectedFilterOption)
     //   <option value="2">..</option>
     var select = document.getElementById("filterOptions");
     select.innerHTML = "";
+    Categories = Categories.slice(0,1);
 
-    for (var data_item of Courses) {
-        var courseCategory = data_item.courseCategory;
-        if (Categories.indexOf(courseCategory) == -1) {
-            Categories.push(courseCategory);
+    // Based on if is searched or not
+    if (search===true) {
+        var loopCourses = SearchCourses;
+    }
+    else {
+        var loopCourses = Courses;
+    }
+
+    // To split up all categories (esp those with ',')
+    for (var data_item of loopCourses) {
+        var courseCategory = data_item.courseCategory.split(',');
+        for (var title of courseCategory)
+        if (Categories.indexOf(title) == -1) {
+            Categories.push(title);
         }
     }
 
@@ -81,9 +76,6 @@ function createFilterOptions(selectedFilterOption)
         var options = document.createElement("option");
         options.setAttribute("value", courseCategory);
         options.innerText = courseCategory;
-        if (selectedFilterOption == courseCategory) {
-            options.selected = true;
-        }
         select.appendChild(options);
     }
 }
@@ -94,15 +86,22 @@ function editModulesTable()
 
     // Get the selected option and table
     var selectedFilterOption = document.getElementById("filterOptions").value;
+    var searchInput = document.getElementById("searchInput").value;
+    searchInput = searchInput.trim();
 
     // Resets table
     removeTableItems();
 
-    // Create filtered table
-    createRows(selectedFilterOption);
+    // Create filtered table;
+    if (searchInput ==="") {
+        createRows(selectedFilterOption)
+    }
+    else {
+        createRows(selectedFilterOption,true)
+    }
 }
 
-function createRows(selectedOption) 
+function createRows(selectedOption, search=false) 
 {
     /* Module that creates the rows and append to table */
 
@@ -120,17 +119,27 @@ function createRows(selectedOption)
     // Create Element: Table Body
     var tableBody = document.createElement("tbody");
 
-    for (var data_item of Courses) {
-        if (data_item.courseCategory === selectedOption || selectedOption === "All Tracks") {
-            //Create Table Row
-            var row = document.createElement("tr");
 
-            var courseName = data_item.courseName;
-            var courseCode = data_item.courseCode;
-            var courseCategory = data_item.courseCategory;
-            var tookCourse = data_item.status;
-            var enrolledYear = data_item.enrolled_year;
-            
+    // Based on if is searched or not
+    if (search===true) {
+        var loopCourses = SearchCourses;
+    }
+    else {
+        var loopCourses = Courses;
+    }
+
+    for (var data_item of loopCourses) {
+        //Create Table Row
+        var row = document.createElement("tr");
+
+        var courseName = data_item.courseName;
+        var courseCode = data_item.courseCode;
+        var courseCategory = data_item.GetDegreeSpecificCourseCategory();
+        var tookCourse = data_item.status;
+        var enrolledYear = data_item.enrolled_year;
+        var recommendedYearAndSem = data_item.GetDegreeSpecificRecommendedDate();
+
+        if (selectedOption=="All Tracks" || courseCategory.indexOf(selectedOption) != -1) {
             // Create checkbox
             var col = document.createElement("td");
             col.setAttribute("class", "text-center");
@@ -151,6 +160,10 @@ function createRows(selectedOption)
 
             var col = document.createElement("td");
             col.innerText = courseCategory;
+            row.appendChild(col);
+
+            var col = document.createElement("td");
+            col.innerText = recommendedYearAndSem;
             row.appendChild(col);
 
             var col = document.createElement("td");
@@ -183,7 +196,6 @@ function createRows(selectedOption)
             // Append row to tbody
             tableBody.appendChild(row);
         }
-
         //Append row to table
         tableModules.appendChild(tableBody);
     }
@@ -213,16 +225,7 @@ function createCourseModal(course)
     </div>`
     return modal
 }
-function AddToPlanner()
-{
-    for (let index = 0; index < SelectedCoursesList.length; index++) {
-        const element = SelectedCoursesList[index];
-        var yearAndSemTaken = document.getElementById(element.courseCode+"_dropdown").value;
-        global.currUser.AddNewCourse(element.courseCode, yearAndSemTaken);
-    }
-    createModulesTable();
-    console.log(global.currUser.courses);
-}
+
 function getAllSelectedCourses() 
 {
     /* This function is to handle "Add to Planner" button */
@@ -292,15 +295,56 @@ function createForm(modalBody, courseIds) {
     }
 }
 
+function AddToPlanner()
+{
+    /* This function adds to database when course is selected and then withdraws from database latest update*/
+
+    for (let index = 0; index < SelectedCoursesList.length; index++) {
+        const element = SelectedCoursesList[index];
+        var yearAndSemTaken = document.getElementById(element.courseCode+"_dropdown").value;
+        global.currUser.AddNewCourse(element.courseCode, yearAndSemTaken);
+    }
+    FetchCourses();
+    createModulesTable();
+    //console.log(global.currUser.courses);
+}
+
+function searchCourse() 
+{
+    /* This function deals with searches when user use to search function*/
+
+    // Handle search button when pressed
+    SearchCourses = []
+    var searchInput = document.getElementById("searchInput").value;
+    searchInput = searchInput.trim();
+
+    // Based on if user input anything or not
+    if (searchInput==="") {
+        createModulesTable('All Tracks')
+    }
+    else {
+        for (var data_item of Courses) 
+        {
+            if (data_item.courseName.indexOf(searchInput) != -1 || data_item.courseCode.indexOf(searchInput) != -1) {
+                SearchCourses.push(data_item);
+            }
+        }
+        createModulesTable('All Tracks', true)
+    }
+
+}
+
 // Acts like "import"
 document.addEventListener('DOMContentLoaded', function() {
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
     global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
+    document.getElementById("nameheader").textContent = global.currUser.username.replace(/_+$/, ' ');
+    document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     // console.log(global.currUser);
-    createFilterOptions();
+    FetchCourses();
     createModulesTable();
     // For the search button
-    document.getElementById("searchBtn").onclick = function() {createModulesTable();}
+    document.getElementById("searchBtn").onclick = function() {searchCourse();}
     
     // For the filtering onchange
     document.getElementById("filterOptions").onchange = function() {editModulesTable()}
@@ -311,3 +355,41 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("buttonToAdd").onclick = function() {AddToPlanner();};
     document.getElementById("logoutBtn").onclick = function() {global.logout();};
 })
+
+// Function to handle form submission and validation
+function saveDetails() {
+    // Get the values from the form fields
+    const degree = degreeInput.value.trim();  // Trim spaces
+    const gpa = gpaInput.value.trim();  // Get GPA as string
+    const year = yearInput.value;
+    const semester = semesterInput.value;
+
+    // Check if any field is empty
+    if (!degree || !gpa || !year || !semester) {
+        alert('Please fill out all fields.');
+        return;
+    }
+
+    // Convert GPA to number and validate range
+    const gpaValue = parseFloat(gpa);
+    if (gpaValue < 0.01 || gpaValue > 4.3) {
+        alert('Please enter a GPA between 0.01 and 4.3.');
+        return;
+    }
+
+    // Log the collected details (replace this with your save action)
+    console.log({
+        degree: degree,
+        gpa: gpaValue,
+        year: year,
+        semester: semester
+    });
+    //global.currUser.SetInitialValues(global.currUser.username, gpaValue, degree, year + semester)
+    //alert("Details saved successfully!");
+
+    // Close the modal after saving
+    $('#userDetailsModal').hide();
+}
+
+// Trigger save on button click
+saveDetailsBtn.addEventListener('click', saveDetails);
