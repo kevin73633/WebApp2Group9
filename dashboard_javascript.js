@@ -127,7 +127,10 @@ function UpdateCoursesList() {
         //Delete Button
         deleteButton.setAttribute("type", "button");
         deleteButton.setAttribute("class", "btn-course-delete");
-        deleteButton.onclick = function() {global.currUser.DeleteCourse(courseCode);};
+        deleteButton.onclick = function() {
+          global.currUser.DeleteCourse(courseCode);
+          UpdateCoursesList();
+        };
         var trashImg = document.createElement("img");
         trashImg.setAttribute('src', "images/trash.png");
         trashImg.style.height = "25px"
