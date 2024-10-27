@@ -74,8 +74,6 @@ function createFilterOptions(search=false)
         }
     }
 
-    console.log(Categories);
-
     for (let courseCategory of Categories) {
         var options = document.createElement("option");
         options.setAttribute("value", courseCategory);
@@ -198,9 +196,10 @@ function createRows(selectedOption, search=false)
                 var col = document.createElement("td");
                 var button = document.createElement("button");
                 button.setAttribute("type", "button");
-                button.setAttribute("class", "btn btn-secondary px-3 rounded-2");
+                button.setAttribute("class", "btn btn-secondary px-2 rounded-2");
                 button.setAttribute("data-bs-toggle", "modal");
                 button.setAttribute("data-bs-target",`#Modal_${courseCode}`);
+                button.setAttribute("style", "font-size:12px")
                 button.innerText = "View More";
                 col.appendChild(button);
                 row.appendChild(col);
