@@ -329,8 +329,7 @@ h4{
 /* Catalog Table */
 table {
     background-color: white;
-    border-radius: 15px;
-    overflow: hidden;
+    border-radius: 15px; 
 }
 
 table thead {
@@ -346,4 +345,36 @@ table th {
 	background-color: #ECECEC !important;
     padding-top: 20px!important;
 	padding-bottom: 20px!important;
+}
+
+.col-recom {
+	white-space: nowrap;
+	overflow: hidden; 
+	text-overflow: ellipsis;
+}
+
+/* Make table in Catalog scrollable */
+#tableModules {
+    width: 100%;
+    border-collapse: collapse; /* Keeps the table borders aligned */
+}
+
+#tableModules thead {
+    display: table; /* Restores thead layout */
+    width: 100%; /* Adjusts for any scrollbar width */
+    table-layout: fixed; /* Ensures columns align with tbody */
+}
+
+#tableModules tbody {
+    display: block;
+    max-height: 300px; /* Adjust height as needed */
+    overflow-y: auto;
+    width: 100%;
+}
+
+#tableModules th, #tableModules td {
+    width: 14.285%; /* Adjust as needed */
+    text-align: left;
+    padding: 8px;
+    box-sizing: border-box;
 }
