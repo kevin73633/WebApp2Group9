@@ -66,8 +66,14 @@ table {
 .steps {
 	color: white;
 	font-family: "Orbitron", sans-serif;
-	width: 426.93px;
+	width: margin 0 auto;
 
+}
+
+.steps2{
+	color: white;
+	width: margin 0 auto;
+	
 }
 
 .index-container {
@@ -139,7 +145,7 @@ h4{
 .google-button {
 	background-color: #ffffff  !important;
 	border: 1px solid #dcdcdc;
-	border-radius: 5px;
+	border-radius: 10px;
 	color: #333333;
 	display: flex;
 	justify-content: center;
