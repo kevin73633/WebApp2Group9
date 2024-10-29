@@ -378,3 +378,7 @@ table th {
     padding: 8px;
     box-sizing: border-box;
 }
+#ProfileBtn {
+	border: none;
+	background: none;
+}
