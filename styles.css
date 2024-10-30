@@ -241,6 +241,8 @@ h4{
 #courseTable
 {
     align-items: center; /* Center vertically */
+	line-height: 100%;
+	font-size: 95%;
 }
 .text-center {
     text-align: center;
@@ -369,6 +371,7 @@ table th {
 /* Make table in Catalog scrollable */
 #tableModules {
     width: 100%;
+	font-size: 95%;
     border-collapse: collapse; /* Keeps the table borders aligned */
 }
 
