@@ -382,3 +382,18 @@ table th {
 	border: none;
 	background: none;
 }
+
+/* Planner Page */
+.table-responsive {
+    display: flex;
+    overflow-x: auto;
+	white-space: nowrap;
+}
+
+.sticky-col {
+	position:sticky;
+    left: -12px;
+    background-color: white;
+    z-index: 1;
+    border-right: 1px solid #dee2e6; /* Optional: Add border for visual separation */
+}

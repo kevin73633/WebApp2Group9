@@ -21,6 +21,7 @@ function ShowPlanner()
         var row = document.createElement("tr");
         var td = document.createElement("td");
         td.textContent = global.Course.GetByCourseCode(course).courseName;
+        td.setAttribute("class", "sticky-col")
         row.appendChild(td);
         
         for (let index = 1; index < 17; index++) 
