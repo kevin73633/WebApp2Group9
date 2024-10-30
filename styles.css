@@ -391,7 +391,6 @@ table th {
     padding: 8px;
     box-sizing: border-box;
 }
-
 #userDetailsModalLabel{
 	/* color: white;
 	background-color: #040B31;
@@ -401,4 +400,8 @@ table th {
 	border-radius: 5px; */
 	color: black;
 	
+}
+#ProfileBtn {
+	border: none;
+	background: none;
 }

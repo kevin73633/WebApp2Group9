@@ -331,11 +331,12 @@ function saveDetails() {
       year: year,
       semester: semester
   });
-  //global.currUser.SetInitialValues(global.currUser.username, gpaValue, degree, year + semester)
+  global.currUser.SetProfileValues(gpaValue, degree, year + semester);
+  document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
   //alert("Details saved successfully!");
 
   // Close the modal after saving
-  $('#userDetailsModal').hide();
+  location.reload();
 }
 
 // Trigger save on button click

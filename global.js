@@ -183,6 +183,18 @@ class User
     });
     sessionStorage.setItem("currUser",  JSON.stringify(currUser));
   }
+  SetProfileValues(gpa = this.gpa, degree = this.degree, currentYearAndSem = this.currentYearAndSem)
+  {
+    this.gpa = gpa;
+    this.degree = degree;
+    this.currentYearAndSem = currentYearAndSem;
+    set(ref(db, 'users/' + this.uid), {
+      GPA: this.gpa,
+      degree: this.degree,
+      currentYearAndSem: this.currentYearAndSem
+    });
+    sessionStorage.setItem("currUser",  JSON.stringify(currUser));
+  }
   AddNewCourse(courseCode, yearAndSemTaken)
   {
     console.log(currUser.courses);
