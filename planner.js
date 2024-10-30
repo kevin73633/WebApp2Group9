@@ -12,7 +12,6 @@ const Categories = ["All Tracks"];
 var Courses = [];
 var SelectedCoursesList = [];
 
-// Acts like "import"
 function ShowPlanner()
 {
     var table = document.getElementById("plannerTable").getElementsByTagName("thead")[0];
