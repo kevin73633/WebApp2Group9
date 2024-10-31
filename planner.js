@@ -64,6 +64,18 @@ function ShowPlanner2()
         //td.style.backgroundColor = "red";
     }
 }
+function togglePlannerMode()
+{
+    var val = document.getElementById("viewToggle").checked;
+    if (val)
+    {
+        ShowPlanner2();
+    }
+    else
+    {
+        ShowPlanner1();
+    }
+}
 document.addEventListener('DOMContentLoaded', function() {
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
     global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
@@ -71,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("nameheader").textContent = global.currUser.username.replace(/_+$/, ' ');
     document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     global.currUser.SortCourses();
+    document.getElementById("viewToggle").onclick = function(){togglePlannerMode();};
     ShowPlanner1();
     //ShowPlanner2();
 })
