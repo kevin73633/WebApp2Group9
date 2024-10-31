@@ -14,6 +14,7 @@ var SelectedCoursesList = [];
 
 function ShowPlanner1()
 {
+    document.getElementById("plannerTable").style.display = "none";
     var coursePlanner = document.getElementById("coursePlanner");
     coursePlanner.innerHTML = "";
     var semCodes = ["1", "2", "3A", "3B"];
@@ -37,6 +38,8 @@ function ShowPlanner1()
 }
 function ShowPlanner2()
 {
+    document.getElementById("plannerTable").style.display = "block";
+    document.getElementById("coursePlanner").innerHTML = "";
     var table = document.getElementById("plannerTable").getElementsByTagName("thead")[0];
     var headers = table.getElementsByTagName("tr")[0];
     for (var course in global.currUser.courses)
@@ -68,8 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("nameheader").textContent = global.currUser.username.replace(/_+$/, ' ');
     document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     global.currUser.SortCourses();
-    ShowPlanner1();
-    ShowPlanner2();
+    //ShowPlanner1();
+    //ShowPlanner2();
 })
 
 
