@@ -325,12 +325,13 @@ function AddToPlanner()
     //console.log(global.currUser.courses);
 }
 
-function searchCourse() 
+function searchCourse(searchVal = "") 
 {
     /* This function deals with searches when user use to search function*/
 
     // Handle search button when pressed
     SearchCourses = []
+    document.getElementById("searchInput").value = searchVal;
     var searchInput = document.getElementById("searchInput").value;
     searchInput = searchInput.trim();
 
@@ -359,6 +360,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // console.log(global.currUser);
     FetchCourses();
     createModulesTable();
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('c');
+    if (myParam != null)
+        searchCourse(myParam);
     // For the search button
     document.getElementById("searchBtn").onclick = function() {searchCourse();}
     

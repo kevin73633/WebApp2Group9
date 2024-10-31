@@ -109,13 +109,13 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true)
         //Button
         let viewButton = document.createElement('a');
         viewButton.className = 'btn-course';
-        viewButton.setAttribute('href', '#');
+        viewButton.setAttribute('href', `catalog.html?c=${courseName}`);
 
         //View Button
         viewButton.setAttribute("type", "button");
         viewButton.setAttribute("class", "btn-course");
-        viewButton.setAttribute("data-bs-toggle", "modal");
-        viewButton.setAttribute("data-bs-target",`#Modal_${courseCode}`);
+        // viewButton.setAttribute("data-bs-toggle", "modal");
+        // viewButton.setAttribute("data-bs-target",`#Modal_${courseCode}`);
         viewButton.textContent = 'View';
         var deleteButton = null
         if (showDeleteBtn)
