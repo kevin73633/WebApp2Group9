@@ -118,6 +118,18 @@ class Course
     }
     return returnedCourseList;
   }
+  static GetAllCoursesInYearAndSem(yearAndSemTaken)
+  {
+    var returnedCourseList = [];
+    for (let index = 0; index < allCourses.length; index++) {
+      const element = allCourses[index];
+      if (currUser.courses[element.courseCode] != null && currUser.courses[element.courseCode] == yearAndSemTaken)
+      {
+        returnedCourseList.push(element)
+      }
+    }
+    return returnedCourseList;
+  }
   GetDegreeSpecificCourseCategory()
   {
     if (this.courseCategory.includes(","))
@@ -188,11 +200,12 @@ class User
     this.gpa = gpa;
     this.degree = degree;
     this.currentYearAndSem = currentYearAndSem;
-    set(ref(db, 'users/' + this.uid), {
-      GPA: this.gpa,
-      degree: this.degree,
-      currentYearAndSem: this.currentYearAndSem
-    });
+    const updates = {};
+    updates[`users/${this.uid}/GPA`] = gpa;
+    updates[`users/${this.uid}/degree`] = degree;
+    updates[`users/${this.uid}/currentYearAndSem`] = currentYearAndSem;
+
+    update(ref(db), updates);
     sessionStorage.setItem("currUser",  JSON.stringify(currUser));
   }
   AddNewCourse(courseCode, yearAndSemTaken)
