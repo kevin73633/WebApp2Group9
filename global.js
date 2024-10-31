@@ -201,7 +201,7 @@ class User
     this.degree = degree;
     this.currentYearAndSem = currentYearAndSem;
     const updates = {};
-    updates[`users/${this.uid}/gpa`] = gpa;
+    updates[`users/${this.uid}/GPA`] = gpa;
     updates[`users/${this.uid}/degree`] = degree;
     updates[`users/${this.uid}/currentYearAndSem`] = currentYearAndSem;
 
