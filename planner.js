@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("nameheader").textContent = global.currUser.username.replace(/_+$/, ' ');
     document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     global.currUser.SortCourses();
-    //ShowPlanner1();
+    ShowPlanner1();
     //ShowPlanner2();
 })
 
