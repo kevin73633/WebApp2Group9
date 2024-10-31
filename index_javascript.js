@@ -163,6 +163,7 @@ function saveDetails() {
         semester: semester
     });
     global.currUser.SetInitialValues(global.currUser.username, gpaValue, degree, year + semester)
+    sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
     //alert("Details saved successfully!");
 
     // Close the modal after saving

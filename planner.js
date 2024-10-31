@@ -12,7 +12,25 @@ const Categories = ["All Tracks"];
 var Courses = [];
 var SelectedCoursesList = [];
 
-function ShowPlanner()
+function ShowPlanner1()
+{
+    var coursePlanner = document.getElementById("coursePlanner");
+    coursePlanner.innerHTML = "";
+    var semCodes = ["1", "2", "3A", "3B"];
+    for (let index = 0; index < 4; index++) {
+        var content = 
+                    `<div class="card col-3">
+                        <h3 class="py-2">&nbsp Year ${index + 1}</h3>`
+                        for (let index2 = 0; index2 < 4; index2++) {
+                            content += `<div class="card-body">
+                                <h5 class="card-title">Semester ${semCodes[index2]}</h5>
+                            </div>`
+                        }
+                    content +=`</div>`
+                    coursePlanner.innerHTML += content;
+    }
+}
+function ShowPlanner2()
 {
     var table = document.getElementById("plannerTable").getElementsByTagName("thead")[0];
     var headers = table.getElementsByTagName("tr")[0];
@@ -45,8 +63,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("nameheader").textContent = global.currUser.username.replace(/_+$/, ' ');
     document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     global.currUser.SortCourses();
-    ShowPlanner();
-    
+    ShowPlanner1();
+    ShowPlanner2();
 })
 
 
@@ -80,6 +98,7 @@ function saveDetails() {
         semester: semester
     });
     global.currUser.SetProfileValues(gpaValue, degree, year + semester);
+    sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
     document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     //alert("Details saved successfully!");
 
