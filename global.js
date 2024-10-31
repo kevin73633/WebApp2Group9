@@ -118,6 +118,18 @@ class Course
     }
     return returnedCourseList;
   }
+  static GetAllCoursesInYearAndSem(yearAndSemTaken)
+  {
+    var returnedCourseList = [];
+    for (let index = 0; index < allCourses.length; index++) {
+      const element = allCourses[index];
+      if (currUser.courses[element.courseCode] != null && currUser.courses[element.courseCode] == yearAndSemTaken)
+      {
+        returnedCourseList.push(element)
+      }
+    }
+    return returnedCourseList;
+  }
   GetDegreeSpecificCourseCategory()
   {
     if (this.courseCategory.includes(","))

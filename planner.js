@@ -23,8 +23,13 @@ function ShowPlanner1()
                         <h3 class="py-2">&nbsp Year ${index + 1}</h3>`
                         for (let index2 = 0; index2 < 4; index2++) {
                             content += `<div class="card-body">
-                                <h5 class="card-title">Semester ${semCodes[index2]}</h5>
-                            </div>`
+                                <h5 class="card-title">Semester ${semCodes[index2]}</h5>`
+                                var CoursesInYearAndSem = global.Course.GetAllCoursesInYearAndSem("Y" + (index + 1) + "S" + semCodes[index2]);
+                                for (let index3 = 0; index3 < CoursesInYearAndSem.length; index3++) {
+                                    const element = CoursesInYearAndSem[index3];
+                                    content+=`<div class="card my-1 text-center">${global.Course.GetByCourseCode(element.courseCode).courseName}</div>`
+                                }
+                            content+=`</div>`
                         }
                     content +=`</div>`
                     coursePlanner.innerHTML += content;
