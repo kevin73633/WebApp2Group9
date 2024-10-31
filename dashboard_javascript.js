@@ -204,7 +204,7 @@ function UpdateCoursesList() {
   }
   for (var course of global.Course.GetAllCoursesForDegree())
   {
-    if (global.currUser.courses[course.courseCode] == null)
+    if (global.currUser.courses != null && global.currUser.courses[course.courseCode] == null)
     {
       recommendedcourses[course.courseCode] = course.GetDegreeSpecificRecommendedDate();
     }

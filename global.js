@@ -200,11 +200,12 @@ class User
     this.gpa = gpa;
     this.degree = degree;
     this.currentYearAndSem = currentYearAndSem;
-    set(ref(db, 'users/' + this.uid), {
-      GPA: this.gpa,
-      degree: this.degree,
-      currentYearAndSem: this.currentYearAndSem
-    });
+    const updates = {};
+    updates[`users/${this.uid}/gpa`] = gpa;
+    updates[`users/${this.uid}/degree`] = degree;
+    updates[`users/${this.uid}/currentYearAndSem`] = currentYearAndSem;
+
+    update(ref(db), updates);
     sessionStorage.setItem("currUser",  JSON.stringify(currUser));
   }
   AddNewCourse(courseCode, yearAndSemTaken)
