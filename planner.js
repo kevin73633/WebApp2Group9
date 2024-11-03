@@ -62,7 +62,7 @@ function ShowPlanner2()
                             <th scope="col"> </th>
                         </tr>`
     var headers = table.getElementsByTagName("tr")[0];
-    for (var course in global.currUser.courses)
+    for (var course in global.currUser.GetAllCourseYearAndSemTaken())
     {
         var row = document.createElement("tr");
         var td = document.createElement("td");
@@ -74,7 +74,7 @@ function ShowPlanner2()
         {
             td = document.createElement("td");
             var currHeader = headers.getElementsByTagName("th");
-            if (currHeader[index].getAttribute("value") == global.currUser.courses[course])
+            if (currHeader[index].getAttribute("value") == global.currUser.GetAllCourseYearAndSemTaken()[course])
             {
                 td.style.backgroundColor = "red";
             }

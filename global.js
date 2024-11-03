@@ -239,6 +239,10 @@ class User
     sessionStorage.setItem("currUser",  JSON.stringify(currUser));
     return update(ref(db), updates);
   }
+  GetAllCourseYearAndSemTaken()
+  {
+    return this.courses;
+  }
   DeleteCourse(courseCode)
   {
     var temp = [];

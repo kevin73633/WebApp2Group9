@@ -175,7 +175,7 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true)
   }
 }
 function UpdateCoursesList() {
-  var courses = global.currUser.courses;
+  var courses = global.currUser.GetAllCourseYearAndSemTaken();
   var currentYear = global.currUser.currentYearAndSem.split("S")[0].split("Y")[1];
   var currentSem = global.currUser.currentYearAndSem.split("S")[1];
   if (currentSem == "3a")
@@ -204,7 +204,7 @@ function UpdateCoursesList() {
   }
   for (var course of global.Course.GetAllCoursesForDegree())
   {
-    if (global.currUser.courses != null && global.currUser.courses[course.courseCode] == null)
+    if (global.currUser.GetAllCourseYearAndSemTaken() != null && global.currUser.GetAllCourseYearAndSemTaken()[course.courseCode] == null)
     {
       recommendedcourses[course.courseCode] = course.GetDegreeSpecificRecommendedDate();
     }
