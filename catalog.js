@@ -325,12 +325,13 @@ function AddToPlanner()
     //console.log(global.currUser.courses);
 }
 
-function searchCourse() 
+function searchCourse(searchVal = "") 
 {
     /* This function deals with searches when user use to search function*/
 
     // Handle search button when pressed
     SearchCourses = []
+    document.getElementById("searchInput").value = searchVal;
     var searchInput = document.getElementById("searchInput").value;
     searchInput = searchInput.trim();
 
@@ -359,6 +360,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // console.log(global.currUser);
     FetchCourses();
     createModulesTable();
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('c');
+    if (myParam != null)
+        searchCourse(myParam);
     // For the search button
     document.getElementById("searchBtn").onclick = function() {searchCourse();}
     
@@ -410,6 +415,7 @@ function saveDetails() {
         semester: semester
     });
     global.currUser.SetProfileValues(gpaValue, degree, year + semester);
+    sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
     document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     //alert("Details saved successfully!");
 

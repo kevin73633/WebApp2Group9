@@ -109,13 +109,13 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true)
         //Button
         let viewButton = document.createElement('a');
         viewButton.className = 'btn-course';
-        viewButton.setAttribute('href', '#');
+        viewButton.setAttribute('href', `catalog.html?c=${courseName}`);
 
         //View Button
         viewButton.setAttribute("type", "button");
         viewButton.setAttribute("class", "btn-course");
-        viewButton.setAttribute("data-bs-toggle", "modal");
-        viewButton.setAttribute("data-bs-target",`#Modal_${courseCode}`);
+        // viewButton.setAttribute("data-bs-toggle", "modal");
+        // viewButton.setAttribute("data-bs-target",`#Modal_${courseCode}`);
         viewButton.textContent = 'View';
         var deleteButton = null
         if (showDeleteBtn)
@@ -175,7 +175,7 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true)
   }
 }
 function UpdateCoursesList() {
-  var courses = global.currUser.courses;
+  var courses = global.currUser.GetAllCourseYearAndSemTaken();
   var currentYear = global.currUser.currentYearAndSem.split("S")[0].split("Y")[1];
   var currentSem = global.currUser.currentYearAndSem.split("S")[1];
   if (currentSem == "3a")
@@ -194,7 +194,6 @@ function UpdateCoursesList() {
       courseSem = 3;
     if (courseSem == "3b")
       courseSem = 4;
-    console.log(courses[course] + " " + global.currUser.currentYearAndSem)
     if (courseSem == currentSem && courseYear == currentYear)
       enrolledcourses[course] = courses[course];
     else if (courseSem > currentSem && courseYear == currentYear || courseYear > currentYear)
@@ -204,7 +203,7 @@ function UpdateCoursesList() {
   }
   for (var course of global.Course.GetAllCoursesForDegree())
   {
-    if (global.currUser.courses[course.courseCode] == null)
+    if (global.currUser.GetAllCourseYearAndSemTaken() != null && global.currUser.GetAllCourseYearAndSemTaken()[course.courseCode] == null)
     {
       recommendedcourses[course.courseCode] = course.GetDegreeSpecificRecommendedDate();
     }
@@ -332,6 +331,7 @@ function saveDetails() {
       semester: semester
   });
   global.currUser.SetProfileValues(gpaValue, degree, year + semester);
+  sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
   document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
   //alert("Details saved successfully!");
 

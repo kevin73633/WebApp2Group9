@@ -12,23 +12,69 @@ const Categories = ["All Tracks"];
 var Courses = [];
 var SelectedCoursesList = [];
 
-// Acts like "import"
-function ShowPlanner()
+function ShowPlanner1()
 {
+    document.getElementById("plannerTable").style.display = "none";
+    var coursePlanner = document.getElementById("coursePlanner");
+    coursePlanner.innerHTML = "";
+    var semCodes = ["1", "2", "3A", "3B"];
+    for (let index = 0; index < 4; index++) {
+        var content = 
+                    `<div class="card col-3">
+                        <h3 class="py-2">&nbsp Year ${index + 1}</h3>`
+                        for (let index2 = 0; index2 < 4; index2++) {
+                            content += `<div class="card-body">
+                                <h5 class="card-title">Semester ${semCodes[index2]}</h5>`
+                                var CoursesInYearAndSem = global.Course.GetAllCoursesInYearAndSem("Y" + (index + 1) + "S" + semCodes[index2]);
+                                for (let index3 = 0; index3 < CoursesInYearAndSem.length; index3++) {
+                                    const element = CoursesInYearAndSem[index3];
+                                    content+=`<div class="card my-1 text-center">${global.Course.GetByCourseCode(element.courseCode).courseName}</div>`
+                                }
+                            content+=`</div>`
+                        }
+                    content +=`</div>`
+                    coursePlanner.innerHTML += content;
+    }
+}
+function ShowPlanner2()
+{
+    document.getElementById("plannerTable").style.display = "block";
+    document.getElementById("coursePlanner").innerHTML = "";
     var table = document.getElementById("plannerTable").getElementsByTagName("thead")[0];
+    table.innerHTML =   `<tr>
+                            <th scope="col" class="text-body-tertiary sticky-col">Module Name</th>
+                            <th scope="col" value = "Y1S1" class="text-body-tertiary">Y1S1</th>
+                            <th scope="col" value = "Y1S2" class="text-body-tertiary">Y1S2</th>
+                            <th scope="col" value = "Y1S3a" class="text-body-tertiary">Y1S3A</th>
+                            <th scope="col" value = "Y1S3b" class="text-body-tertiary">Y1S3B</th>
+                            <th scope="col" value = "Y2S1" class="text-body-tertiary">Y2S1</th>
+                            <th scope="col" value = "Y2S2" class="text-body-tertiary">Y2S2</th>
+                            <th scope="col" value = "Y2S3a" class="text-body-tertiary">Y2S3A</th>
+                            <th scope="col" value = "Y2S3b" class="text-body-tertiary">Y2S3B</th>
+                            <th scope="col" value = "Y3S1" class="text-body-tertiary">Y3S1</th>
+                            <th scope="col" value = "Y3S2" class="text-body-tertiary">Y3S2</th>
+                            <th scope="col" value = "Y3S3a" class="text-body-tertiary">Y3S3A</th>
+                            <th scope="col" value = "Y3S3b" class="text-body-tertiary">Y3S3B</th>
+                            <th scope="col" value = "Y4S1" class="text-body-tertiary">Y4S1</th>
+                            <th scope="col" value = "Y4S2" class="text-body-tertiary">Y4S2</th>
+                            <th scope="col" value = "Y4S3a" class="text-body-tertiary">Y4S3A</th>
+                            <th scope="col" value = "Y4S3b" class="text-body-tertiary">Y4S3B</th>
+                            <th scope="col"> </th>
+                        </tr>`
     var headers = table.getElementsByTagName("tr")[0];
-    for (var course in global.currUser.courses)
+    for (var course in global.currUser.GetAllCourseYearAndSemTaken())
     {
         var row = document.createElement("tr");
         var td = document.createElement("td");
         td.textContent = global.Course.GetByCourseCode(course).courseName;
+        td.setAttribute("class", "sticky-col")
         row.appendChild(td);
         
         for (let index = 1; index < 17; index++) 
         {
             td = document.createElement("td");
             var currHeader = headers.getElementsByTagName("th");
-            if (currHeader[index].getAttribute("value") == global.currUser.courses[course])
+            if (currHeader[index].getAttribute("value") == global.currUser.GetAllCourseYearAndSemTaken()[course])
             {
                 td.style.backgroundColor = "red";
             }
@@ -38,6 +84,18 @@ function ShowPlanner()
         //td.style.backgroundColor = "red";
     }
 }
+function togglePlannerMode()
+{
+    var val = document.getElementById("viewToggle").checked;
+    if (val)
+    {
+        ShowPlanner2();
+    }
+    else
+    {
+        ShowPlanner1();
+    }
+}
 document.addEventListener('DOMContentLoaded', function() {
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
     global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
@@ -45,8 +103,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("nameheader").textContent = global.currUser.username.replace(/_+$/, ' ');
     document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     global.currUser.SortCourses();
-    ShowPlanner();
-    
+    document.getElementById("viewToggle").onclick = function(){togglePlannerMode();};
+    ShowPlanner1();
+    //ShowPlanner2();
 })
 
 
@@ -80,6 +139,7 @@ function saveDetails() {
         semester: semester
     });
     global.currUser.SetProfileValues(gpaValue, degree, year + semester);
+    sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
     document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     //alert("Details saved successfully!");
 

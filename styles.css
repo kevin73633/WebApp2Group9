@@ -269,6 +269,8 @@ h4{
 .card-text2{
 	display: flex;
 	justify-content: space-between;
+	padding-left: 16px;
+	padding-right: 16px;
 }
 .btn-course-delete {
     font-family: "Poppins", sans-serif;
@@ -406,4 +408,87 @@ table th {
 #ProfileBtn {
 	border: none;
 	background: none;
+}
+/* Planner Page */
+.table-responsive {
+    display: flex;
+    overflow-x: auto;
+	white-space: nowrap;
+}
+
+.sticky-col {
+	position:sticky;
+    left: -12px;
+    background-color: white;
+    z-index: 1;
+    border-right: 1px solid #dee2e6; /* Optional: Add border for visual separation */
+}
+
+/* Toggle */
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 90px;
+	height: 34px;
+}
+  
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #252525;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+input:checked + .slider {
+	background-color: #040B31;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(55px);
+	-ms-transform: translateX(55px);
+	transform: translateX(55px);
+}
+
+.on
+{
+	display: none;
+}
+
+.on, .off
+{
+	color: white;
+	position: absolute;
+	transform: translate(10%,-50%);
+	top: 50%;
+	left: 50%;
+	font-size: 10px;
+	font-family: Verdana, sans-serif;
+}
+
+input:checked + .slider .on
+{
+	display: block;
+	transform: translate(-60%,-50%);
+}
+
+input:checked + .slider .off
+{
+	display: none;
 }
