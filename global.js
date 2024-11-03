@@ -241,7 +241,12 @@ class User
   }
   GetAllCourseYearAndSemTaken()
   {
-    return this.courses;
+    var tempCourses = {};
+    for (var course in currUser.courses)
+    {
+      tempCourses[course] = currUser.courses[course];
+    }
+    return tempCourses;
   }
   DeleteCourse(courseCode)
   {

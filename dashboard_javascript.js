@@ -194,7 +194,6 @@ function UpdateCoursesList() {
       courseSem = 3;
     if (courseSem == "3b")
       courseSem = 4;
-    console.log(courses[course] + " " + global.currUser.currentYearAndSem)
     if (courseSem == currentSem && courseYear == currentYear)
       enrolledcourses[course] = courses[course];
     else if (courseSem > currentSem && courseYear == currentYear || courseYear > currentYear)
