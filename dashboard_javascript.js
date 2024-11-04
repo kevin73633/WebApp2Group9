@@ -36,7 +36,7 @@ function formatDate(date) {
   const currentDate = new Date();
   currentDateElement.textContent = formatDate(currentDate);
 
-function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true)
+function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, showViewBtn = false)
 {
   var courseCodes = Object.keys(courses);
   
@@ -112,11 +112,14 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true)
         viewButton.setAttribute('href', `catalog.html?c=${courseName}`);
 
         //View Button
-        viewButton.setAttribute("type", "button");
-        viewButton.setAttribute("class", "btn-course");
-        // viewButton.setAttribute("data-bs-toggle", "modal");
-        // viewButton.setAttribute("data-bs-target",`#Modal_${courseCode}`);
-        viewButton.textContent = 'View';
+        if (showViewBtn)
+        {
+          viewButton.setAttribute("type", "button");
+          viewButton.setAttribute("class", "btn-course");
+          // viewButton.setAttribute("data-bs-toggle", "modal");
+          // viewButton.setAttribute("data-bs-target",`#Modal_${courseCode}`);
+          viewButton.textContent = 'View';
+        }
         var deleteButton = null
         if (showDeleteBtn)
         {
@@ -141,8 +144,8 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true)
         // Create Modal
         createCourseModal(courseCode,courseName,courseDescription );
         
-
-        cardText.appendChild(viewButton);
+        if (showViewBtn)
+          cardText.appendChild(viewButton);
         cardText2.appendChild(cardTitle);
         if (showDeleteBtn)
           cardText2.appendChild(deleteButton);
@@ -210,8 +213,14 @@ function UpdateCoursesList() {
   }
   FillCourseList(document.getElementById("enrolledCarousel").children[0], enrolledcourses);
   FillCourseList(document.getElementById("plannedCarousel").children[0], plannedcourses);
-  FillCourseList(document.getElementById("recommendedCarousel").children[0], recommendedcourses, false);
+  FillCourseList(document.getElementById("recommendedCarousel").children[0], recommendedcourses, false, true);
   FillCourseList(document.getElementById("completedCarousel").children[0], completedcourses);
+  if (Object.keys(enrolledcourses).length == 0)
+    document.getElementById("enrolledCarousel").parentElement.style.display = "none";
+  if (Object.keys(plannedcourses).length == 0)
+    document.getElementById("plannedCarousel").parentElement.style.display = "none";
+  if (Object.keys(completedcourses).length == 0)
+    document.getElementById("completedCarousel").parentElement.style.display = "none";
 }
 
 function createCourseModal(courseCode, courseName, courseDescription) {
