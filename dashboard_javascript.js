@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //Get Current Date
 function formatDate(date) {
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
-  return date.toLocaleDateString('en-US', options);
+  return date.toLocaleDateString('en-UK', options);
 }
 
   const currentDateElement = document.getElementById('currentDate');
