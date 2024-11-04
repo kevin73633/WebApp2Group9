@@ -7,7 +7,7 @@ import { get, getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/1
 import * as global from './global.js';
 
 // All 'global variables'
-var Categories = ["All Tracks"];
+var Categories = ["All Tracks", "CS", "SE", "IS", "C&L"];
 var Courses = [];
 var SearchCourses = [];
 var SelectedCoursesList = [];
@@ -331,7 +331,8 @@ function searchCourse(searchVal = "")
 
     // Handle search button when pressed
     SearchCourses = []
-    document.getElementById("searchInput").value = searchVal;
+    if (searchVal != "")
+        document.getElementById("searchInput").value = searchVal;
     var searchInput = document.getElementById("searchInput").value;
     searchInput = searchInput.trim();
 
