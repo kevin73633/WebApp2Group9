@@ -106,12 +106,16 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
 
         let cardText2 = document.createElement('p');
         cardText2.className = 'card-text2';
+
         //Button
         let viewButton = document.createElement('a');
         viewButton.className = 'btn-course';
         viewButton.setAttribute('href', `catalog.html?c=${courseName}`);
 
         //View Button
+        let row2 = document.createElement('div');
+        row2.className = 'row';
+        row2.id = "viewMoreButton";
         if (showViewBtn)
         {
           viewButton.setAttribute("type", "button");
@@ -119,7 +123,16 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
           // viewButton.setAttribute("data-bs-toggle", "modal");
           // viewButton.setAttribute("data-bs-target",`#Modal_${courseCode}`);
           viewButton.textContent = 'View';
+          let col_ = document.createElement('div');
+          col_.className = 'col-md-1';
+          let col2 = document.createElement('div');
+          col2.className = 'col-md-4';
+          col2.appendChild(viewButton);
+          row2.appendChild(col_);
+          row2.appendChild(col2);
         }
+
+        // Delete Button
         var deleteButton = null
         if (showDeleteBtn)
         {
@@ -144,8 +157,6 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
         // Create Modal
         createCourseModal(courseCode,courseName,courseDescription );
         
-        if (showViewBtn)
-          cardText.appendChild(viewButton);
         cardText2.appendChild(cardTitle);
         if (showDeleteBtn)
           cardText2.appendChild(deleteButton);
@@ -165,6 +176,8 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
         row.appendChild(colImg);
         card.appendChild(cardText2);
         card.appendChild(row);
+        if (showViewBtn)
+          card.appendChild(row2);
         cardDeck.appendChild(card);
       } else {
         let emptyCard = document.createElement('div');
@@ -178,7 +191,7 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
   }
 }
 function UpdateCoursesList() {
-  var courses = global.currUser.GetAllCourseYearAndSemTaken();
+  var courses = global.currUser.courses;
   var currentYear = global.currUser.currentYearAndSem.split("S")[0].split("Y")[1];
   var currentSem = global.currUser.currentYearAndSem.split("S")[1];
   if (currentSem == "3a")
@@ -197,6 +210,7 @@ function UpdateCoursesList() {
       courseSem = 3;
     if (courseSem == "3b")
       courseSem = 4;
+    console.log(courses[course] + " " + global.currUser.currentYearAndSem)
     if (courseSem == currentSem && courseYear == currentYear)
       enrolledcourses[course] = courses[course];
     else if (courseSem > currentSem && courseYear == currentYear || courseYear > currentYear)
@@ -206,7 +220,7 @@ function UpdateCoursesList() {
   }
   for (var course of global.Course.GetAllCoursesForDegree())
   {
-    if (global.currUser.GetAllCourseYearAndSemTaken() != null && global.currUser.GetAllCourseYearAndSemTaken()[course.courseCode] == null)
+    if (global.currUser.courses != null && global.currUser.courses[course.courseCode] == null)
     {
       recommendedcourses[course.courseCode] = course.GetDegreeSpecificRecommendedDate();
     }
