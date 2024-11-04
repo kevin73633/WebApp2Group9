@@ -34,7 +34,7 @@ function CreateNewUser(user) {
       GPA: initialGPA,
       courses: [],
     });
-    currUser = new User(user.uid, user.displayName, initialGPA);
+    currUser = new User(user.uid, user.displayName, initialGPA, {});
 }
 function logout () {
     console.log("Logging out");
@@ -210,7 +210,8 @@ class User
   }
   AddNewCourse(courseCode, yearAndSemTaken)
   {
-    console.log(currUser.courses);
+    if (currUser.courses == null)
+      currUser.courses = {};
     // Get a key for a new Post.
     var localuser =  ref(db,`users/${this.uid}`);
 
