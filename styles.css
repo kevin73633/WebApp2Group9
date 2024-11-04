@@ -66,8 +66,14 @@ table {
 .steps {
 	color: white;
 	font-family: "Orbitron", sans-serif;
-	width: 426.93px;
+	width: margin 0 auto;
 
+}
+
+.steps2{
+	color: white;
+	width: margin 0 auto;
+	
 }
 
 .index-container {
@@ -139,7 +145,7 @@ h4{
 .google-button {
 	background-color: #ffffff  !important;
 	border: 1px solid #dcdcdc;
-	border-radius: 5px;
+	border-radius: 10px;
 	color: #333333;
 	display: flex;
 	justify-content: center;
@@ -235,6 +241,8 @@ h4{
 #courseTable
 {
     align-items: center; /* Center vertically */
+	line-height: 100%;
+	font-size: 95%;
 }
 .text-center {
     text-align: center;
@@ -295,8 +303,15 @@ h4{
 	height: auto;
 }
 .form-select{
-	background-color: #040B31 !important;
-	color: white !important;
+	background-color: white;
+	color: black;
+	/* background-color: #040B31 !important; 
+	color: white !important;  */
+}
+
+.form-label, .mb-3{
+	/* background-color: #040B31 !important; */
+	color: black;
 }
 
 .carousel-control-prev,
@@ -358,6 +373,7 @@ table th {
 /* Make table in Catalog scrollable */
 #tableModules {
     width: 100%;
+	font-size: 95%;
     border-collapse: collapse; /* Keeps the table borders aligned */
 }
 
@@ -380,11 +396,19 @@ table th {
     padding: 8px;
     box-sizing: border-box;
 }
+#userDetailsModalLabel{
+	/* color: white;
+	background-color: #040B31;
+	width: margin 0 auto;
+	padding-left: 10px;
+	padding-right: 90px;
+	border-radius: 5px; */
+	color: black;
+}
 #ProfileBtn {
 	border: none;
 	background: none;
 }
-
 /* Planner Page */
 .table-responsive {
     display: flex;

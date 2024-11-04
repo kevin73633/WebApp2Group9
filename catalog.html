@@ -128,28 +128,41 @@
             <div class="row" id="welcome-banner">
                 <p id="banner_name" class="h3 mb-1">Course Catalogue</p>
             </div>
+
             <div class="row py-3" id="filter-search">
-                <div class="col-3">
-                    <!-- Dropdown -->
-                    <select class="form-select rounded-5 text-white" aria-label="Filter options" id="filterOptions"></select>
+                <!-- Dropdown -->
+                <div class="row">
+                <div class="col-12 col-lg-3 mb-2 mb-lg-0">
+                    <select class="form-select rounded-5 text-black" aria-label="Filter options" id="filterOptions">
+                        <!-- Options here -->
+                    </select>
                 </div>
-                <div class="col-4"></div>
-                <div class="col-4">
-                    <!-- Search Bar -->
-                    <div class="input-group mb-3 flex-nowrap">
+                
+                <!-- Empty Column for Spacing on Larger Screens -->
+                <div class="col-12 col-lg-4 mb-2 mb-lg-0 d-none d-lg-block"></div>
+                
+                <!-- Search Bar -->
+                
+                <div class="col-9 col-lg-4 mb-2 mb-lg-0 d-flex justify-content-between">
+                    <div class="input-group flex-nowrap">
                         <input type="text" class="form-control rounded-5" placeholder="Code/Name of Module" aria-label="module_input" id="searchInput" value="">
                     </div>
                 </div>
-                <div class="col-1">
+           
+                <!-- Search Button -->
+                <div class="col-3 col-lg-1 d-flex justify-content-end m-auto">
                     <button type="button" class="button-primary px-3 rounded-5" id="searchBtn">Search</button>
                 </div>
+                </div>
             </div>
-
-            <div id="courseTable">
+            
+            <!-- Course Table -->
+            
+            <div id="courseTable" class="table-responsive">
                 <table class="table rounded-3" id="tableModules">
                     <thead>
                         <tr>
-                            <th scope="col" class="text-body-tertiary text-center">Select</th>
+                            <th scope="col" class="text-body-tertiary text-center align-content-center">Select</th>
                             <th scope="col" class="text-body-tertiary col-recom">Module Name</th>
                             <th scope="col" class="text-body-tertiary">Code</th>
                             <th scope="col" class="text-body-tertiary col-recom">Category</th>
@@ -165,12 +178,13 @@
                     </tbody>
                 </table>
             </div>
+            
 
                 <div id="modalInsert"></div>
 
                 <div class="row py-2">
                     <div class="col-4">
-                        <button type="button" class="button-primary px-4 rounded-5" id="addToPlanner" data-bs-toggle="modal" data-bs-target="#addToPlannerModal">Add to My Planner</button>
+                        <button type="button" class="button-primary px-4 rounded-5" id="addToPlanner" data-bs-toggle="modal" data-bs-target="#addToPlannerModal">Add to Planner</button>
                     </div>
                     <div class="col-5"></div>
                 </div>
