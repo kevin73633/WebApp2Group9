@@ -118,16 +118,27 @@ function saveDetails() {
     const year = yearInput.value;
     const semester = semesterInput.value;
 
+    // Errors
+    const gpaError = document.getElementById('gpaError');
+    gpaError.textContent = '';
+
+    const saveDetailsError = document.getElementById('saveDetailsError');
+    saveDetailsError.textContent = '';
+
     // Check if any field is empty
     if (!degree || !gpa || !year || !semester) {
-        alert('Please fill out all fields.');
+        // alert('Please fill out all fields.');
+        saveDetailsError.textContent = 'Please fill out all fields.';
+        saveDetailsError.style.display = 'block';
         return;
     }
 
     // Convert GPA to number and validate range
     const gpaValue = parseFloat(gpa);
     if (gpaValue < 0.01 || gpaValue > 4.3) {
-        alert('Please enter a GPA between 0.01 and 4.3.');
+    // alert('Please enter a GPA between 0.01 and 4.3.');
+        gpaError.textContent = 'GPA must be between 0.01 and 4.3.';
+        gpaError.style.display = 'block';
         return;
     }
 

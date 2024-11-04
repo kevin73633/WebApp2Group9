@@ -1,7 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import  { getDatabase, ref, get, set, child, onValue, onChildAdded, onChildChanged, onChildRemoved}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-import  { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut}  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { get } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import * as global from './global.js';
@@ -333,17 +331,28 @@ function saveDetails() {
   const year = yearInput.value;
   const semester = semesterInput.value;
 
+    // Errors
+    const gpaError = document.getElementById('gpaError');
+      gpaError.textContent = '';
+
+    const saveDetailsError = document.getElementById('saveDetailsError');
+    saveDetailsError.textContent = '';
+
   // Check if any field is empty
   if (!degree || !gpa || !year || !semester) {
-      alert('Please fill out all fields.');
+    // alert('Please fill out all fields.');
+    saveDetailsError.textContent = 'Please fill out all fields.';
+    saveDetailsError.style.display = 'block';
       return;
   }
 
   // Convert GPA to number and validate range
   const gpaValue = parseFloat(gpa);
   if (gpaValue < 0.01 || gpaValue > 4.3) {
-      alert('Please enter a GPA between 0.01 and 4.3.');
-      return;
+  // alert('Please enter a GPA between 0.01 and 4.3.');
+    gpaError.textContent = 'GPA must be between 0.01 and 4.3.';
+    gpaError.style.display = 'block';
+    return;
   }
 
   // Log the collected details (replace this with your save action)
