@@ -491,3 +491,9 @@ input:checked + .slider .off
 {
 	display: none;
 }
+
+.error {
+	color: red;
+	font-size: 0.9em;
+	display: none;
+}
