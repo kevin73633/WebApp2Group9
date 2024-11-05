@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
 })
 
-//Get Current Date
 function formatDate(date) {
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
   return date.toLocaleDateString('en-UK', options);
@@ -41,16 +40,15 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
   var courseCodes = Object.keys(courses);
   
   let totalCards = courseCodes.length;
-  let cardsPerSlide = 3; // Default for tablet/laptop
+  let cardsPerSlide = 3;
 
-  // Determine cards per slide based on screen size
-  if (window.innerWidth >= 1500) { // Desktop
-    cardsPerSlide = 4; // Adjust as needed
-  } else if (window.innerWidth >= 992) { // Laptop
+  if (window.innerWidth >= 1500) {
+    cardsPerSlide = 4;
+  } else if (window.innerWidth >= 992) {
     cardsPerSlide = 3;
-  } else if (window.innerWidth >= 768) { // Tablet
+  } else if (window.innerWidth >= 768) {
     cardsPerSlide = 2;
-  } else { // Mobile
+  } else {
     cardsPerSlide = 1;
   }
 
@@ -74,16 +72,13 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
       if (j < cardsToShow) {
         let cardIndex = (i * cardsPerSlide + j);
         let courseCode = courseCodes[cardIndex];
-        
-        // Fetch the course name for the current course code
+
         let courseName = global.Course.GetByCourseCode(courseCode).courseName;
         let courseDescription = global.Course.GetByCourseCode(courseCode).courseDescription;
 
-        // Card
         let card = document.createElement('div');
         card.className = 'card mb-3';
 
-        // Row and columns
         let row = document.createElement('div');
         row.className = 'row g-0';
 
@@ -107,12 +102,10 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
         let cardText2 = document.createElement('p');
         cardText2.className = 'card-text2';
 
-        //Button
         let viewButton = document.createElement('a');
         viewButton.className = 'btn-course';
         viewButton.setAttribute('href', `catalog.html?c=${courseName}`);
 
-        //View Button
         let row2 = document.createElement('div');
         row2.className = 'row';
         row2.id = "viewMoreButton";
@@ -120,8 +113,7 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
         {
           viewButton.setAttribute("type", "button");
           viewButton.setAttribute("class", "btn-course");
-          // viewButton.setAttribute("data-bs-toggle", "modal");
-          // viewButton.setAttribute("data-bs-target",`#Modal_${courseCode}`);
+
           viewButton.textContent = 'View';
           let col_ = document.createElement('div');
           col_.className = 'col-md-1';
@@ -132,7 +124,6 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
           row2.appendChild(col2);
         }
 
-        // Delete Button
         var deleteButton = null
         if (showDeleteBtn)
         {
@@ -140,7 +131,6 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
           deleteButton.className = 'btn-course-delete';
           deleteButton.setAttribute('href', '#');
 
-          //Delete Button
           deleteButton.setAttribute("type", "button");
           deleteButton.setAttribute("class", "btn-course-delete");
           deleteButton.onclick = function() {
@@ -154,7 +144,6 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
           deleteButton.appendChild(trashImg);
         }
 
-        // Create Modal
         createCourseModal(courseCode,courseName,courseDescription );
         
         cardText2.appendChild(cardTitle);
@@ -190,6 +179,7 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
     enrolledCoursesCarousel.appendChild(carouselItem);
   }
 }
+
 function UpdateCoursesList() {
   var courses = global.currUser.courses;
   var currentYear = global.currUser.currentYearAndSem.split("S")[0].split("Y")[1];
@@ -294,8 +284,6 @@ function createCourseModal(courseCode, courseName, courseDescription) {
   modalsContainer.appendChild(modalDiv);
 }
 
-
-
 // Optionally, call the function on window resize to adapt to size changes
 window.addEventListener('resize', UpdateCoursesList);
 
@@ -323,8 +311,6 @@ function FetchUsersCourses()
   });
   
 }
-
-
 // Function to handle form submission and validation
 function saveDetails() {
   // Get the values from the form fields

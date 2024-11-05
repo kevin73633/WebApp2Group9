@@ -41,25 +41,26 @@ function ShowPlanner2()
     document.getElementById("plannerTable").style.display = "block";
     document.getElementById("coursePlanner").innerHTML = "";
     var table = document.getElementById("plannerTable").getElementsByTagName("thead")[0];
-    table.innerHTML =   `<tr>
-                            <th scope="col" class="text-body-tertiary sticky-col">Module Name</th>
-                            <th scope="col" value = "Y1S1" class="text-body-tertiary">Y1S1</th>
-                            <th scope="col" value = "Y1S2" class="text-body-tertiary">Y1S2</th>
-                            <th scope="col" value = "Y1S3a" class="text-body-tertiary">Y1S3A</th>
-                            <th scope="col" value = "Y1S3b" class="text-body-tertiary">Y1S3B</th>
-                            <th scope="col" value = "Y2S1" class="text-body-tertiary">Y2S1</th>
-                            <th scope="col" value = "Y2S2" class="text-body-tertiary">Y2S2</th>
-                            <th scope="col" value = "Y2S3a" class="text-body-tertiary">Y2S3A</th>
-                            <th scope="col" value = "Y2S3b" class="text-body-tertiary">Y2S3B</th>
-                            <th scope="col" value = "Y3S1" class="text-body-tertiary">Y3S1</th>
-                            <th scope="col" value = "Y3S2" class="text-body-tertiary">Y3S2</th>
-                            <th scope="col" value = "Y3S3a" class="text-body-tertiary">Y3S3A</th>
-                            <th scope="col" value = "Y3S3b" class="text-body-tertiary">Y3S3B</th>
-                            <th scope="col" value = "Y4S1" class="text-body-tertiary">Y4S1</th>
-                            <th scope="col" value = "Y4S2" class="text-body-tertiary">Y4S2</th>
-                            <th scope="col" value = "Y4S3a" class="text-body-tertiary">Y4S3A</th>
-                            <th scope="col" value = "Y4S3b" class="text-body-tertiary">Y4S3B</th>
-                            <th scope="col"> </th>
+    table.innerHTML =   `
+        <tr>
+                            <th scope="col" class="text-body-tertiary sticky-col"  style="width: 25%;">Module Name</th>
+                            <th scope="col" value = "Y1S1" class="text-body-tertiary" style="width: 5%;">Y1S1</th>
+                            <th scope="col" value = "Y1S2" class="text-body-tertiary" style="width: 5%;">Y1S2</th>
+                            <th scope="col" value = "Y1S3a" class="text-body-tertiary" style="width: 5%;">Y1S3A</th>
+                            <th scope="col" value = "Y1S3b" class="text-body-tertiary" style="width: 5%;">Y1S3B</th>
+                            <th scope="col" value = "Y2S1" class="text-body-tertiary" style="width: 5%;">Y2S1</th>
+                            <th scope="col" value = "Y2S2" class="text-body-tertiary" style="width: 5%;">Y2S2</th>
+                            <th scope="col" value = "Y2S3a" class="text-body-tertiary style="width: 5%;">Y2S3A</th>
+                            <th scope="col" value = "Y2S3b" class="text-body-tertiary style="width: 5%;">Y2S3B</th>
+                            <th scope="col" value = "Y3S1" class="text-body-tertiary" style="width: 5%;">Y3S1</th>
+                            <th scope="col" value = "Y3S2" class="text-body-tertiary" style="width: 5%;">Y3S2</th>
+                            <th scope="col" value = "Y3S3a" class="text-body-tertiary" style="width: 5%;">Y3S3A</th>
+                            <th scope="col" value = "Y3S3b" class="text-body-tertiary" style="width: 5%;">Y3S3B</th>
+                            <th scope="col" value = "Y4S1" class="text-body-tertiary" style="width: 5%;">Y4S1</th>
+                            <th scope="col" value = "Y4S2" class="text-body-tertiary" style="width: 5%;">Y4S2</th>
+                            <th scope="col" value = "Y4S3a" class="text-body-tertiary" style="width: 5%;">Y4S3A</th>
+                            <th scope="col" value = "Y4S3b" class="text-body-tertiary" style="width: 5%;">Y4S3B</th>
+
                         </tr>`
     var headers = table.getElementsByTagName("tr")[0];
     for (var course in global.currUser.GetAllCourseYearAndSemTaken())
@@ -107,8 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
     ShowPlanner1();
     //ShowPlanner2();
 })
-
-
 
 // Function to handle form submission and validation
 function saveDetails() {
