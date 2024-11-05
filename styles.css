@@ -120,7 +120,7 @@ li{
 	margin: 15px;
 }
 
-#sidebar{
+ #sidebar{
 	height: 100%;
 	background-color: #040B31;
 	min-height: 100vh;
@@ -170,11 +170,11 @@ h4{
 }
 
 /* DASHBOARD PAGE*/
-#content {
+/* #content {
 	margin-left: 250px;
 	padding-left: 30px;
 	padding-right: 30px;
-}
+} */
 #app{
 	color: white;
 }
