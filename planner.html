@@ -23,14 +23,9 @@
     <div id="app">
         
         <user-details-menu></user-details-menu>
-
-        <button id="toggleSidebar" class="btn btn-primary d-block d-sm-none m-2" onclick="toggleSidebar()">
-            <i class="fas fa-bars"></i>
-          </button>
-          
 		<!-- Sidebar -->
         <nav id="sidebar">
-            <div class="mb-5 pt-md-5">
+            <div id = "logo" class="mb-5 pt-md-5">
                 <h1 id="steps" class="fs-1 text-center">S T E P S</h1>
                 <p id="stepsTagline" class="text-center">SCIS TIMETABLE AND ENROLLMENT PLANNING SYSTEM</p>
             </div>
@@ -63,7 +58,16 @@
             </ul>
         </nav>
 		<main id="content" class="pt-4 ">
-
+            <button id="toggleSidebar" class="btn d-block d-sm-none" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+              </button>
+            <button id="desktopMenuExpand" class="btn" onclick="expandSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <button id="toggleSidebar" class="btn" onclick="responsiveNav()">
+                <i class="fas fa-bars"></i>
+            </button>
+              
 			<!-- profile at the top right -->
 			<profile-top></profile-top>
 
