@@ -5,7 +5,7 @@
 /* COMMON */
 html {
     height: 100%;
-    margin: 0; /* Ensure no default margin */
+    margin: 0;
 	background-color: #E0E0E0;
 }
 
@@ -207,11 +207,11 @@ h4{
 	margin-bottom: 30px;
 }
 
-#friends{
+/* #friends{
 	display: flex;
 	justify-content: space-between;
 	gap: 10px;
-}
+} */
 /*       .friends-section {
             position: fixed;
             top: 100px;
@@ -240,7 +240,7 @@ h4{
 
 #courseTable
 {
-    align-items: center; /* Center vertically */
+    align-items: center;
 	line-height: 100%;
 	font-size: 95%;
 }
@@ -255,7 +255,7 @@ h4{
 }
   
 .card {
-	flex: 1; /* Make sure all cards have equal width */
+	flex: 1;
 	border-radius: 20px !important;
 	padding:12px 5px;
 }
@@ -305,12 +305,9 @@ h4{
 .form-select{
 	background-color: white;
 	color: black;
-	/* background-color: #040B31 !important; 
-	color: white !important;  */
 }
 
 .form-label, .mb-3{
-	/* background-color: #040B31 !important; */
 	color: black;
 }
 
@@ -325,21 +322,21 @@ h4{
   padding:10px !important;
 }
 .row.g-0 {
-    display: flex; /* Ensure the row uses flexbox */
-    align-items: center; /* Vertically center items in the row */
+    display: flex;
+    align-items: center;
 	min-height: 200px;
 }
 
 .col-md-8 {
-    display: flex; /* Use flexbox for text column */
-    flex-direction: column; /* Arrange items vertically */
-    justify-content: center; /* Center content vertically */
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
 }
 
 .col-md-4 {
-    display: flex; /* Use flexbox for image column */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
+    display: flex;
+    justify-content: center; 
+    align-items: center;
 }
 
 #viewMoreButton {
@@ -378,7 +375,7 @@ table th {
 #tableModules {
     width: 100%;
 	font-size: 95%;
-    border-collapse: collapse; /* Keeps the table borders aligned */
+    border-collapse: collapse;
 }
 
 #tableModules thead {
@@ -414,12 +411,10 @@ table th {
 	background: none;
 }
 /* Planner Page */
-.table-responsive {
-    display: flex;
-    overflow-x: auto;
-	white-space: nowrap;
-}
 
+#coursePlanner{
+	padding-bottom: 20px;
+}
 .sticky-col {
 	position:sticky;
     left: -12px;
