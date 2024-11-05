@@ -165,18 +165,22 @@ function createRows(selectedOption, search=false)
 
                 // Create the other columns
                 var col = document.createElement("td");
+                col.setAttribute("class", "text-center");
                 col.innerText = courseName;
                 row.appendChild(col);
 
                 var col = document.createElement("td");
+                col.setAttribute("class", "text-center");
                 col.innerText = courseCode;
                 row.appendChild(col);
 
                 var col = document.createElement("td");
+                col.setAttribute("class", "text-center");
                 col.innerText = courseCategory;
                 row.appendChild(col);
 
                 var col = document.createElement("td");
+                col.setAttribute("class", "text-center");
                 col.innerText = recommendedYearAndSem;
                 row.appendChild(col);
 
@@ -184,11 +188,11 @@ function createRows(selectedOption, search=false)
                 // For enrolled or not, use if-else
                 if (tookCourse === "yes") {
                     col.innerText = "Enrolled " + enrolledYear;
-                    col.setAttribute("class", "text-success");
+                    col.setAttribute("class", "text-success text-center");
                 }
                 else {
                     col.innerText = "Not Enrolled";
-                    col.setAttribute("class", "text-danger");
+                    col.setAttribute("class", "text-danger text-center");
                 }
                 row.appendChild(col);
 
