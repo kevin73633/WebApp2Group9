@@ -98,6 +98,11 @@ function togglePlannerMode()
     }
 }
 document.addEventListener('DOMContentLoaded', function() {
+    if (sessionStorage.getItem("currUser") == "null")
+    {
+        window.location.href = "index.html";
+        return;
+    }
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
     global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
     document.getElementById("logoutBtn").onclick = function() {global.logout();};

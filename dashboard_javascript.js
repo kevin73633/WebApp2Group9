@@ -7,6 +7,11 @@ import * as global from './global.js';
 
 document.addEventListener('DOMContentLoaded', function() {
   //ShowNumberOfUsers();
+  if (sessionStorage.getItem("currUser") == "null")
+  {
+      window.location.href = "index.html";
+      return;
+  }
   global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
   global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
   UpdateCoursesList();

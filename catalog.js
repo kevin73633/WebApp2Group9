@@ -358,6 +358,11 @@ function searchCourse(searchVal = "")
 
 // Acts like "import"
 document.addEventListener('DOMContentLoaded', function() {
+    if (sessionStorage.getItem("currUser") == "null")
+    {
+        window.location.href = "index.html";
+        return;
+    }
     global.SetCurrentUser(JSON.parse(sessionStorage.getItem("currUser")));
     global.SetAllCourses(JSON.parse(sessionStorage.getItem("allCourses")));
     document.getElementById("nameheader").textContent = global.currUser.username.replace(/_+$/, ' ');
