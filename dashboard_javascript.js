@@ -314,53 +314,17 @@ function FetchUsersCourses()
   });
   
 }
-// Function to handle form submission and validation
-function saveDetails() {
-  // Get the values from the form fields
-  const degree = degreeInput.value.trim();  // Trim spaces
-  const gpa = gpaInput.value.trim();  // Get GPA as string
-  const year = yearInput.value;
-  const semester = semesterInput.value;
 
-    // Errors
-    const gpaError = document.getElementById('gpaError');
-      gpaError.textContent = '';
+// date change
+function updateCurrentDate() {
+  const date = new Date();
+  var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const day = days[date.getDay()];
+  const dateNo = date.getDate();
+  const year = date.getFullYear();
+  const formattedDate = `${day} ${dateNo}, ${year}`;
 
-    const saveDetailsError = document.getElementById('saveDetailsError');
-    saveDetailsError.textContent = '';
+  document.getElementById('currentDate').textContent = formattedDate;
+    }
 
-  // Check if any field is empty
-  if (!degree || !gpa || !year || !semester) {
-    // alert('Please fill out all fields.');
-    saveDetailsError.textContent = 'Please fill out all fields.';
-    saveDetailsError.style.display = 'block';
-      return;
-  }
-
-  // Convert GPA to number and validate range
-  const gpaValue = parseFloat(gpa);
-  if (gpaValue < 0.01 || gpaValue > 4.3) {
-  // alert('Please enter a GPA between 0.01 and 4.3.');
-    gpaError.textContent = 'GPA must be between 0.01 and 4.3.';
-    gpaError.style.display = 'block';
-    return;
-  }
-
-  // Log the collected details (replace this with your save action)
-  console.log({
-      degree: degree,
-      gpa: gpaValue,
-      year: year,
-      semester: semester
-  });
-  global.currUser.SetProfileValues(gpaValue, degree, year + semester);
-  sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
-  document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
-  //alert("Details saved successfully!");
-
-  // Close the modal after saving
-  location.reload();
-}
-
-// Trigger save on button click
-saveDetailsBtn.addEventListener('click', saveDetails);
+  updateCurrentDate();
