@@ -86,39 +86,40 @@ table {
 	padding-left:20px !important;
 	padding-right:20px !important;
 }
-/*Top Navigation*/
 
+/*Top Navigation*/
 .navbartop {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 9999; /* Ensure the navbar is on top */
-    backdrop-filter: blur(10px); /* Apply blur to the background */
-    background-color: rgba(255, 255, 255, 0.2); /* Translucent background */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for separation */
-    transition: all 0.3s ease; /* Smooth transition when elements change */
+    z-index: 999; 
+    backdrop-filter: blur(10px); 
+    background-color: rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease;
 }
 
 .navbartop button {
     background: transparent;
     border: none;
-    color: white;
+    color: black;
     font-size: 1.2rem;
     cursor: pointer;
 }
 
+.navbartop button:hover {
+    color: grey;
+}
 .navbartop button:focus {
     outline: none;
 }
 
-/* Profile component (assuming <profile-top> is styled via CSS or a custom element) */
 profile-top {
-    /* Profile should align to the far right */
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -136,6 +137,10 @@ profile-top {
 .nav-link.active {
 	background-color: white !important;
 	color:#040B31 !important;
+	opacity:1;
+}
+.nav-link:hover {
+	color:#e4e4e4 !important;
 	opacity:1;
 }
 
@@ -161,8 +166,8 @@ li{
  #sidebar{
 	height: 100%;
 	background-color: #040B31;
-	min-height: 100vh;
-	width: 250px;
+	min-height: 100%;
+	width: 280px;
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -239,25 +244,6 @@ h4{
 	padding: 20px;
 	margin-bottom: 30px;
 }
-
-/* #friends{
-	display: flex;
-	justify-content: space-between;
-	gap: 10px;
-} */
-/*       .friends-section {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-        }
-        
-        .friend-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        } 
-*/
 
 #steps, #stepsTagline{
 	font-family: Orbitron, sans-serif;
@@ -404,7 +390,6 @@ table th {
 	text-overflow: ellipsis;
 }
 
-/* Make table in Catalog scrollable */
 #tableModules {
     width: 100%;
 	font-size: 95%;
@@ -412,31 +397,25 @@ table th {
 }
 
 #tableModules thead {
-    display: table; /* Restores thead layout */
-    width: 100%; /* Adjusts for any scrollbar width */
-    table-layout: fixed; /* Ensures columns align with tbody */
+    display: table; 
+    width: 100%;
+    table-layout: fixed; 
 }
 
 #tableModules tbody {
     display: block;
-    max-height: 300px; /* Adjust height as needed */
+    max-height: 300px;
     overflow-y: auto;
     width: 100%;
 }
 
 #tableModules th, #tableModules td {
-    width: 14.285%; /* Adjust as needed */
+    width: 14.285%;
     text-align: left;
     padding: 8px;
     box-sizing: border-box;
 }
 #userDetailsModalLabel{
-	/* color: white;
-	background-color: #040B31;
-	width: margin 0 auto;
-	padding-left: 10px;
-	padding-right: 90px;
-	border-radius: 5px; */
 	color: black;
 }
 #ProfileBtn {
@@ -453,9 +432,8 @@ table th {
     left: -12px;
     background-color: white;
     z-index: 1;
-    border-right: 1px solid #dee2e6; /* Optional: Add border for visual separation */
+    border-right: 1px solid #dee2e6;
 }
-
 /* Toggle */
 .switch {
 	position: relative;
@@ -535,10 +513,12 @@ input:checked + .slider .off
 
 
 .logo-img {
-    width: 100px; /* Adjust this to the size you want for the logo */
-    height: auto; /* Maintain aspect ratio */
+	display: block;
+    width:45px;
+    height: auto; 
 }
 
-#desktopMenuExpand {
-	margin:  0 auto;
+#header{
+	padding:20px !important;
+	margin:0 auto;
 }
