@@ -145,7 +145,6 @@ function createRows(selectedOption, search=false)
         for (var data_item of loopCourses) {
             //Create Table Row
             var row = document.createElement("tr");
-
             var courseName = data_item.courseName;
             var courseCode = data_item.courseCode;
             var courseCategory = data_item.courseCategory;
@@ -157,6 +156,7 @@ function createRows(selectedOption, search=false)
                 // Create checkbox
                 var col = document.createElement("td");
                 col.setAttribute("class", "text-center");
+                col.setAttribute("style", "width: 10%")
                 var checkbox = document.createElement("input");
                 checkbox.setAttribute("type", "checkbox");
                 checkbox.value = courseCode + ":" + courseName;
