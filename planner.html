@@ -26,56 +26,53 @@
             <button id="toggleSidebar" class="btn" onclick="mobileNav()">
                 <i class="fas fa-bars"></i>
             </button>    
-            <!-- Profile at the top right -->
+            <button id="desktopMenuExpand" class="btn" onclick="expandSidebar()">
+                <i class="fas fa-bars"></i>
+            </button> 
+            <button id="desktopMenuMinimise" class="btn" onclick="minimiseSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
             <profile-top></profile-top>
         </div>
         <user-details-menu></user-details-menu>
 		<!-- Sidebar -->
         <nav id="sidebar">
-            <div id="header" class="d-flex justify-content-between align-items-center mb-4">
-                <div id="logo">
-                    <img src="images/step_logo.png" alt="Logo" class="logo-img me-3">
-                    <h1 id="steps" class="fs-1 text-center text-md-start">S T E P S</h1>
-                    <p id="stepsTagline" class="text-center text-md-start">SCIS TIMETABLE AND ENROLLMENT PLANNING SYSTEM</p>
-                </div>
-                <button id="desktopMenuMinimise" class="btn text-white" onclick="minimiseSidebar()">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-            <!-- Expand Sidebar Button for larger screens -->
-            <button id="desktopMenuExpand" class="btn text-white" onclick="expandSidebar()">
-                <i class="fas fa-bars"></i>
-            </button> 
-            <hr>
             <div class="side">
-                <ul class="nav sidebar-nav ">
+                <ul class="nav sidebar-nav d-flex flex-column">
+                    <div id="header" class="d-flex flex-column align-items-start mb-2 px-2">
+                        <img src="images/step_logo.png" alt="Logo" class="logo-img mb-3">
+                        <div id="logo" class="text-start">
+                            <h1 id="steps" class="fs-2">S T E P S</h1>
+                            <p id="stepsTagline">SCIS TIMETABLE AND ENROLLMENT PLANNING SYSTEM</p>
+                            <button id="mobileToggleSideBar" class="btn d-none" onclick="minMobileNav()">
+                                <i class="fas fa-times text-white"></i>
+                            </button>    
+                        </div>
+                    </div>
                     <li class="nav-item">
                         <a href="dashboard.html" class="nav-link text-white">
                             <i class="fas fa-home" aria-hidden="true"></i>
                             <span class="icon-text">Dashboard</span>
                         </a>
-                        <span class="tooltip" style="color: black;">Dashboard</span>
                     </li>
                     <li class="nav-item">
                         <a href="catalog.html" class="nav-link text-white">
                             <i class="fas fa-book" aria-hidden="true"></i>
                             <span class="icon-text">Courses</span>
                         </a>
-                        <span class="tooltip " style="color: black;">Courses</span>
                     </li>
                     <li class="nav-item">
                         <a href="planner.html" class="nav-link active" aria-current="page">
                             <i class="fas fa-calendar" aria-hidden="true"></i>
                             <span class="icon-text">Planner</span>
                         </a>
-                        <span class="tooltip"  style="color: black;">Planner</span>
                     </li>
+                    
                     <li class="nav-item">
                         <a href="#" id="logoutBtn" class="nav-link text-white">
-                            <i class="fas fa-power-off" aria-hidden="true"></i>
+                            <i class="	fas fa-sign-out-alt" aria-hidden="true"></i>
                             <span class="icon-text">Logout</span>
                         </a>
-                        <span class="tooltip">Logout</span>
                     </li>
                 </ul>
             </div>
