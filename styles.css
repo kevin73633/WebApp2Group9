@@ -53,11 +53,6 @@ table {
 }
 
 
-.steps h1 {
-	text-align: center;
-	font-size: 45px;
-}
-
 .steps h4 {
 	margin-bottom: 25px;
 	font-size: revert
@@ -66,7 +61,7 @@ table {
 .steps {
 	color: white;
 	font-family: "Orbitron", sans-serif;
-	width: margin 0 auto;
+	font-size: 10px !important;
 
 }
 
@@ -84,6 +79,49 @@ table {
 	margin: 0;
 	font-family: "Orbitron", sans-serif;
 	background-image: url(images/login_background.png) !important;
+}
+
+#content {
+	margin-top:90px;
+	padding-left:20px !important;
+	padding-right:20px !important;
+}
+/*Top Navigation*/
+
+.navbartop {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999; /* Ensure the navbar is on top */
+    backdrop-filter: blur(10px); /* Apply blur to the background */
+    background-color: rgba(255, 255, 255, 0.2); /* Translucent background */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for separation */
+    transition: all 0.3s ease; /* Smooth transition when elements change */
+}
+
+.navbartop button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.navbartop button:focus {
+    outline: none;
+}
+
+/* Profile component (assuming <profile-top> is styled via CSS or a custom element) */
+profile-top {
+    /* Profile should align to the far right */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 /* Side Navigation */
@@ -170,11 +208,6 @@ h4{
 }
 
 /* DASHBOARD PAGE*/
-/* #content {
-	margin-left: 250px;
-	padding-left: 30px;
-	padding-right: 30px;
-} */
 #app{
 	color: white;
 }
@@ -496,4 +529,16 @@ input:checked + .slider .off
 	color: red;
 	font-size: 0.9em;
 	display: none;
+}
+
+
+
+
+.logo-img {
+    width: 100px; /* Adjust this to the size you want for the logo */
+    height: auto; /* Maintain aspect ratio */
+}
+
+#desktopMenuExpand {
+	margin:  0 auto;
 }

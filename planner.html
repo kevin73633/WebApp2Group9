@@ -21,56 +21,66 @@
 </head>
 <body>
     <div id="app">
-        
+        <div id ="navbartop" class="navbartop">
+            <!-- Hamburger Button for mobile -->
+            <button id="toggleSidebar" class="btn" onclick="mobileNav()">
+                <i class="fas fa-bars"></i>
+            </button>    
+            <!-- Profile at the top right -->
+            <profile-top></profile-top>
+        </div>
         <user-details-menu></user-details-menu>
 		<!-- Sidebar -->
         <nav id="sidebar">
-            <div id = "logo" class="mb-5 pt-md-5">
-                <h1 id="steps" class="fs-1 text-center">S T E P S</h1>
-                <p id="stepsTagline" class="text-center">SCIS TIMETABLE AND ENROLLMENT PLANNING SYSTEM</p>
+            <div id="header" class="d-flex justify-content-between align-items-center mb-4">
+                <div id="logo">
+                    <img src="images/step_logo.png" alt="Logo" class="logo-img me-3">
+                    <h1 id="steps" class="fs-1 text-center text-md-start">S T E P S</h1>
+                    <p id="stepsTagline" class="text-center text-md-start">SCIS TIMETABLE AND ENROLLMENT PLANNING SYSTEM</p>
+                </div>
+                <button id="desktopMenuMinimise" class="btn text-white" onclick="minimiseSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
+            <!-- Expand Sidebar Button for larger screens -->
+            <button id="desktopMenuExpand" class="btn text-white" onclick="expandSidebar()">
+                <i class="fas fa-bars"></i>
+            </button> 
             <hr>
-            <ul class="nav nav-pills flex-column mb-auto d-flex">
-                <li class="nav-item">
-                    <a href="dashboard.html" class="nav-link text-white">
-                        <i class="fas fa-home" aria-hidden="true"></i>
-                        <span class="icon-text">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="catalog.html" class="nav-link text-white">
-                        <i class="fas fa-book" aria-hidden="true"></i>
-                        <span class="icon-text">Courses</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="planner.html" class="nav-link active" aria-current="page">
-                        <i class="fas fa-calendar" aria-hidden="true"></i>
-                        <span class="icon-text">Planner</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" id="logoutBtn" class="nav-link text-white">
-                        <i class="fas fa-power-off" aria-hidden="true"></i>
-                        <span class="icon-text">Logout</span>
-                    </a>
-                </li>
-            </ul>
+            <div class="side">
+                <ul class="nav sidebar-nav ">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link text-white">
+                            <i class="fas fa-home" aria-hidden="true"></i>
+                            <span class="icon-text">Dashboard</span>
+                        </a>
+                        <span class="tooltip" style="color: black;">Dashboard</span>
+                    </li>
+                    <li class="nav-item">
+                        <a href="catalog.html" class="nav-link text-white">
+                            <i class="fas fa-book" aria-hidden="true"></i>
+                            <span class="icon-text">Courses</span>
+                        </a>
+                        <span class="tooltip " style="color: black;">Courses</span>
+                    </li>
+                    <li class="nav-item">
+                        <a href="planner.html" class="nav-link active" aria-current="page">
+                            <i class="fas fa-calendar" aria-hidden="true"></i>
+                            <span class="icon-text">Planner</span>
+                        </a>
+                        <span class="tooltip"  style="color: black;">Planner</span>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" id="logoutBtn" class="nav-link text-white">
+                            <i class="fas fa-power-off" aria-hidden="true"></i>
+                            <span class="icon-text">Logout</span>
+                        </a>
+                        <span class="tooltip">Logout</span>
+                    </li>
+                </ul>
+            </div>
         </nav>
-		<main id="content" class="pt-4 ">
-            <button id="toggleSidebar" class="btn d-block d-sm-none" onclick="toggleSidebar()">
-                <i class="fas fa-bars"></i>
-              </button>
-            <button id="desktopMenuExpand" class="btn" onclick="expandSidebar()">
-                <i class="fas fa-bars"></i>
-            </button>
-            <button id="toggleSidebar" class="btn" onclick="responsiveNav()">
-                <i class="fas fa-bars"></i>
-            </button>
-              
-			<!-- profile at the top right -->
-			<profile-top></profile-top>
-
+            <main id="content" class="pt-4 ">
             <div class="row" id="welcome-banner" >
                 <p id="banner_name" class="h3 mb-1">Planner</p>
             </div>
