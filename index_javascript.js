@@ -53,38 +53,59 @@ document.getElementById('GoogleLoginBtn').addEventListener('click',function(){
 // });
 
 
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
   //ShowNumberOfUsers();
   onAuthStateChanged(global.auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user      
+      // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.uid;
       document.getElementById("GoogleLoginBtn").style.display = "none";
-      var localuser =  ref(global.db, 'users/' + uid);
-      get(localuser, `users/${uid}`).then((snapshot) => {
+      get(global.coursesRef, "courses").then((snapshot) => {
         if (snapshot.exists()) {
-          console.log("User Exists!");
-          var userData = snapshot.val();
-          global.SetCurrentUser(new global.User(user.uid, userData["username"], userData["GPA"], userData["courses"]));
-          sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
-          // GoToDashboard();
-          // Close the modal after saving
-          const userDetailsModal = bootstrap.Modal.getInstance(document.getElementById('userDetailsModal'));
-          userDetailsModal.modal('show');
-      
+            var result = snapshot.val();
+    
+            for (var key of Object.keys(result)) {
+                // this will give you the key & values for all properties
+                var temp = result[key];
+                var currCourse = new global.Course(temp["courseCode"], temp["courseName"], temp["courseCategory"], temp["recommendedYearAndSem"], temp["courseDescription"]);
+                //console.log(currCourse);
+                global.allCourses.push(currCourse);
+                //console.log(key + " -> " + user.username + " , " + user.gpa);
+                // .. process the data here! 
+            }
+            var localuser =  ref(global.db, 'users/' + uid);
+            get(localuser, `users/${uid}`).then((snapshot) => {
+              if (snapshot.exists()) {
+                console.log("User Exists!");
+                var userData = snapshot.val();
+                var userCourses = userData["courses"];
+                if (userCourses == null)
+                  userCourses = [];
+                global.SetCurrentUser(new global.User(user.uid, userData["username"], userData["GPA"], userCourses, userData["degree"], userData["currentYearAndSem"]));
+                sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
+                global.SetAllCourses(global.allCourses);
+                sessionStorage.setItem("allCourses",  JSON.stringify(global.allCourses));
+                GoToDashboard();
+            
+              }
+              else
+              {
+                global.CreateNewUser(user);
+                sessionStorage.setItem("allCourses",  JSON.stringify(global.allCourses));
+                //showpopup
+                $('#userDetailsModal').show();
+                //GoToDashboard();
+            
+              }
+            });
         }
         else
         {
-          global.CreateNewUser(user);
-          //showpopup
-          
-          // Close the modal after saving
-          const userDetailsModal = bootstrap.Modal.getInstance(document.getElementById('userDetailsModal'));
-          userDetailsModal.modal('show');
-          
-          GoToDashboard();
-      
+           
         }
       });
 
@@ -112,49 +133,56 @@ function GoToDashboard()
   
 }
 
+
 		// Function to handle form submission and validation
-		function saveDetails() {
-			// Get the values from the form fields
-			const degree = degreeInput.value.trim();  // Trim spaces
-			const gpa = gpaInput.value.trim();  // Get GPA as string
-			const year = yearInput.value;
-			const semester = semesterInput.value;
+function saveDetails() {
+    // Get the values from the form fields
+    const degree = degreeInput.value.trim();  // Trim spaces
+    const gpa = gpaInput.value.trim();  // Get GPA as string
+    const year = yearInput.value;
+    const semester = semesterInput.value;
 
-			// Check if any field is empty
-			if (!degree || !gpa || !year || !semester) {
-				alert('Please fill out all fields.');
-				return;
-			}
+    // Errors
+    const gpaError = document.getElementById('gpaError');
+    gpaError.textContent = '';
 
-			// Convert GPA to number and validate range
-			const gpaValue = parseFloat(gpa);
-			if (gpaValue < 0.01 || gpaValue > 4.3) {
-				alert('Please enter a GPA between 0.01 and 4.3.');
-				return;
-			}
+    const saveDetailsError = document.getElementById('saveDetailsError');
+    saveDetailsError.textContent = '';
 
-			// Log the collected details (replace this with your save action)
-			console.log({
-				degree: degree,
-				gpa: gpaValue,
-				year: year,
-				semester: semester
-			});
+    // Check if any field is empty
+    if (!degree || !gpa || !year || !semester) {
+      // alert('Please fill out all fields.');
+      saveDetailsError.textContent = 'Please fill out all fields.';
+      saveDetailsError.style.display = 'block';
+      return;
+    }
 
-			alert("Details saved successfully!");
+    // Convert GPA to number and validate range
+    const gpaValue = parseFloat(gpa);
+    if (gpaValue < 0.01 || gpaValue > 4.3) {
+    // alert('Please enter a GPA between 0.01 and 4.3.');
+      gpaError.textContent = 'GPA must be between 0.01 and 4.3.';
+      gpaError.style.display = 'block';
+      return;
+    }
 
-			// Close the modal after saving
-			const userDetailsModal = bootstrap.Modal.getInstance(document.getElementById('userDetailsModal'));
-			userDetailsModal.hide();
-		}
+    // Log the collected details (replace this with your save action)
+    console.log({
+        degree: degree,
+        gpa: gpaValue,
+        year: year,
+        semester: semester
+    });
+    global.currUser.SetInitialValues(global.currUser.username, gpaValue, degree, year + semester)
+    sessionStorage.setItem("currUser",  JSON.stringify(global.currUser));
+    //alert("Details saved successfully!");
 
-		// Trigger save on button click
-		saveDetailsBtn.addEventListener('click', saveDetails);
+    // Close the modal after saving
+    $('#userDetailsModal').hide();
+    GoToDashboard();
+}
 
-		// Trigger save when pressing Enter key within the form
-		document.getElementById('userDetailsForm').addEventListener('keydown', function (event) {
-			if (event.key === 'Enter') {
-				event.preventDefault();  // Prevent form submission or page reload
-				saveDetails();  // Call saveDetails function
-			}
-		});
+// Trigger save on button click
+saveDetailsBtn.addEventListener('click', saveDetails);
+
+    
