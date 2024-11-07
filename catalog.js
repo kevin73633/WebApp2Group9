@@ -200,6 +200,7 @@ function createRows(selectedOption, search=false)
                 row.appendChild(col);
 
                 var col = document.createElement("td");
+                col.setAttribute("class", "text-center")
                 var link = document.createElement("a");
                 link.setAttribute("href", `#Modal_${courseCode}`);
                 link.setAttribute("class", "px-2 text-decoration-none");
