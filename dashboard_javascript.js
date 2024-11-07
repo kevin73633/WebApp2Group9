@@ -6,8 +6,7 @@ import * as global from './global.js';
 // Your web app's Firebase configuration
 
 document.addEventListener('DOMContentLoaded', function() {
-  //ShowNumberOfUsers();
-  if (sessionStorage.getItem("currUser") == "null")
+  if (sessionStorage.getItem("currUser") == "null" || sessionStorage.getItem("currUser") == null )
   {
       window.location.href = "index.html";
       return;

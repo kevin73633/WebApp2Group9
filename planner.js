@@ -79,7 +79,8 @@ function ShowPlanner2()
             var currHeader = headers.getElementsByTagName("th");
             if (currHeader[index].getAttribute("value") == global.currUser.GetAllCourseYearAndSemTaken()[course])
             {
-                td.style.backgroundColor = "red";
+                td.style.backgroundColor = "#0c1547";
+                td.style.borderRadius = "10px";
             }
             row.appendChild(td);
         }
@@ -100,7 +101,7 @@ function togglePlannerMode()
     }
 }
 document.addEventListener('DOMContentLoaded', function() {
-    if (sessionStorage.getItem("currUser") == "null")
+    if (sessionStorage.getItem("currUser") == "null" || sessionStorage.getItem("currUser") == null )
     {
         window.location.href = "index.html";
         return;
