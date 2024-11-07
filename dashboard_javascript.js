@@ -117,12 +117,9 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
           viewButton.setAttribute("class", "btn-course");
 
           viewButton.textContent = 'View';
-          let col_ = document.createElement('div');
-          col_.className = 'col-md-1';
           let col2 = document.createElement('div');
-          col2.className = 'col-md-4';
+          col2.className = 'col-md-3 mx-2';
           col2.appendChild(viewButton);
-          row2.appendChild(col_);
           row2.appendChild(col2);
         }
 
