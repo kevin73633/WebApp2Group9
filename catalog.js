@@ -199,16 +199,15 @@ function createRows(selectedOption, search=false)
                 col.appendChild(span);
                 row.appendChild(col);
 
-                // Create button
                 var col = document.createElement("td");
-                var button = document.createElement("button");
-                button.setAttribute("type", "button");
-                button.setAttribute("class", "btn btn-secondary px-2 rounded-2");
-                button.setAttribute("data-bs-toggle", "modal");
-                button.setAttribute("data-bs-target",`#Modal_${courseCode}`);
-                button.setAttribute("style", "font-size:12px")
-                button.innerText = "View More";
-                col.appendChild(button);
+                var link = document.createElement("a");
+                link.setAttribute("href", `#Modal_${courseCode}`);
+                link.setAttribute("class", "px-2 text-decoration-none");
+                link.setAttribute("data-bs-toggle", "modal");
+                link.setAttribute("data-bs-target", `#Modal_${courseCode}`);
+                link.setAttribute("style", "font-size:12px");
+                link.innerText = "View More";
+                col.appendChild(link);
                 row.appendChild(col);
 
                 // Create Modal
