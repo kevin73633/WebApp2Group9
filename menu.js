@@ -154,3 +154,12 @@ themeSwitch.addEventListener("click", () =>{
     darkmode = localStorage.getItem('darkmode')
     darkmode !== "active" ? enableDarkmode() : disableDarkmode()
 })
+
+
+
+let profile = document.querySelector('.profile');
+let menu = document.querySelector('.menu');
+
+profile.onclick = function () {
+    menu.classList.toggle('active');
+}

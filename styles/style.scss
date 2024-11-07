@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /* COMMON */
+$primary-color:#040B31;
 
 :root{
 	--base-color: #dfdfdf;
@@ -13,6 +14,7 @@
 	--headerText-color: black;
 	--card-color:white;
     --button-color:#040B31;
+	--topNav-color: rgba(255, 255, 255, 0.2); 
 }
 .darkmode{
 	--base-color: #171821;
@@ -22,7 +24,20 @@
 	--banner-colors:#21222D;
 	--headerText-color: white;
 	--card-color:#21222D;
-    --button-color: #A9DFD8;
+    --button-color: #2757fc;
+	--topNav-color: #15161c; 
+}
+
+.form-select, .form-control{
+    background-color: var(--card-color) !important;
+    color: var(--opp-color) !important;
+}
+#filterOptions{
+    color: var(--opp-color) !important;
+}
+
+#tableModules {
+    background-color: var(--card-color) !important;
 }
 
 html {
@@ -35,7 +50,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    color: var(--base-color);
+    color: var(--base-color)!important;
     background-image: var(--background-img);
     background-position: center;
     background-size: cover;
@@ -52,7 +67,7 @@ body {
 	background-color: var(--button-color);
 	font-family: "Poppins", sans-serif;
 	font-size:13px;
-	color:var(--base-color);
+	color:white;
 	padding: 8px 2px;
 	border:0;
     text-decoration: none;
@@ -65,7 +80,7 @@ body {
     background-color: var(--button-color);
     font-family: "Poppins", sans-serif;
     font-size: 13px;
-    color: var(--base-color);
+    color: white;
     padding: 10px 30px;
     border-radius: 20px;
     border: 0;
@@ -76,7 +91,6 @@ body {
     }
 }
 
-
 .steps h4 {
 	margin-bottom: 25px;
 	font-size: revert
@@ -86,7 +100,6 @@ body {
 	color: white;
 	font-family: "Orbitron", sans-serif;
 	font-size: 10px !important;
-
 }
 
 .steps2{
@@ -102,7 +115,7 @@ body {
 	height: 100vh;
 	margin: 0;
 	font-family: "Orbitron", sans-serif;
-	background-image: url(images/login_background.png) !important;
+	background-image: url(../images/login_background.png) !important;
 }
 
 #content {
@@ -132,39 +145,40 @@ body {
         display:none;
     }
 }
-
 .darkmode {
     #theme {
       svg:first-child {
         display: none;
+      }
+      svg:last-child {
+        display: block;
       }
     }
   }
 
 /*Top Navigation*/
 .navbartop {
+	padding: 10px 20px;
+	position: fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
+	left: 0;
     right: 0;
-    z-index: 999; 
-    backdrop-filter: blur(10px); 
-    background-color: rgba(255, 255, 255, 0.2); 
+    top: 0;
+    backdrop-filter: blur(15px); 
+    background-color: var(--topNav-color); 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
     transition: all 0.3s ease;
+	z-index: 999; 
 
     button {
         background: transparent;
         border: none;
-        color: black;
+        color: var(--opp-color);
         font-size: 1.2rem;
         cursor: pointer;
     }
-
     &:hover {
         color: grey;
     }
@@ -189,7 +203,7 @@ profile-top {
 
     &.active {
         background-color: white !important;
-        color:#040B31 !important;
+        color:$primary-color !important;
         opacity:1;
     }
     &:hover {
@@ -302,10 +316,14 @@ h4{
 	display: block;
 }
 
-#nameheader
-{
-	display: flex;
-	color: black;
+.profile_name {
+	color: var(	--opp-color);
+	
+	#nameheader
+	{
+		display: flex;
+		color: var(	--opp-color);
+	}
 }
 
 #courseTable
@@ -488,6 +506,7 @@ table {
     padding:10px;
     margin-top: 20px !important;
     text-align: left !important;
+    box-shadow: 0px 0px 5px #fff;
 }
 
 .sticky-col {
@@ -530,7 +549,7 @@ table {
 }
 
 input:checked + .slider {
-	background-color: #040B31;
+	background-color: $primary-color;
 }
 
 input:checked + .slider:before {
