@@ -22,10 +22,11 @@ function ShowPlanner1()
         var content = 
         
                     `
-                    <div class="card col-12 col-lg-3 plannerCard">
+                    <div class="col-12 col-md-6 col-lg-3"> 
+                        <div class="card mx-1 my-2 plannerCard">
                         <h3 class="py-2">&nbsp Year ${index + 1}</h3>`
                         for (let index2 = 0; index2 < 4; index2++) {
-                            content += `<div class="card-body">
+                            content += `<div class="card-body mb-2">
                                 <h5 class="card-title">Semester ${semCodes[index2]}</h5>`
                                 var CoursesInYearAndSem = global.Course.GetAllCoursesInYearAndSem("Y" + (index + 1) + "S" + semCodes[index2]);
                                 for (let index3 = 0; index3 < CoursesInYearAndSem.length; index3++) {
@@ -34,6 +35,7 @@ function ShowPlanner1()
                                 }
                             content+=`</div>`
                         }
+                    content +=`</div>`
                     content +=`</div>`
                     coursePlanner.innerHTML += content;
     }
