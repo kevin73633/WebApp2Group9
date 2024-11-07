@@ -494,7 +494,7 @@ table {
     tbody {
         display: block;
         max-height: 300px;
-        overflow-y: auto;
+        overflow-y: auto; 
         width: 100%;
     }
     th, td {
@@ -503,6 +503,27 @@ table {
         padding: 8px;
         box-sizing: border-box;
     }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 1px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: transparent;
 }
 
 #userDetailsModalLabel{
