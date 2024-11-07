@@ -11,6 +11,7 @@
   --card-color:white;
   --button-color:#040B31;
   --topNav-color: rgba(255, 255, 255, 0.2);
+  --table-colors: white;
 }
 
 .darkmode {
@@ -23,6 +24,7 @@
   --card-color:#21222D;
   --button-color: #2757fc;
   --topNav-color: #15161c;
+  --table-colors: 21222D;
 }
 
 .form-select, .form-control {
@@ -36,6 +38,21 @@
 
 #tableModules {
   background-color: var(--card-color) !important;
+}
+
+tbody, td, tfoot, th, thead, tr {
+  background-color: var(--table-colors) !important;
+  color: var(--opp-color) !important;
+}
+
+td {
+  border-bottom: 1px solid lightgrey !important;
+}
+
+th.text-body-tertiary {
+  background-color: var(--table-colors) !important;
+  color: var(--opp-color) !important;
+  border-bottom: 1px solid lightgrey !important;
 }
 
 html {
