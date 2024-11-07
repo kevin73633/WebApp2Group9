@@ -166,7 +166,7 @@ function createRows(selectedOption, search=false)
                 // Create the other columns
                 var col = document.createElement("td");
                 col.setAttribute("class", "text-center");
-                col.innerText = courseName;
+                col.innerHTML = `<a href = "#Modal_${courseCode}" data-bs-toggle = modal data-bs-target = "#Modal_${courseCode}">${courseName}</a>`;
                 row.appendChild(col);
 
                 var col = document.createElement("td");
@@ -199,16 +199,16 @@ function createRows(selectedOption, search=false)
                 col.appendChild(span);
                 row.appendChild(col);
 
-                var col = document.createElement("td");
-                col.setAttribute("class", "text-center")
-                var link = document.createElement("a");
-                link.setAttribute("href", `#Modal_${courseCode}`);
-                link.setAttribute("class", "px-2 text-decoration-none");
-                link.setAttribute("data-bs-toggle", "modal");
-                link.setAttribute("data-bs-target", `#Modal_${courseCode}`);
-                link.setAttribute("style", "font-size:12px");
-                link.innerText = "View More";
-                col.appendChild(link);
+                // var col = document.createElement("td");
+                // col.setAttribute("class", "text-center")
+                // var link = document.createElement("a");
+                // link.setAttribute("href", `#Modal_${courseCode}`);
+                // link.setAttribute("class", "px-2 text-decoration-none");
+                // link.setAttribute("data-bs-toggle", "modal");
+                // link.setAttribute("data-bs-target", `#Modal_${courseCode}`);
+                // link.setAttribute("style", "font-size:12px");
+                // link.innerText = "View More";
+                // col.appendChild(link);
                 row.appendChild(col);
 
                 // Create Modal
