@@ -136,11 +136,19 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
             global.currUser.DeleteCourse(courseCode);
             UpdateCoursesList();
           };
-          var trashImg = document.createElement("img");
-          trashImg.setAttribute('src', "images/trash.png");
-          trashImg.style.height = "25px"
-          trashImg.style.width = "25px"
-          deleteButton.appendChild(trashImg);
+          // var trashImg = document.createElement("img");
+          // trashImg.setAttribute('src', "images/trash.png");
+          // trashImg.style.height = "25px"
+          // trashImg.style.width = "25px"
+          // deleteButton.appendChild(trashImg);
+
+          // Create the icon element
+          var trashIcon = document.createElement("i");
+          trashIcon.classList.add("fa", "fa-times");
+          trashIcon.style.fontSize = "24px";
+
+          // Append the icon to the deleteButton
+          deleteButton.appendChild(trashIcon);
         }
 
         createCourseModal(courseCode,courseName,courseDescription );
