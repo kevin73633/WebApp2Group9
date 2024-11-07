@@ -31,6 +31,7 @@ function responsiveNav(){
         MenuExtend.style.display = "block"
     }
 }
+
 function expandSidebar(){
     sideNav = document.getElementById("sidebar");
     hamburger = document.getElementById("toggleSidebar");
