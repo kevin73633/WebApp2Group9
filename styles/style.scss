@@ -3,40 +3,81 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /* COMMON */
+$primary-color:#040B31;
+
+:root{
+	--base-color: #dfdfdf;
+	--opp-color:black;
+	--sidebar-color:#040B31;
+	--background-img: url('../images/background2.png');
+	--banner-colors:#040B31;
+	--headerText-color: black;
+	--card-color:white;
+    --button-color:#040B31;
+	--topNav-color: rgba(255, 255, 255, 0.2); 
+}
+.darkmode{
+	--base-color: #171821;
+	--opp-color:white;
+	--sidebar-color:#15161c;
+	--background-img: url('../images/dark_bg_img.png');
+	--banner-colors:#21222D;
+	--headerText-color: white;
+	--card-color:#21222D;
+    --button-color: #2757fc;
+	--topNav-color: #15161c; 
+}
+
+.form-select, .form-control{
+    background-color: var(--card-color) !important;
+    color: var(--opp-color) !important;
+}
+#filterOptions{
+    color: var(--opp-color) !important;
+}
+
+#tableModules {
+    background-color: var(--card-color) !important;
+}
+
 html {
     height: 100%;
     margin: 0;
-	background-color: #E0E0E0;
+	background-color:var(--base-color);
 }
 
 body {
     margin: 0;
     padding: 0;
     height: 100%;
-    color: white;
-    background-image: url(images/background2.png);
+    color: var(--base-color)!important;
+    background-image: var(--background-img);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     justify-content: center;
 	font-family: "Poppins", sans-serif !important;
 }
-table {
-	width:auto;
-}
+
 .cat-heading{
-	color:black;
+	color:var(--headerText-color);
 }
+
 .button-primary {
-	background-color: #040B31;
+	background-color: var(--button-color);
 	font-family: "Poppins", sans-serif;
 	font-size:13px;
 	color:white;
 	padding: 8px 2px;
-	border:0px;
+	border:0;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    &:hover {
+        background-color: #0A1E4D;
+    }
 }
 .btn-course {
-    background-color: #040B31;
+    background-color: var(--button-color);
     font-family: "Poppins", sans-serif;
     font-size: 13px;
     color: white;
@@ -45,13 +86,10 @@ table {
     border: 0;
     text-decoration: none;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    &:hover {
+        background-color: #0A1E4D;
+    }
 }
-
-
-.btn-course:hover {
-    background-color: #0A1E4D;
-}
-
 
 .steps h4 {
 	margin-bottom: 25px;
@@ -62,7 +100,6 @@ table {
 	color: white;
 	font-family: "Orbitron", sans-serif;
 	font-size: 10px !important;
-
 }
 
 .steps2{
@@ -78,47 +115,79 @@ table {
 	height: 100vh;
 	margin: 0;
 	font-family: "Orbitron", sans-serif;
-	background-image: url(images/login_background.png) !important;
+	background-image: url(../images/login_background.png) !important;
 }
 
 #content {
-	margin-top:90px;
-	padding-left:20px !important;
-	padding-right:20px !important;
+	margin-top:70px;
+	padding-left:40px !important;
+	padding-right:40px !important;
+	background-color: var(--base-color);
 }
+
+// Theme Toggle Button
+#theme{
+	height:50px;
+	width:50px;
+	padding:0;
+	border-radius: 50%;
+	display: flex;
+	justify-content:center;
+	align-items: center;
+	top: 20px;
+	right:20px;
+	background-color: var(--base-color);
+    
+    svg{
+	    fill:var(--opp-color);
+    }
+    svg:last-child{
+        display:none;
+    }
+}
+.darkmode {
+    #theme {
+      svg:first-child {
+        display: none;
+      }
+      svg:last-child {
+        display: block;
+      }
+    }
+  }
+
 /*Top Navigation*/
-
 .navbartop {
+	padding: 10px 20px;
+	position: fixed;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
+	left: 0;
     right: 0;
-    z-index: 9999; /* Ensure the navbar is on top */
-    backdrop-filter: blur(10px); /* Apply blur to the background */
-    background-color: rgba(255, 255, 255, 0.2); /* Translucent background */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for separation */
-    transition: all 0.3s ease; /* Smooth transition when elements change */
+    top: 0;
+    backdrop-filter: blur(15px); 
+    background-color: var(--topNav-color); 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease;
+	z-index: 999; 
+
+    button {
+        background: transparent;
+        border: none;
+        color: var(--opp-color);
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+    &:hover {
+        color: grey;
+    }
+    &focus {
+        outline: none;
+    }
 }
 
-.navbartop button {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-.navbartop button:focus {
-    outline: none;
-}
-
-/* Profile component (assuming <profile-top> is styled via CSS or a custom element) */
 profile-top {
-    /* Profile should align to the far right */
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -131,38 +200,43 @@ profile-top {
 	padding: 10px;
 	margin-bottom: 5px;
 	border-radius: 5px;
-}
 
-.nav-link.active {
-	background-color: white !important;
-	color:#040B31 !important;
-	opacity:1;
-}
+    &.active {
+        background-color: white !important;
+        color:$primary-color !important;
+        opacity:1;
+    }
+    &:hover {
+        color:#e4e4e4 !important;
+        opacity:1;
+    }
 
-.nav-link i {
-	width: 20px;
+    i {
+        width: 20px;
+    }
 }
-.icon-text{
-	font-family: "Poppins", sans-serif;
-	font-weight: 500;
-	font-style: normal;
-	font-size:16px;
-}
+// .icon-text{
+// 	font-family: "Poppins", sans-serif;
+// 	font-weight: 500;
+// 	font-style: normal;
+// 	font-size:16px;
+// }
 
-.icon-text-wrapper {
-    display: inline-flex;
-    align-items: center; 
-}
+// .icon-text-wrapper {
+//     display: inline-flex;
+//     align-items: center; 
+// }
 
 li{
 	margin: 15px;
 }
 
- #sidebar{
+#sidebar{
 	height: 100%;
-	background-color: #040B31;
-	min-height: 100vh;
-	width: 250px;
+	background-color: var(--sidebar-color);
+	z-index: 9999999;
+	min-height: 100%;
+	width: 280px;
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -195,12 +269,10 @@ h4{
 	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 	transition: background-color 0.3s ease;
 	width: 100%;
-  }
-  
-.google-button:hover {
-	background-color: #f7f7f7;
+    &:hover {
+        background-color: #f7f7f7;
+    }
 }
-  
 .google-logo {
 	width: 20px;
 	height: 20px;
@@ -219,7 +291,6 @@ h4{
 	align-items: center;
 	z-index: 1000;
 	float:right;
-	margin-bottom: 20px;
 }
 
 .icon-circle {
@@ -234,30 +305,11 @@ h4{
 
 #welcome-banner {
 	clear: both;
-	background-color: #040B31;
+	background-color: var(--banner-colors);;
 	border-radius: 10px;
 	padding: 20px;
 	margin-bottom: 30px;
 }
-
-/* #friends{
-	display: flex;
-	justify-content: space-between;
-	gap: 10px;
-} */
-/*       .friends-section {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-        }
-        
-        .friend-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        } 
-*/
 
 #steps, #stepsTagline{
 	font-family: Orbitron, sans-serif;
@@ -265,10 +317,14 @@ h4{
 	display: block;
 }
 
-#nameheader
-{
-	display: flex;
-	color: black;
+.profile_name {
+	color: var(	--opp-color);
+	
+	#nameheader
+	{
+		display: flex;
+		color: var(	--opp-color);
+	}
 }
 
 #courseTable
@@ -281,21 +337,20 @@ h4{
     text-align: center;
 }
 
+
+/* CARD */
 .card-deck {
 	display: flex;
 	justify-content: space-between;
 	gap: 15px;
 }
-  
 .card {
 	flex: 1;
 	border-radius: 20px !important;
 	padding:12px 5px;
-}
-  
-.card-body {
-	color: white;
-}
+	background-color: var(--card-color) !important;
+    color: var(--headerText-color) !important;
+} 
 .card-text{
 	margin:20px 0;
 }
@@ -304,6 +359,21 @@ h4{
 	justify-content: space-between;
 	padding-left: 16px;
 	padding-right: 16px;
+	color: var(--headerText-color) !important;
+}
+.card-title {
+	font-family: 'Orbitron', sans-serif;
+	font-size: 1.2rem;
+	color: var(--headerText-color) !important;
+}
+.card-course-name{
+	font-family: 'Orbitron', sans-serif;
+	font-size: 1rem;
+	color: var(--headerText-color) !important;
+}
+.card my-1{
+	font-size: 1rem;
+	color: var(--headerText-color) !important;
 }
 .btn-course-delete {
     font-family: "Poppins", sans-serif;
@@ -315,28 +385,20 @@ h4{
     transition: background-color 0.3s ease, transform 0.3s ease;
 	float: right;
 }
-.card-title {
-	font-family: 'Orbitron', sans-serif;
-	font-size: 1.2rem;
-}
-.card-course-name{
-	font-family: 'Orbitron', sans-serif;
-	font-size: 1rem;
-}
 .carousel-inner{
 	padding:1em;
 }
 .carousel-item {
 	display: flex;
 	justify-content: space-between;
-}
-  
-.carousel-item img {
-	width: 100px;
-	height: auto;
+    
+    img {
+        width: 100px;
+        height: auto;
+    }
 }
 .form-select{
-	background-color: white;
+	background-color: var(--card-color);
 	color: black;
 }
 
@@ -354,6 +416,7 @@ h4{
   transform: translateY(-50%) !important;
   padding:10px !important;
 }
+
 .row.g-0 {
     display: flex;
     align-items: center;
@@ -379,23 +442,21 @@ h4{
 
 /* Catalog Table */
 table {
-    background-color: white;
+    width:auto;
+    background-color: var(--card-color);
     border-radius: 15px;
-}
-
-table thead {
-    border-radius: 15px;
-}
-
-table th, 
-table td {
-    border: none;
-}
-
-table th {
-	background-color: #ECECEC !important;
-    padding-top: 20px!important;
-	padding-bottom: 20px!important;
+    
+    thead {
+        border-radius: 15px;
+    }
+    th, td {
+        border: none;
+    }
+    th {
+        background-color: #ECECEC !important;
+        padding-top: 20px!important;
+        padding-bottom: 20px!important;
+    }
 }
 
 .col-recom {
@@ -404,39 +465,31 @@ table th {
 	text-overflow: ellipsis;
 }
 
-/* Make table in Catalog scrollable */
 #tableModules {
     width: 100%;
 	font-size: 95%;
     border-collapse: collapse;
+
+    thead {
+        display: table; 
+        width: 100%;
+        table-layout: fixed; 
+    }
+    tbody {
+        display: block;
+        max-height: 300px;
+        overflow-y: auto;
+        width: 100%;
+    }
+    th, td {
+        width: 14.285%;
+        text-align: left;
+        padding: 8px;
+        box-sizing: border-box;
+    }
 }
 
-#tableModules thead {
-    display: table; /* Restores thead layout */
-    width: 100%; /* Adjusts for any scrollbar width */
-    table-layout: fixed; /* Ensures columns align with tbody */
-}
-
-#tableModules tbody {
-    display: block;
-    max-height: 300px; /* Adjust height as needed */
-    overflow-y: auto;
-    width: 100%;
-}
-
-#tableModules th, #tableModules td {
-    width: 14.285%; /* Adjust as needed */
-    text-align: left;
-    padding: 8px;
-    box-sizing: border-box;
-}
 #userDetailsModalLabel{
-	/* color: white;
-	background-color: #040B31;
-	width: margin 0 auto;
-	padding-left: 10px;
-	padding-right: 90px;
-	border-radius: 5px; */
 	color: black;
 }
 #ProfileBtn {
@@ -447,15 +500,23 @@ table th {
 
 #coursePlanner{
 	padding-bottom: 20px;
+    color:white;
 }
+.card.my-1{
+    border-color:var(--headerText-color) !important;
+    padding:10px;
+    margin-top: 20px !important;
+    text-align: left !important;
+    box-shadow: 0px 0px 5px #fff;
+}
+
 .sticky-col {
 	position:sticky;
     left: -12px;
     background-color: white;
     z-index: 1;
-    border-right: 1px solid #dee2e6; /* Optional: Add border for visual separation */
+    border-right: 1px solid #dee2e6;
 }
-
 /* Toggle */
 .switch {
 	position: relative;
@@ -489,7 +550,7 @@ table th {
 }
 
 input:checked + .slider {
-	background-color: #040B31;
+	background-color: $primary-color;
 }
 
 input:checked + .slider:before {
@@ -531,14 +592,13 @@ input:checked + .slider .off
 	display: none;
 }
 
-
-
-
 .logo-img {
-    width: 100px; /* Adjust this to the size you want for the logo */
-    height: auto; /* Maintain aspect ratio */
+	display: block;
+    width:45px;
+    height: auto; 
 }
 
-#desktopMenuExpand {
-	margin:  0 auto;
+#header{
+	padding:20px !important;
+	margin:0 auto;
 }

@@ -20,7 +20,9 @@ function ShowPlanner1()
     var semCodes = ["1", "2", "3A", "3B"];
     for (let index = 0; index < 4; index++) {
         var content = 
-                    `<div class="card col-12 col-lg-3">
+        
+                    `
+                    <div class="card col-12 col-lg-3 plannerCard">
                         <h3 class="py-2">&nbsp Year ${index + 1}</h3>`
                         for (let index2 = 0; index2 < 4; index2++) {
                             content += `<div class="card-body">
