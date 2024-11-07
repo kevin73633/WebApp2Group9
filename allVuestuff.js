@@ -87,7 +87,7 @@ app.component('profile-top', {
                 <small id = "profileData">XXXX year, X.XX GPA</small>
             </div>	
                         <button type="button" id="ProfileBtn" data-bs-toggle="modal" data-bs-target="#userDetailsModal">
-                <img src="images/justin1.jpg" alt="Profile" width="32" height="32" class="rounded-circle me-2">
+                <img src="images/default.jpg" alt="Profile" width="32" height="32" class="rounded-circle me-2">
             </button>
 		</div>
     `
