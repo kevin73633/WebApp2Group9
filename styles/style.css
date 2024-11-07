@@ -10,8 +10,9 @@
   --headerText-color: black;
   --card-color:white;
   --button-color:#040B31;
-  --topNav-color: rgba(255, 255, 255, 0.2);
+  --topNav-color: white;
   --table-colors: white;
+  --link: rgb(13, 110, 253);
 }
 
 .darkmode {
@@ -25,6 +26,7 @@
   --button-color: #2757fc;
   --topNav-color: #15161c;
   --table-colors: 21222D;
+  --link: white;
 }
 
 .form-select, .form-control {
@@ -53,6 +55,10 @@ th.text-body-tertiary {
   background-color: var(--table-colors) !important;
   color: var(--opp-color) !important;
   border-bottom: 1px solid lightgrey !important;
+}
+
+a.px-2.text-decoration-none {
+  color: var(--link) !important;
 }
 
 html {
@@ -138,7 +144,7 @@ body {
 }
 
 #content {
-  margin-top: 70px;
+  margin-top: 65px;
   padding-left: 40px !important;
   padding-right: 40px !important;
   background-color: var(--base-color);
@@ -154,7 +160,6 @@ body {
   align-items: center;
   top: 20px;
   right: 20px;
-  background-color: var(--base-color);
 }
 #theme svg {
   fill: var(--opp-color);
@@ -180,10 +185,7 @@ body {
   left: 0;
   right: 0;
   top: 0;
-  -webkit-backdrop-filter: blur(15px);
-          backdrop-filter: blur(15px);
   background-color: var(--topNav-color);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   z-index: 999;
 }
@@ -218,14 +220,28 @@ profile-top {
 .nav-link.active {
   background-color: white !important;
   color: #040B31 !important;
+  margin: 0 0 0 !important;
   opacity: 1;
+  text-align: center;
 }
 .nav-link:hover {
   color: #e4e4e4 !important;
   opacity: 1;
 }
 .nav-link i {
-  width: 20px;
+  width: 18px !important;
+  height: 16px !important;
+}
+.nav-link i.fas {
+  margin: 0;
+  padding: 0;
+}
+
+i.fas.fa-book::before {
+  width: 18px !important;
+  height: 16px !important;
+  display: inline-block;
+  text-align: center;
 }
 
 li {
