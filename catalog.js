@@ -360,7 +360,7 @@ function searchCourse(searchVal = "")
 
 // Acts like "import"
 document.addEventListener('DOMContentLoaded', function() {
-    if (sessionStorage.getItem("currUser") == "null")
+    if (sessionStorage.getItem("currUser") == "null" || sessionStorage.getItem("currUser") == null )
     {
         window.location.href = "index.html";
         return;
