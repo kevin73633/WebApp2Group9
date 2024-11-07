@@ -185,15 +185,18 @@ function createRows(selectedOption, search=false)
                 row.appendChild(col);
 
                 var col = document.createElement("td");
+                col.setAttribute("class", "text-center");
+                var span = document.createElement('span');
                 // For enrolled or not, use if-else
                 if (tookCourse === "yes") {
-                    col.innerText = "Enrolled " + enrolledYear;
-                    col.setAttribute("class", "text-success text-center");
+                    span.innerText = "Enrolled " + enrolledYear;
+                    span.setAttribute('class', 'badge rounded-pill text-bg-success')
                 }
                 else {
-                    col.innerText = "Not Enrolled";
-                    col.setAttribute("class", "text-danger text-center");
+                    span.innerText = "Not Enrolled";
+                    span.setAttribute('class', 'badge rounded-pill text-bg-danger')
                 }
+                col.appendChild(span);
                 row.appendChild(col);
 
                 // Create button
