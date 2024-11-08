@@ -139,7 +139,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  font-family: "Orbitron", sans-serif;
+  font-family: "Poppins", sans-serif;
   background-image: url(../images/login_background.png) !important;
 }
 
@@ -382,15 +382,16 @@ h4 {
 }
 
 .card-title, h5 {
-  font-family: "Orbitron", sans-serif;
-  font-size: 1.2rem;
+  margin-top: 10px;
+  font-family: "Poppins", serif;
+  font-size: 1.4rem;
   color: var(--headerText-color) !important;
   padding-bottom: 0px;
   margin-bottom: 0px;
 }
 
 .card-course-name {
-  font-family: "Orbitron", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8rem;
   color: var(--headerText-color) !important;
 }
@@ -447,7 +448,7 @@ h4 {
 .row.g-0 {
   display: flex;
   align-items: center;
-  min-height: 150px;
+  min-height: 130px;
 }
 
 .col-md-8 {
