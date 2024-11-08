@@ -231,7 +231,8 @@ profile-top {
 		text-align: center;
 
     }
-    &:hover {
+    &:not(.active):hover
+	{
         color:#e4e4e4 !important;
         opacity:1;
     }

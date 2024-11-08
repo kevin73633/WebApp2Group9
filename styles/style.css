@@ -234,7 +234,7 @@ profile-top {
   opacity: 1;
   text-align: center;
 }
-.nav-link:hover {
+.nav-link:not(.active):hover {
   color: #e4e4e4 !important;
   opacity: 1;
 }
