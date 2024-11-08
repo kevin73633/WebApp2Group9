@@ -473,23 +473,6 @@ h4{
 
 
 /* Catalog Table */
-table {
-    width:auto;
-    background-color: var(--card-color);
-    border-radius: 15px;
-    
-    thead {
-        border-radius: 15px;
-    }
-    th, td {
-        border: none;
-    }
-    th {
-        background-color: #ECECEC !important;
-        padding-top: 20px!important;
-        padding-bottom: 20px!important;
-    }
-}
 
 .col-recom {
 	white-space: nowrap;
@@ -519,6 +502,12 @@ table {
         padding: 8px;
         box-sizing: border-box;
     }
+	th
+	{
+        background-color: var(--card-color)!important;
+        padding-top: 20px!important;
+        padding-bottom: 20px!important;
+	}
 }
 
 /* width */
