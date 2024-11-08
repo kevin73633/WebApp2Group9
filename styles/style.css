@@ -12,6 +12,7 @@
   --button-color:#040B31;
   --topNav-color: white;
   --table-colors: white;
+  --placeholderText-color:rgb(152, 152, 152);
   --link: rgb(13, 110, 253);
 }
 
@@ -26,6 +27,7 @@
   --button-color: #2757fc;
   --topNav-color: #15161c;
   --table-colors: 21222D;
+  --placeholderText-color:rgb(152, 152, 152);
   --link: white;
 }
 
@@ -36,6 +38,14 @@
 
 #filterOptions {
   color: var(--opp-color) !important;
+}
+
+#searchInput::-moz-placeholder {
+  color: var(--placeholderText-color) !important;
+}
+
+#searchInput::placeholder {
+  color: var(--placeholderText-color) !important;
 }
 
 #tableModules {
@@ -474,6 +484,7 @@ h4 {
   width: 100%;
   font-size: 95%;
   border-collapse: collapse;
+  background-color: var(--card-color) !important;
 }
 #tableModules thead {
   display: table;
@@ -493,7 +504,6 @@ h4 {
   box-sizing: border-box;
 }
 #tableModules th {
-  background-color: var(--card-color) !important;
   padding-top: 20px !important;
   padding-bottom: 20px !important;
 }
