@@ -114,8 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("profileData").textContent = `Current Sem: ${global.currUser.currentYearAndSem} | GPA: ${(Math.round(global.currUser.gpa * 100) / 100).toFixed(2)}`;
     global.currUser.SortCourses();
     document.getElementById("viewToggle").onclick = function(){togglePlannerMode();};
-    //ShowPlanner1();
-    ShowPlanner2();
+    ShowPlanner1();
+    //ShowPlanner2();
 })
 
 // Function to handle form submission and validation
