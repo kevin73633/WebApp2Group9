@@ -546,7 +546,27 @@ h4{
 
 #coursePlanner{
 	padding-bottom: 20px;
-    color:white;
+	#plannerTable
+	{
+		th
+		{
+			z-index: 2;
+		}
+		th:first-child {
+			position: sticky!important;
+			left: 0;
+			z-index: 3;
+		}
+		td:first-child {
+			position:sticky!important;
+			z-index: 1;
+			left: 0;
+			border-right: 1px solid #dee2e6;
+			width: fit-content;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+	}
 }
 .card.my-1{
     border-color:var(--headerText-color) !important;
@@ -556,13 +576,6 @@ h4{
     box-shadow: 0px 0px 5px #fff;
 }
 
-.sticky-col {
-	position:sticky;
-    left: -12px;
-    background-color: white;
-    z-index: 1;
-    border-right: 1px solid #dee2e6;
-}
 /* Toggle */
 .switch {
 	position: relative;
