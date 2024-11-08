@@ -369,7 +369,7 @@ h4 {
 }
 
 .card-text {
-  margin-bottom: 0px;
+  margin: 20px 0;
 }
 
 .card-text2 {
@@ -377,22 +377,18 @@ h4 {
   justify-content: space-between;
   padding-left: 16px;
   padding-right: 16px;
-  margin-bottom: 0px;
   color: var(--headerText-color) !important;
 }
 
-.card-title, h5 {
-  margin-top: 10px;
-  font-family: "Poppins", serif;
-  font-size: 1.4rem;
+.card-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.2rem;
   color: var(--headerText-color) !important;
-  padding-bottom: 0px;
-  margin-bottom: 0px;
 }
 
 .card-course-name {
   font-family: "Poppins", sans-serif;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--headerText-color) !important;
 }
 
@@ -640,6 +636,6 @@ input:checked + .slider .off {
 }
 
 #header {
-  padding: 20px !important;
+  padding: 12px !important;
   margin: 0 auto;
 }/*# sourceMappingURL=style.css.map */
