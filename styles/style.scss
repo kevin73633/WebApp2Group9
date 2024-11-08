@@ -68,7 +68,7 @@ html {
 	background-color:var(--base-color);
 }
 .modal-title, .modal-body{
-	color:black;
+	color: var(--headerText-color)!important;
 }
 
 body {
@@ -440,7 +440,7 @@ h4{
 }
 
 .form-label, .mb-3{
-	color: black;
+	color: var(--headerText-color)!important;
 }
 
 .carousel-control-prev,
@@ -538,6 +538,9 @@ h4{
 
 #userDetailsModalLabel{
 	color: black;
+}
+#gpaInput::placeholder{
+    color: var(--placeholderText-color) !important;
 }
 #ProfileBtn {
 	border: none;
@@ -661,4 +664,10 @@ input:checked + .slider .off
 #header{
 	padding:12px !important;
 	margin:0 auto;
+}
+
+.modal-content
+{
+	background-color: var(--base-color)!important;
+	color: var(--headerText-color)!important;
 }
