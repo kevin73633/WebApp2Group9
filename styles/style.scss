@@ -16,6 +16,7 @@ $primary-color:#040B31;
     --button-color:#040B31;
 	--topNav-color: white; 
 	--table-colors: white;
+	--placeholderText-color:rgb(152, 152, 152);
 	--link: rgb(13, 110, 253);
 }
 .darkmode{
@@ -29,6 +30,7 @@ $primary-color:#040B31;
     --button-color: #2757fc;
 	--topNav-color: #15161c; 
 	--table-colors: 21222D;
+	--placeholderText-color:rgb(152, 152, 152);
 	--link: white;
 }
 
@@ -39,7 +41,9 @@ $primary-color:#040B31;
 #filterOptions{
     color: var(--opp-color) !important;
 }
-
+#searchInput::placeholder{
+    color: var(--placeholderText-color) !important;
+}
 #tableModules {
     background-color: var(--card-color) !important;
 }
@@ -473,23 +477,6 @@ h4{
 
 
 /* Catalog Table */
-table {
-    width:auto;
-    background-color: var(--card-color);
-    border-radius: 15px;
-    
-    thead {
-        border-radius: 15px;
-    }
-    th, td {
-        border: none;
-    }
-    th {
-        background-color: #ECECEC !important;
-        padding-top: 20px!important;
-        padding-bottom: 20px!important;
-    }
-}
 
 .col-recom {
 	white-space: nowrap;
@@ -501,7 +488,7 @@ table {
     width: 100%;
 	font-size: 95%;
     border-collapse: collapse;
-
+	background-color: var(--card-color)!important;
     thead {
         display: table; 
         width: 100%;
@@ -519,6 +506,12 @@ table {
         padding: 8px;
         box-sizing: border-box;
     }
+	th
+	{
+        
+        padding-top: 20px!important;
+        padding-bottom: 20px!important;
+	}
 }
 
 /* width */
@@ -553,7 +546,27 @@ table {
 
 #coursePlanner{
 	padding-bottom: 20px;
-    color:white;
+	#plannerTable
+	{
+		th
+		{
+			z-index: 2;
+		}
+		th:first-child {
+			position: sticky!important;
+			left: 0;
+			z-index: 3;
+		}
+		td:first-child {
+			position:sticky!important;
+			z-index: 1;
+			left: 0;
+			border-right: 1px solid #dee2e6;
+			width: fit-content;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+	}
 }
 .card.my-1{
     border-color:var(--headerText-color) !important;
@@ -563,13 +576,6 @@ table {
     box-shadow: 0px 0px 5px #fff;
 }
 
-.sticky-col {
-	position:sticky;
-    left: -12px;
-    background-color: white;
-    z-index: 1;
-    border-right: 1px solid #dee2e6;
-}
 /* Toggle */
 .switch {
 	position: relative;

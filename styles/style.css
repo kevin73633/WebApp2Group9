@@ -12,6 +12,7 @@
   --button-color:#040B31;
   --topNav-color: white;
   --table-colors: white;
+  --placeholderText-color:rgb(152, 152, 152);
   --link: rgb(13, 110, 253);
 }
 
@@ -26,6 +27,7 @@
   --button-color: #2757fc;
   --topNav-color: #15161c;
   --table-colors: 21222D;
+  --placeholderText-color:rgb(152, 152, 152);
   --link: white;
 }
 
@@ -36,6 +38,14 @@
 
 #filterOptions {
   color: var(--opp-color) !important;
+}
+
+#searchInput::-moz-placeholder {
+  color: var(--placeholderText-color) !important;
+}
+
+#searchInput::placeholder {
+  color: var(--placeholderText-color) !important;
 }
 
 #tableModules {
@@ -464,23 +474,6 @@ h4 {
 }
 
 /* Catalog Table */
-table {
-  width: auto;
-  background-color: var(--card-color);
-  border-radius: 15px;
-}
-table thead {
-  border-radius: 15px;
-}
-table th, table td {
-  border: none;
-}
-table th {
-  background-color: #ECECEC !important;
-  padding-top: 20px !important;
-  padding-bottom: 20px !important;
-}
-
 .col-recom {
   white-space: nowrap;
   overflow: hidden;
@@ -491,6 +484,7 @@ table th {
   width: 100%;
   font-size: 95%;
   border-collapse: collapse;
+  background-color: var(--card-color) !important;
 }
 #tableModules thead {
   display: table;
@@ -508,6 +502,10 @@ table th {
   text-align: left;
   padding: 8px;
   box-sizing: border-box;
+}
+#tableModules th {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
 }
 
 /* width */
@@ -543,7 +541,24 @@ table th {
 /* Planner Page */
 #coursePlanner {
   padding-bottom: 20px;
-  color: white;
+}
+#coursePlanner #plannerTable th {
+  z-index: 2;
+}
+#coursePlanner #plannerTable th:first-child {
+  position: sticky !important;
+  left: 0;
+  z-index: 3;
+}
+#coursePlanner #plannerTable td:first-child {
+  position: sticky !important;
+  z-index: 1;
+  left: 0;
+  border-right: 1px solid #dee2e6;
+  width: -moz-fit-content;
+  width: fit-content;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .card.my-1 {
@@ -552,14 +567,6 @@ table th {
   margin-top: 20px !important;
   text-align: left !important;
   box-shadow: 0px 0px 5px #fff;
-}
-
-.sticky-col {
-  position: sticky;
-  left: -12px;
-  background-color: white;
-  z-index: 1;
-  border-right: 1px solid #dee2e6;
 }
 
 /* Toggle */

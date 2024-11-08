@@ -47,7 +47,7 @@ function ShowPlanner2()
     var table = document.getElementById("plannerTable").getElementsByTagName("thead")[0];
     table.innerHTML =   `
         <tr>
-                            <th scope="col" class="text-body-tertiary sticky-col"  style="width: 25%;">Module Name</th>
+                            <th scope="col" class="text-body-tertiary"  style="width: 25%;">Module Name</th>
                             <th scope="col" value = "Y1S1" class="text-body-tertiary" style="width: 5%;">Y1S1</th>
                             <th scope="col" value = "Y1S2" class="text-body-tertiary" style="width: 5%;">Y1S2</th>
                             <th scope="col" value = "Y1S3a" class="text-body-tertiary" style="width: 5%;">Y1S3A</th>
@@ -72,7 +72,6 @@ function ShowPlanner2()
         var row = document.createElement("tr");
         var td = document.createElement("td");
         td.textContent = global.Course.GetByCourseCode(course).courseName;
-        td.setAttribute("class", "sticky-col")
         row.appendChild(td);
         
         for (let index = 1; index < 17; index++) 
