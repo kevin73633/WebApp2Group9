@@ -145,6 +145,7 @@ function createRows(selectedOption, search=false)
         for (var data_item of loopCourses) {
             //Create Table Row
             var row = document.createElement("tr");
+            row.setAttribute("style","line-height: 40px;")
             var courseName = data_item.courseName;
             var courseCode = data_item.courseCode;
             var courseCategory = data_item.courseCategory;
@@ -156,7 +157,7 @@ function createRows(selectedOption, search=false)
                 // Create checkbox
                 var col = document.createElement("td");
                 col.setAttribute("class", "text-center");
-                col.setAttribute("style", "width: 10%")
+                col.setAttribute("style", "width: 5%")
                 var checkbox = document.createElement("input");
                 checkbox.setAttribute("type", "checkbox");
                 checkbox.value = courseCode + ":" + courseName;
@@ -165,7 +166,8 @@ function createRows(selectedOption, search=false)
 
                 // Create the other columns
                 var col = document.createElement("td");
-                col.setAttribute("class", "text-center");
+                // col.setAttribute("class", "text-center");
+                col.setAttribute("style", "width: 30%; text-align:left;")
                 col.innerHTML = `<a href = "#Modal_${courseCode}" data-bs-toggle = modal data-bs-target = "#Modal_${courseCode}">${courseName}</a>`;
                 row.appendChild(col);
 

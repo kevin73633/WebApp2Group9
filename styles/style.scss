@@ -1,5 +1,6 @@
 @charset "utf-8";
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /* COMMON */
@@ -35,12 +36,22 @@ $primary-color:#040B31;
 	--placeholderText-color:rgb(152, 152, 152);
 	--link: white;
 }
-
+#desktopMenuExpand, #desktopMenuMinimise{
+	transition: transform .3s ease-in-out;
+	&:hover {
+		transform: rotate(180deg);
+	}
+}
+#banner_name{
+	font-weight: 600;
+}
 .steps h4 {
 	margin-bottom: 25px;
 	font-size: revert
 }
-
+#steps{
+	font-family: "Orbitron", sans-serif;
+}
 .steps {
 	color: black;
 	font-family: "Orbitron", sans-serif;
@@ -124,13 +135,12 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    color: var(--base-color)!important;
-    background-image: var(--background-img)!important;
+    background-color: var(--base-color)!important;
+
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     justify-content: center;
-	font-family: "Poppins", sans-serif !important;
 }
 
 .cat-heading{
@@ -178,7 +188,6 @@ body {
 	margin-top:65px;
 	padding-left:40px !important;
 	padding-right:40px !important;
-	background-color: var(--base-color);
 }
 
 // Theme Toggle Button
@@ -192,7 +201,10 @@ body {
 	align-items: center;
 	top: 20px;
 	right:20px;
-    
+	transition: transform .5s ease;
+	&:hover{
+		transform: scale(1.2);
+	}
     svg{
 	    fill:var(--opp-color);
     }
@@ -245,7 +257,14 @@ profile-top {
     justify-content: flex-end;
     align-items: center;
 }
-
+#ProfileBtn {
+	border: none;
+	background: none;
+	transition: transform .5s ease;
+	&:hover{
+		transform: scale(1.2);
+	}
+}
 /* Side Navigation */
 .nav-link {
 	color: white;
@@ -322,6 +341,7 @@ h4{
 	transition: background-color 0.3s ease;
 }
 
+// Google Button
 .google-button {
 	background-color: #ffffff;
 	border: 1px solid #dcdcdc;
@@ -333,61 +353,69 @@ h4{
 	cursor: pointer;
 	width: 100%;
 	position: relative;
-	border: 0 2px 4px rgba(0, 0, 0, 0.1);;
+	border: 0 2px 4px rgba(0, 0, 0, 0.1);
 	z-index: 0;
-
+  
 	.google-logo {
 	  width: 20px;
 	  height: 20px;
 	  margin-right: 10px;
 	}
-}
-
-.google-button:before {
-    content: '';
-    background: linear-gradient(45deg, #f4f4f4, #ededed, #c7c7c7, #a1a1a1);
-    position: absolute;
-    top: -2px;
-    left:-2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 13s linear infinite;
-    opacity: 0;
-    transition: opacity .1s ease-in-out;
-    border-radius: 10px;
-}
-
-.google-button:active {
-    color: #000
-}
-
-.google-button:active:after {
-    background: transparent;
-}
-
-.google-button:hover:before {
-    opacity: 1;
-}
-
-.google-button:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: white;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
-}
-@keyframes glowing {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
-}
+  
+	&:before {
+	  content: '';
+	  background: linear-gradient(45deg, #f4f4f4, #ededed, #c7c7c7, #a1a1a1);
+	  position: absolute;
+	  top: -2px;
+	  left: -2px;
+	  background-size: 400%;
+	  z-index: -1;
+	  filter: blur(5px);
+	  width: calc(100% + 4px);
+	  height: calc(100% + 4px);
+	  animation: glowing 13s linear infinite;
+	  opacity: 0;
+	  transition: opacity .1s ease-in-out;
+	  border-radius: 10px;
+	}
+  
+	&:active {
+	  color: #000;
+	}
+  
+	&:active:after {
+	  background: transparent;
+	}
+  
+	&:hover:before {
+	  opacity: 1;
+	}
+  
+	&:after {
+	  z-index: -1;
+	  content: '';
+	  position: absolute;
+	  width: 100%;
+	  height: 100%;
+	  background: white;
+	  left: 0;
+	  top: 0;
+	  border-radius: 10px;
+	}
+  }
+  
+  @keyframes glowing {
+	0% {
+	  background-position: 0 0;
+	}
+	50% {
+	  background-position: 400% 0;
+	}
+	100% {
+	  background-position: 0 0;
+	}
+  }
+  
 /* DASHBOARD PAGE*/
 #app{
 	color: white;
@@ -604,10 +632,7 @@ h4{
 #gpaInput::placeholder{
     color: var(--placeholderText-color) !important;
 }
-#ProfileBtn {
-	border: none;
-	background: none;
-}
+
 /* Planner Page */
 
 #coursePlanner{
@@ -648,8 +673,9 @@ h4{
 	display: inline-block;
 	width: 90px;
 	height: 34px;
+	border-radius: 10px;
 }
-  
+
 .slider {
 	position: absolute;
 	cursor: pointer;
@@ -660,6 +686,7 @@ h4{
 	background-color: #252525;
 	-webkit-transition: .4s;
 	transition: .4s;
+	border-radius: 20px;
 }
 
 .slider:before {
@@ -670,6 +697,7 @@ h4{
 	left: 4px;
 	bottom: 4px;
 	background-color: white;
+	border-radius: 10px;
 	-webkit-transition: .4s;
 	transition: .4s;
 }

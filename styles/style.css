@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 /* COMMON */
 :root {
@@ -33,9 +34,24 @@
   --link: white;
 }
 
+#desktopMenuExpand, #desktopMenuMinimise {
+  transition: transform 0.3s ease-in-out;
+}
+#desktopMenuExpand:hover, #desktopMenuMinimise:hover {
+  transform: rotate(180deg);
+}
+
+#banner_name {
+  font-weight: 600;
+}
+
 .steps h4 {
   margin-bottom: 25px;
   font-size: revert;
+}
+
+#steps {
+  font-family: "Orbitron", sans-serif;
 }
 
 .steps {
@@ -135,13 +151,11 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  color: var(--base-color) !important;
-  background-image: var(--background-img) !important;
+  background-color: var(--base-color) !important;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   justify-content: center;
-  font-family: "Poppins", sans-serif !important;
 }
 
 .cat-heading {
@@ -190,7 +204,6 @@ body {
   margin-top: 65px;
   padding-left: 40px !important;
   padding-right: 40px !important;
-  background-color: var(--base-color);
 }
 
 #theme {
@@ -203,6 +216,10 @@ body {
   align-items: center;
   top: 20px;
   right: 20px;
+  transition: transform 0.5s ease;
+}
+#theme:hover {
+  transform: scale(1.2);
 }
 #theme svg {
   fill: var(--opp-color);
@@ -250,6 +267,15 @@ profile-top {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+#ProfileBtn {
+  border: none;
+  background: none;
+  transition: transform 0.5s ease;
+}
+#ProfileBtn:hover {
+  transform: scale(1.2);
 }
 
 /* Side Navigation */
@@ -333,7 +359,6 @@ h4 {
   height: 20px;
   margin-right: 10px;
 }
-
 .google-button:before {
   content: "";
   background: linear-gradient(45deg, #f4f4f4, #ededed, #c7c7c7, #a1a1a1);
@@ -350,19 +375,15 @@ h4 {
   transition: opacity 0.1s ease-in-out;
   border-radius: 10px;
 }
-
 .google-button:active {
   color: #000;
 }
-
 .google-button:active:after {
   background: transparent;
 }
-
 .google-button:hover:before {
   opacity: 1;
 }
-
 .google-button:after {
   z-index: -1;
   content: "";
@@ -612,11 +633,6 @@ h4 {
   color: var(--placeholderText-color) !important;
 }
 
-#ProfileBtn {
-  border: none;
-  background: none;
-}
-
 /* Planner Page */
 #coursePlanner {
   padding-bottom: 20px;
@@ -654,6 +670,7 @@ h4 {
   display: inline-block;
   width: 90px;
   height: 34px;
+  border-radius: 10px;
 }
 
 .slider {
@@ -665,6 +682,7 @@ h4 {
   bottom: 0;
   background-color: #252525;
   transition: 0.4s;
+  border-radius: 20px;
 }
 
 .slider:before {
@@ -675,6 +693,7 @@ h4 {
   left: 4px;
   bottom: 4px;
   background-color: white;
+  border-radius: 10px;
   transition: 0.4s;
 }
 
