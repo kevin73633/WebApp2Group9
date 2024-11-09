@@ -204,7 +204,44 @@ app.component('hamburger-button', {
             if (overlay) {
                 overlay.remove();
             }
+        },
+        responsiveNav(){
+            sideNav = document.getElementById("sidebar");
+            hamburger = document.getElementById("toggleSidebar");
+            mainContent = document.getElementById("content")
+            logo = document.getElementById("logo")
+            iconText = document.getElementsByClassName("icon-text")
+            MenuMinimise = document.getElementById("desktopMenuMinimise")
+            MenuExtend = document.getElementById("desktopMenuExpand")
+        
+            topNav = document.getElementById("navbartop")
+        
+            if (window.innerWidth<480){
+                sideNav.style.display = "none"
+                hamburger.style.display = "block";
+                mainContent.style.marginLeft="0";
+                topNav.style.marginLeft="0"
+                MenuMinimise.style.display="none"
+                MenuExtend.style.display="none"
+            }else{
+                sideNav.style.display = "block"
+                sideNav.style.width = "80px"
+                sideNav.style.padding = "0"
+                hamburger.style.display = "none"
+                mainContent.style.marginLeft="80px";
+                topNav.style.marginLeft="80px"
+                logo.style.display = "none"
+                for (var i = 0; i < iconText.length; i++) {
+                    iconText[i].style.display = "none";
+                }
+                MenuMinimise.style.display = "none"
+                MenuExtend.style.display = "block"
+            }
         }
+    },
+    mounted() {
+        this.responsiveNav();
+        window.onresize = this.responsiveNav;
     }
 })
 
