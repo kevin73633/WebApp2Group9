@@ -10,7 +10,8 @@ $primary-color:#040B31;
 	--opp-color:black;
 	--sidebar-color:#040B31;
 	--background-img: url('../images/background2.png');
-	--banner-colors:#040B31;
+	--login-bg: url('../images/login_bg_dark.png');
+	--banner-colors:#f1f1f1;
 	--headerText-color: black;
 	--card-color:white;
     --button-color:#040B31;
@@ -24,6 +25,7 @@ $primary-color:#040B31;
 	--opp-color:white;
 	--sidebar-color:#15161c;
 	--background-img: url('../images/dark_bg_img.png');
+	--login-bg: url('../images/login_bg_dark.png');
 	--banner-colors:#21222D;
 	--headerText-color: white;
 	--card-color:#21222D;
@@ -32,6 +34,36 @@ $primary-color:#040B31;
 	--table-colors: 21222D;
 	--placeholderText-color:rgb(152, 152, 152);
 	--link: white;
+}
+
+.steps h4 {
+	margin-bottom: 25px;
+	font-size: revert
+}
+
+.steps {
+	color: black;
+	font-family: "Orbitron", sans-serif;
+	p{
+		font-size: 13px;
+	}
+}
+
+.login{
+	p{
+		font-size: 13px;
+		color: #747686
+	}
+	h5 {
+		font-size: 17px;
+		color:black;
+	}
+}
+
+#GoogleLoginBtn{
+	background-color: white;
+	padding: 5px 5x;
+	border-radius: 10px;
 }
 
 .form-select, .form-control{
@@ -62,6 +94,23 @@ th.text-body-tertiary{
 a.px-2.text-decoration-none{
 	color:var(--link) !important;
 }
+.badge.rounded-pill.text-bg-danger{
+	background-color: #fbd0d0 !important;
+	color: #6c0909 !important;
+	border: 1px solid #d67f7f !important;
+}
+.badge.rounded-pill.text-bg-success{
+	background-color: #d9fbd0 !important;
+	color: #1C6C09 !important;
+	border: 1px solid #90d67f !important;
+}
+table a {
+	text-decoration: none !important;
+	color: var(--link) !important;
+	&:hover {
+		text-decoration: underline !important;
+	}
+}
 html {
     height: 100%;
     margin: 0;
@@ -76,7 +125,7 @@ body {
     padding: 0;
     height: 100%;
     color: var(--base-color)!important;
-    background-image: var(--background-img);
+    background-image: var(--background-img)!important;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -116,31 +165,13 @@ body {
     }
 }
 
-.steps h4 {
-	margin-bottom: 25px;
-	font-size: revert
-}
-
-.steps {
-	color: white;
-	font-family: "Orbitron", sans-serif;
-	font-size: 10px !important;
-}
-
-.steps2{
-	color: white;
-	width: margin 0 auto;
-	
-}
-
 .index-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
 	margin: 0;
-	font-family: "Orbitron", sans-serif;
-	background-image: url(../images/login_background.png) !important;
+	background-image: var(--login-bg) !important;
 }
 
 #content {
@@ -281,41 +312,82 @@ li{
 }
 
 /* INDEX PAGE */
-.steps h1 {
-	text-align: center;
-	font-size:45px;
-}
 
 h4{
 	margin-bottom: 40px;
 	text-align:center;
 }
+.login-card{
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	transition: background-color 0.3s ease;
+}
 
 .google-button {
-	background-color: #ffffff  !important;
+	background-color: #ffffff;
 	border: 1px solid #dcdcdc;
 	border-radius: 10px;
 	color: #333333;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	font-size: 14px;
 	font-weight: 500;
 	padding: 10px 20px;
 	cursor: pointer;
-	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-	transition: background-color 0.3s ease;
 	width: 100%;
-    &:hover {
-        background-color: #f7f7f7;
-    }
-}
-.google-logo {
-	width: 20px;
-	height: 20px;
-	margin-right: 10px;
+	position: relative;
+	border: 0 2px 4px rgba(0, 0, 0, 0.1);;
+	z-index: 0;
+
+	.google-logo {
+	  width: 20px;
+	  height: 20px;
+	  margin-right: 10px;
+	}
 }
 
+.google-button:before {
+    content: '';
+    background: linear-gradient(45deg, #f4f4f4, #ededed, #c7c7c7, #a1a1a1);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 13s linear infinite;
+    opacity: 0;
+    transition: opacity .1s ease-in-out;
+    border-radius: 10px;
+}
+
+.google-button:active {
+    color: #000
+}
+
+.google-button:active:after {
+    background: transparent;
+}
+
+.google-button:hover:before {
+    opacity: 1;
+}
+
+.google-button:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
 /* DASHBOARD PAGE*/
 #app{
 	color: white;
@@ -341,22 +413,15 @@ h4{
 }
 
 #welcome-banner {
-	clear: both;
+	color: var(--opp-color);
 	background-color: var(--banner-colors);;
 	border-radius: 10px;
 	padding: 20px;
 	margin-bottom: 30px;
 }
 
-#steps, #stepsTagline{
-	font-family: Orbitron, sans-serif;
-	font-size: x-small;
-	display: block;
-}
-
 .profile_name {
 	color: var(	--opp-color);
-	
 	#nameheader
 	{
 		display: flex;
@@ -399,12 +464,10 @@ h4{
 	color: var(--headerText-color) !important;
 }
 .card-title {
-	font-family: 'Orbitron', sans-serif;
 	font-size: 1.2rem;
 	color: var(--headerText-color) !important;
 }
 .card-course-name{
-	font-family: 'Orbitron', sans-serif;
 	font-size: 1rem;
 	color: var(--headerText-color) !important;
 }
@@ -509,7 +572,6 @@ h4{
     }
 	th
 	{
-        
         padding-top: 20px!important;
         padding-bottom: 20px!important;
 	}

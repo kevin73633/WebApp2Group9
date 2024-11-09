@@ -2,75 +2,61 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>STEPS</title>
-	<link href= "styles/style.css" type="text/css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEPS</title>
 
-<!-- <link href= "https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"/> -->
-	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- External Stylesheets -->
+    <link href="styles/style.css" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
 
-<!-- Vue.js Version 3 CDN -->
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- External Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+            crossorigin="anonymous"></script>
 
+    <!-- Custom JavaScript -->
+    <script src="index_javascript.js" type="module"></script>
+    <script src="allVuestuff.js"></script>
 </head>
 
-
 <body class="index-container">
-		<!-- <a id="top"></a> -->
-		<!-- <h1 id="nameheader">Sign in:</h1> -->
-		<!-- <h1 id="currentuserscount">0</h1> -->
-		<!-- <form id="form">
-			<input type="email" id="email" placeholder="email">
-			<input type="password" id="password" placeholder="password">
-			<input type="submit" value="Login">
-		</form> -->
-		<div class="row px-0">
-			<div class="col-xs-4">
+	<div class="login-card bg-white rounded-4 m-3 px-5">
+		<div class="steps pt-5">
+			<div class="d-flex align-items-center justify-content-center">
+				<img src="images/step_logo_black.png" style="width: 60px;" alt="Logo">
+				<h1 class="mb-0">S T E P S</h1>
 			</div>
-				<div class="col-12 col-xs-4">
-				<div class="steps">
-				<h1>S T E P S</h1>
+			<!-- <p class="row justify-content-center text-center d-none d-sm-flex">SCIS Timetable and Enrollment Planning System</p> -->
+		</div>
+		<div class="login text-center p-4">
+			<h5>Welcome back</h5>
+			<p>Please sign in with your SMU account to continue</p>
+			<hr>
+			<div class="row justify-content-center">
+				<div class="col-10 mb-3 text-center">
+					<button id="GoogleLoginBtn" class="google-button">
+						<img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" class="google-logo">
+						Sign in with Google
+					</button>
 				</div>
-				</div>
-			<div class="col-xs-4">
-			</div>
-		<div class="row px-0">
-			<div class="col-1 col-xs-3">
-			</div>
-				<h4 class="col-10 col-xs-6">
-					<div class="steps2">
-					SCIS Timetable and Enrollment Planning System
-					</div>
-				</h4>
-			<div class="col-1 col-xs-3">
 			</div>
 		</div>
-		<br>
-		<br>
-		<div class="row px-0">
-		<div class="col-4">
-		</div>
-			<button id="GoogleLoginBtn" class="google-button, col-4">
-				<img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" class="google-logo">
-				Sign in with Google
-			</button>
-		<div class="col-4">
-		</div>
-		<div id="app">
-			<!-- Modal for Inputting Degree, GPA, Current Year, and Semester -->
-			<user-details-menu></user-details-menu>
-		</div>
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-	<script src="index_javascript.js" type="module"></script>
-	<script src="allVuestuff.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
-	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-	
+	</div>
+        <!-- Vue.js App -->
+        <div id="app" class="row justify-content-center">
+            <div class="col-12 text-center">
+                <!-- Modal for Inputting Degree, GPA, Current Year, and Semester -->
+                <user-details-menu></user-details-menu>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
