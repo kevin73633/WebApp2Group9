@@ -274,8 +274,8 @@ class User
       }
       else
       {
-        Course.GetByCourseCode(courseCode).enrolled_year = yearAndSemTaken;
-        Course.GetByCourseCode(courseCode).status = "yes";
+        Course.GetByCourseCode(courseCode).enrolled_year = null;
+        Course.GetByCourseCode(courseCode).status = "no";
       }
     }
     remove(ref(db, 'users/' + currUser.uid + "/courses/" + courseCode));
