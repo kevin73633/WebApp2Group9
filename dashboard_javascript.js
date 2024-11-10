@@ -116,7 +116,7 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
           viewButton.setAttribute("type", "button");
           viewButton.setAttribute("class", "btn-course");
 
-          viewButton.textContent = 'View';
+          viewButton.textContent = 'View More';
           let col2 = document.createElement('div');
           col2.className = 'col-md-3 mx-2';
           col2.appendChild(viewButton);
@@ -222,6 +222,7 @@ function UpdateCoursesList() {
       recommendedcourses[course.courseCode] = course.GetDegreeSpecificRecommendedDate();
     }
   }
+  
   FillCourseList(document.getElementById("enrolledCarousel").children[0], enrolledcourses);
   FillCourseList(document.getElementById("plannedCarousel").children[0], plannedcourses);
   FillCourseList(document.getElementById("recommendedCarousel").children[0], recommendedcourses, false, true);
@@ -293,7 +294,6 @@ function createCourseModal(courseCode, courseName, courseDescription) {
   modalsContainer.appendChild(modalDiv);
 }
 
-// Optionally, call the function on window resize to adapt to size changes
 window.addEventListener('resize', UpdateCoursesList);
 
 function FetchUsersCourses()
@@ -306,7 +306,6 @@ function FetchUsersCourses()
 
 
       for (var key of Object.keys(result)) {
-          // this will give you the key & values for all properties
           var temp = result[key];
           var currCourse = new global.Course(temp["courseCode"], temp["courseName"]);
           
