@@ -242,6 +242,8 @@ app.component('hamburger-button', {
     mounted() {
         this.responsiveNav();
         window.onresize = this.responsiveNav;
+        document.getElementById("mobileToggleSideBar").onclick = this.minMobileNav;
+
     }
 })
 
@@ -273,7 +275,7 @@ app.component('sidebar', {
                         <div id="logo" class="text-start">
                             <h1 id="steps" class="fs-2">S T E P S</h1>
                             <p id="stepsTagline">SCIS TIMETABLE AND ENROLLMENT PLANNING SYSTEM</p>
-                            <button id="mobileToggleSideBar" class="btn d-none" onclick="minMobileNav()">
+                            <button id="mobileToggleSideBar" class="btn d-none">
                                 <i class="fas fa-times text-white"></i>
                             </button>    
                         </div>
