@@ -94,23 +94,13 @@
   color: var(--placeholderText-color) !important;
 }
 
-#tableModules {
-  background-color: var(--card-color) !important;
-}
-
 tbody, td, tfoot, th, thead, tr {
   background-color: var(--table-colors) !important;
   color: var(--opp-color) !important;
 }
 
-td {
-  border-bottom: 1px solid lightgrey !important;
-}
-
 th.text-body-tertiary {
-  background-color: var(--table-colors) !important;
   color: var(--opp-color) !important;
-  border-bottom: 1px solid lightgrey !important;
 }
 
 a.px-2.text-decoration-none {
@@ -178,7 +168,6 @@ body {
 
 .btn-course {
   background-color: var(--button-color);
-  font-family: "Poppins", sans-serif;
   font-size: 13px;
   color: white;
   padding: 10px 30px;
@@ -197,14 +186,13 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  font-family: "Poppins", sans-serif;
-  background-image: url(../images/login_background.png) !important;
+  background-image: var(--login-bg) !important;
 }
 
 #content {
   margin-top: 65px;
-  padding-left: 40px !important;
-  padding-right: 40px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 
 #theme {
@@ -491,7 +479,6 @@ h4 {
 }
 
 .card-course-name {
-  font-family: "Poppins", sans-serif;
   font-size: 1rem;
   color: var(--headerText-color) !important;
 }
@@ -502,7 +489,6 @@ h4 {
 }
 
 .btn-course-delete {
-  font-family: "Poppins", sans-serif;
   font-size: 13px;
   color: var(--opp-color);
   border-radius: 20px;
@@ -548,7 +534,7 @@ h4 {
 .row.g-0 {
   display: flex;
   align-items: center;
-  min-height: 130px;
+  min-height: 200px;
 }
 
 .col-md-8 {
