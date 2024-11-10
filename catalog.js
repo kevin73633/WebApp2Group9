@@ -250,14 +250,13 @@ function createCourseModal(course)
     </div>`
     return modal
 }
-
 function getAllSelectedCourses() 
 {
     /* This function is to handle "Add to Planner" button */
     var selectedCourses = document.getElementsByTagName("input");
     // If pressed search before "Add to Planner"
+    let courseIds = [];
     if (selectedCourses.length > 1) {
-        let courseIds = [];
         SelectedCoursesList = [];
         for (let i=1; i < selectedCourses.length; i++) {
             let selection = selectedCourses[i];
@@ -266,18 +265,20 @@ function getAllSelectedCourses()
                SelectedCoursesList.push(global.Course.GetByCourseCode(selection.value.split(":")[0]));
             }
         }
-        // If checked at least 1 checkboxes
-        if (courseIds.length > 0) {
-            createForm(document.getElementById("addToPlannerModalBody"), courseIds)
-            document.getElementById("buttonToAdd").disabled = false;
-        }
-        // If checked no checkboxes
-        else {
-            document.getElementById("addToPlannerModalBody").innerText = "Please select at least 1 module";
-            document.getElementById("buttonToAdd").disabled = true;
-        }
     }
-    // If DID NOT pressed search before "Add to Planner"
+    return courseIds;
+}
+function ShowModal() 
+{
+    /* This function is to handle "Add to Planner" button */
+    var courseIds = getAllSelectedCourses();
+    // If checked at least 1 checkboxes
+    if (courseIds.length > 0) 
+    {
+        createForm(document.getElementById("addToPlannerModalBody"), courseIds)
+        document.getElementById("buttonToAdd").disabled = false;
+    }
+    // If DID NOT pressed search before "Add to Planner" or no courses selected
     else {
         document.getElementById("addToPlannerModalBody").innerText = "Please select at least 1 module";
         document.getElementById("buttonToAdd").disabled = true;
@@ -386,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("filterOptions").onchange = function() {editModulesTable()}
 
     // For the 'Add to my Planner' button
-    document.getElementById("addToPlanner").onclick = function() {getAllSelectedCourses()}
+    document.getElementById("addToPlanner").onclick = function() {ShowModal()}
 
     document.getElementById("buttonToAdd").onclick = function() {AddToPlanner();};
     document.getElementById("logoutBtn").onclick = function() {global.logout();};
