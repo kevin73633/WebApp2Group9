@@ -191,8 +191,9 @@ body {
 
 #content {
   margin-top: 65px;
-  padding-left: 20px !important;
-  padding-right: 20px !important;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  background-color: var(--base-color);
 }
 
 #theme {
@@ -661,6 +662,10 @@ h4 {
   border-radius: 10px;
 }
 
+#viewToggle {
+  display: none;
+}
+
 .slider {
   position: absolute;
   cursor: pointer;
@@ -686,7 +691,7 @@ h4 {
 }
 
 input:checked + .slider {
-  background-color: #040B31;
+  background-color: #252525;
 }
 
 input:checked + .slider:before {

@@ -177,8 +177,9 @@ body {
 
 #content {
 	margin-top:65px;
-	padding-left:20px !important;
-	padding-right:20px !important;
+	padding-left:40px !important;
+	padding-right:40px !important;
+	background-color: var(--base-color);
 }
 
 // Theme Toggle Button
@@ -665,7 +666,10 @@ h4{
 	height: 34px;
 	border-radius: 10px;
 }
-
+#viewToggle
+{
+	display: none;
+}
 .slider {
 	position: absolute;
 	cursor: pointer;
@@ -693,7 +697,7 @@ h4{
 }
 
 input:checked + .slider {
-	background-color: $primary-color;
+	background-color: #252525;
 }
 
 input:checked + .slider:before {

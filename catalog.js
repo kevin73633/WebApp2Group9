@@ -167,7 +167,7 @@ function createRows(selectedOption, search=false)
                 // Create the other columns
                 var col = document.createElement("td");
                 // col.setAttribute("class", "text-center");
-                col.setAttribute("style", "text-align:left;")
+                col.setAttribute("style", " text-align:left;")
                 col.innerHTML = `<a href = "#Modal_${courseCode}" data-bs-toggle = modal data-bs-target = "#Modal_${courseCode}">${courseName}</a>`;
                 row.appendChild(col);
 
