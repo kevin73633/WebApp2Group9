@@ -16,6 +16,7 @@
   --table-colors: white;
   --placeholderText-color:rgb(152, 152, 152);
   --link: rgb(13, 110, 253);
+  --plannerBox: #0a58ca;
 }
 
 .darkmode {
@@ -32,6 +33,7 @@
   --table-colors: 21222D;
   --placeholderText-color:rgb(152, 152, 152);
   --link: white;
+  --plannerBox: #eb9b13;
 }
 
 #desktopMenuExpand, #desktopMenuMinimise {
@@ -645,6 +647,10 @@ h4 {
   white-space: nowrap;
   overflow: hidden;
   background-color: var(--base-color);
+}
+#coursePlanner .plannerBox {
+  background-color: var(--plannerBox) !important;
+  border-radius: 10px;
 }
 
 .card.my-1 {
