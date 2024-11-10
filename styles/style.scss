@@ -568,7 +568,6 @@ h4{
 }
 #courseTable
 {
-	width:min-content;/* wraps onto table's width */
 	height: 300px;
 	width: 100%;
 	overflow-y:auto;
@@ -635,8 +634,10 @@ h4{
 
 #coursePlanner{
 	padding-bottom: 20px;
+	width: 100%;
 	#plannerTable
 	{
+		width: 100%;
 		th:first-child {
 			left: 0;
 		}
@@ -649,10 +650,17 @@ h4{
 			background-color: var(--base-color);
 		}
 	}
-	.plannerBox
+	.plannerbox
 	{
 		background-color: var(--plannerBox)!important;
 		border-radius: 10px;
+		width: 60px!important;
+		height: 24px!important;
+	}
+	.emptybox
+	{
+		width: 60px!important;
+		height: 24px!important;
 	}
 }
 .card.my-1{
