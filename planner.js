@@ -78,10 +78,11 @@ function ShowPlanner2()
         {
             td = document.createElement("td");
             var currHeader = headers.getElementsByTagName("th");
+            td.innerHTML = `<div class = "emptybox"></div>`;
             if (currHeader[index].getAttribute("value") == global.currUser.GetAllCourseYearAndSemTaken()[course])
             {
-                td.style.setProperty('background-color', '#eb9b13', 'important');
-                td.style.borderRadius = "10px";
+                td.innerHTML = `<div class = "plannerbox"></div>`;
+                //td.className = "plannerBox";
             }
             row.appendChild(td);
         }

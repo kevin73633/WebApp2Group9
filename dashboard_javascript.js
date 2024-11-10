@@ -233,6 +233,8 @@ function UpdateCoursesList() {
     document.getElementById("plannedCarousel").parentElement.style.display = "none";
   if (Object.keys(completedcourses).length == 0)
     document.getElementById("completedCarousel").parentElement.style.display = "none";
+  if (Object.keys(recommendedcourses).length == 0)
+    document.getElementById("recommendedCarousel").parentElement.style.display = "none";
 }
 
 function createCourseModal(courseCode, courseName, courseDescription) {

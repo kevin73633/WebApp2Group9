@@ -161,6 +161,7 @@ function createRows(selectedOption, search=false)
                 var checkbox = document.createElement("input");
                 checkbox.setAttribute("type", "checkbox");
                 checkbox.value = courseCode + ":" + courseName;
+                checkbox.onclick = function(){SetRemovalButtonState();};
                 col.appendChild(checkbox);
                 row.appendChild(col);
 
@@ -268,6 +269,28 @@ function getAllSelectedCourses()
     }
     return courseIds;
 }
+function SetRemovalButtonState()
+{
+    document.getElementById("removeFromPlanner").disabled = true;
+    var courseIDs = getAllSelectedCourses();
+    var HasCourses = true;
+    for (let index = 0; index < courseIDs.length; index++) {
+        if (global.currUser.courses[courseIDs[index].split(":")[0]] == null)
+            HasCourses = false;
+    }
+    if (courseIDs.length > 0 && HasCourses)
+        document.getElementById("removeFromPlanner").disabled = false;
+}
+function RemoveModules()
+{
+    var courseIDs = getAllSelectedCourses();
+    for (let index = 0; index < courseIDs.length; index++) {
+        global.currUser.DeleteCourse(courseIDs[index].split(":")[0]);
+    }
+    FetchCourses();
+    createModulesTable();
+    document.getElementById("removeFromPlanner").disabled = true;
+}
 function ShowModal() 
 {
     /* This function is to handle "Add to Planner" button */
@@ -359,7 +382,6 @@ function searchCourse(searchVal = "")
         }
         createModulesTable('All Tracks', true)
     }
-
 }
 
 // Acts like "import"
@@ -388,6 +410,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // For the 'Add to my Planner' button
     document.getElementById("addToPlanner").onclick = function() {ShowModal()}
+    document.getElementById("removeFromPlanner").onclick = function(){RemoveModules();}
+    document.getElementById("removeFromPlanner").disabled = true;
 
     document.getElementById("buttonToAdd").onclick = function() {AddToPlanner();};
     document.getElementById("logoutBtn").onclick = function() {global.logout();};
