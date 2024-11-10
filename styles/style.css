@@ -569,8 +569,6 @@ h4 {
 /* Catalog Table */
 .col-recom {
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 #tableModules {
