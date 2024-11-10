@@ -634,23 +634,17 @@ h4 {
 #coursePlanner {
   padding-bottom: 20px;
 }
-#coursePlanner #plannerTable th {
-  z-index: 2;
-}
 #coursePlanner #plannerTable th:first-child {
-  position: sticky !important;
   left: 0;
-  z-index: 3;
 }
 #coursePlanner #plannerTable td:first-child {
-  position: sticky !important;
-  z-index: 1;
   left: 0;
   border-right: 1px solid #dee2e6;
   width: -moz-fit-content;
   width: fit-content;
   white-space: nowrap;
   overflow: hidden;
+  background-color: var(--base-color);
 }
 
 .card.my-1 {
