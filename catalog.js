@@ -360,6 +360,7 @@ function searchCourse(searchVal = "")
         createModulesTable('All Tracks', true)
     }
 
+    document.getElementById("searchInput").value="";
 }
 
 // Acts like "import"
