@@ -188,10 +188,8 @@ app.component('hamburger-button', {
             overlay.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
             overlay.style.zIndex = 999998;
             document.body.appendChild(overlay);
-        
-            overlay.addEventListener("click", function () {
-                minMobileNav();
-            });
+            overlay.onclick = this.minMobileNav;
+            
         },
         minMobileNav() {
             crossHamburger = document.getElementById("mobileToggleSideBar");
@@ -243,6 +241,7 @@ app.component('hamburger-button', {
         this.responsiveNav();
         window.onresize = this.responsiveNav;
         document.getElementById("mobileToggleSideBar").onclick = this.minMobileNav;
+        
 
     }
 })
