@@ -675,7 +675,10 @@ h4{
 	height: 34px;
 	border-radius: 10px;
 }
-
+#viewToggle
+{
+	display: none;
+}
 .slider {
 	position: absolute;
 	cursor: pointer;
@@ -703,7 +706,7 @@ h4{
 }
 
 input:checked + .slider {
-	background-color: $primary-color;
+	background-color: #252525;
 }
 
 input:checked + .slider:before {

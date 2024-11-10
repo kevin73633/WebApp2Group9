@@ -197,8 +197,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  font-family: "Poppins", sans-serif;
-  background-image: url(../images/login_background.png) !important;
+  background-image: var(--login-bg) !important;
 }
 
 #content {
@@ -491,7 +490,6 @@ h4 {
 }
 
 .card-course-name {
-  font-family: "Poppins", sans-serif;
   font-size: 1rem;
   color: var(--headerText-color) !important;
 }
@@ -548,7 +546,7 @@ h4 {
 .row.g-0 {
   display: flex;
   align-items: center;
-  min-height: 130px;
+  min-height: 200px;
 }
 
 .col-md-8 {
@@ -675,6 +673,10 @@ h4 {
   border-radius: 10px;
 }
 
+#viewToggle {
+  display: none;
+}
+
 .slider {
   position: absolute;
   cursor: pointer;
@@ -700,7 +702,7 @@ h4 {
 }
 
 input:checked + .slider {
-  background-color: #040B31;
+  background-color: #252525;
 }
 
 input:checked + .slider:before {
