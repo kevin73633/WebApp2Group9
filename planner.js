@@ -82,7 +82,6 @@ function ShowPlanner2()
             if (currHeader[index].getAttribute("value") == global.currUser.GetAllCourseYearAndSemTaken()[course])
             {
                 td.innerHTML = `<div class = "plannerbox"></div>`;
-                //td.className = "plannerBox";
             }
             row.appendChild(td);
         }
