@@ -178,13 +178,43 @@ body {
   border-radius: 10px;
 }
 
-#desktopMenuExpand, #desktopMenuMinimise {
+#desktopMenuExpand {
   transition: transform 0.3s ease-in-out;
 }
-#desktopMenuExpand:hover, #desktopMenuMinimise:hover {
+#desktopMenuExpand:hover {
   transform: rotate(180deg);
 }
+#desktopMenuExpand svg {
+  fill: var(--opp-color);
+}
 
+#desktopMenuMinimise {
+  transition: transform 0.3s ease-in-out;
+}
+#desktopMenuMinimise svg {
+  fill: var(--opp-color);
+}
+#desktopMenuMinimise:hover {
+  animation: bounceLeft 0.5s ease-out; /* Apply bounceLeft animation on hover */
+}
+
+@keyframes bounceLeft {
+  0% {
+    transform: translateX(0); /* Start at the original position */
+  }
+  30% {
+    transform: translateX(-10px); /* Move a little left */
+  }
+  50% {
+    transform: translateX(5px); /* Bounce to the right a little */
+  }
+  70% {
+    transform: translateX(-5px); /* Move left again */
+  }
+  100% {
+    transform: translateX(0); /* End at the original position */
+  }
+}
 .steps h4 {
   margin-bottom: 25px;
   font-size: revert;
