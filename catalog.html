@@ -41,36 +41,24 @@
                 <h5>Course Catalogue</h5>
                 <p>Browse the Available Courses for Your Academic Journey</p>
             </div>
-
-            <div class="row py-3 justify-content-evenly" id="filter-search">
-                <!-- Dropdown -->
-                <div class="row">
-                <div class="col-12 col-lg-3 mb-2 mb-lg-0 px-0">
+            <div class="row py-3 px-3 justify-content-between d-flex align-items-center px-0" id="filter-search">
+                <!-- Dropdown on the far left -->
+                <div class="col-12 col-sm-5 col-md-3 mb-2 mb-lg-0 px-0 d-flex align-items-center">
                     <select class="form-select rounded-5 text-black" aria-label="Filter options" id="filterOptions">
                         <!-- Options here -->
                     </select>
                 </div>
                 
-                <!-- Empty Column for Spacing on Larger Screens -->
-                <div class="col-9 col-lg-4 mb-2 mb-lg-0 d-none d-lg-block"></div>
-                
-                <!-- Search Bar -->
-                
-                <div class="col-8 col-lg-4 mb-2 mb-lg-0 d-flex px-0">
-                    <div class="input-group flex-nowrap">
+                <!-- Search Bar and Button on the far right -->
+                <div class="col-12 col-sm-7 col-md-7 d-flex justify-content-end align-items-center px-0">
+                    <div class="input-group flex-nowrap mr-2" style="max-width: 350px;">
                         <input type="text" class="form-control rounded-5" placeholder="Code/Name of Module" aria-label="module_input" id="searchInput" value="">
                     </div>
-                </div>
-
-           
-                <!-- Search Button -->
-                <div class="col-4 col-lg-1 d-flex justify-content-end px-0">
-                    <button type="button" class="button-primary px-3 rounded-5" id="searchBtn">Search</button>
-                </div>
-                <!-- <div class="col-8 d-block d-xs-none"></div> -->
-
+                    <button type="button" class="btn btn-primary px-3 rounded-5" id="searchBtn">Search</button>
                 </div>
             </div>
+            
+            
             
             <!-- Course Table -->
             

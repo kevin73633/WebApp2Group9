@@ -58,7 +58,14 @@ body {
     background-repeat: no-repeat;
     justify-content: center;
 }
-
+.plannerCard{
+	h3{
+		font-weight: 600;
+	}
+	h5{
+		font-weight: 650;	
+	}
+}
 #content {
 	margin-top:60px;
 	padding-left:20px !important;
@@ -152,7 +159,9 @@ tbody, td, tfoot, th, thead, tr{
 	background-color: var(--table-colors) !important;
 	color:var(--opp-color)!important;
 }
-
+th{
+	background-color: var(--card-color) !important;
+}
 th.text-body-tertiary{
 	color:var(--opp-color)!important;
 }
@@ -307,6 +316,9 @@ i.fas.fa-book::before{
 // 	font-style: normal;
 // 	font-size:16px;
 // }
+.icon-text{
+	padding-left:10px !important;
+}
 
 // .icon-text-wrapper {
 //     display: inline-flex;
@@ -452,6 +464,9 @@ h4{
 		color: var(--subtitle);
 	}
 }
+.subtitle{
+	color: var(--subtitle);
+}
 .banner_bg{
 	background-color: var(--banner-colors);
 	padding: 20px !important;
@@ -484,14 +499,17 @@ h4{
 	background-color: var(--card-color) !important;
     color: var(--headerText-color) !important;
 } 
+
 .card-text{
 	margin:20px 0;
 }
+
 .card-text2{
 	display: flex;
 	justify-content: space-between;
 	padding-left: 16px;
 	padding-right: 16px;
+	margin: 0;
 	color: var(--headerText-color) !important;
 }
 .card-title {

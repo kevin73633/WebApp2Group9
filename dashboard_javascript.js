@@ -116,6 +116,7 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
           viewButton.setAttribute("type", "button");
           viewButton.setAttribute("class", "btn-course");
           viewButton.textContent = 'View More';
+          courseNameElement.style = "height:80px;"
 
           // Append the view button below the course name
           cardBody.appendChild(viewButton);

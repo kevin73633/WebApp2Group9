@@ -12,34 +12,41 @@ const Categories = ["All Tracks"];
 var Courses = [];
 var SelectedCoursesList = [];
 
-function ShowPlanner1()
-{
+function ShowPlanner1() {
     document.getElementById("plannerTable").style.display = "none";
     var coursePlanner = document.getElementById("coursePlanner");
     coursePlanner.innerHTML = "";
+
     var semCodes = ["1", "2", "3A", "3B"];
     for (let index = 0; index < 4; index++) {
-        var content = 
-        
-                    `
-                    <div class="col-12 col-md-6 col-lg-3"> 
-                        <div class="card mx-1 my-2 plannerCard">
-                        <h3 class="py-2">&nbsp Year ${index + 1}</h3>`
-                        for (let index2 = 0; index2 < 4; index2++) {
-                            content += `<div class="card-body mb-2">
-                                <h5 class="card-title">Semester ${semCodes[index2]}</h5>`
-                                var CoursesInYearAndSem = global.Course.GetAllCoursesInYearAndSem("Y" + (index + 1) + "S" + semCodes[index2]);
-                                for (let index3 = 0; index3 < CoursesInYearAndSem.length; index3++) {
-                                    const element = CoursesInYearAndSem[index3];
-                                    content+=`<div class="card my-1 text-center">${global.Course.GetByCourseCode(element.courseCode).courseName}</div>`
-                                }
-                            content+=`</div>`
-                        }
-                    content +=`</div>`
-                    content +=`</div>`
-                    coursePlanner.innerHTML += content;
+        var content = `
+            <div class="col-12 col-md-6 col-lg-3"> 
+                <div class="card mx-1 my-2 plannerCard">
+                    <h3 class="py-2 year">&nbsp Year ${index + 1}</h3>`;
+        var yearHasCourses = false;
+        for (let index2 = 0; index2 < 4; index2++) {
+            var CoursesInYearAndSem = global.Course.GetAllCoursesInYearAndSem("Y" + (index + 1) + "S" + semCodes[index2]);
+            if (CoursesInYearAndSem.length > 0) {
+                yearHasCourses = true;
+                content += `
+                    <div class="card-body mb-2">
+                        <h5 class="card-title semester">Semester ${semCodes[index2]}</h5>`;
+                
+                for (let index3 = 0; index3 < CoursesInYearAndSem.length; index3++) {
+                    const element = CoursesInYearAndSem[index3];
+                    content += `<div class="card my-1 text-center">${global.Course.GetByCourseCode(element.courseCode).courseName}</div>`;
+                }
+                content += `</div>`;
+            }
+        }
+        if (!yearHasCourses) {
+            content += `<p class="px-3 subtitle">No planned courses yet</p>`;
+        }
+        content += `</div></div>`;
+        coursePlanner.innerHTML += content;
     }
 }
+
 function ShowPlanner2()
 {
     document.getElementById("plannerTable").style.display = "block";
