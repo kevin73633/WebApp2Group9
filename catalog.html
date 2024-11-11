@@ -7,7 +7,7 @@
 
     <!-- External CSS -->
     <link href= "styles/style.css" type="text/css" rel="stylesheet" />
-
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
     <!-- Other CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
@@ -36,45 +36,35 @@
         <user-details-menu></user-details-menu>
 		<!-- Sidebar -->
 		<sidebar></sidebar>
-        <main id="content" class="pt-4">
-            <div class="row  mx-2" id="welcome-banner">
-                <p id="banner_name" class="h3 mb-1">Course Catalogue</p>
+        <main id="content" class="py-4">
+            <div class="row mx-1" id="welcome-banner">
+                <h5>Course Catalogue</h5>
+                <p>Browse the Available Courses for Your Academic Journey</p>
             </div>
+<div class="row py-3 px-3 justify-content-between d-flex align-items-center px-0 py-2" id="filter-search">
+    <!-- Dropdown on the far left -->
+    <div class="col-12 col-sm-5 col-md-3  mb-lg-0 px-0 d-flex align-items-center">
+        <select class="form-select rounded-5 text-black" aria-label="Filter options" id="filterOptions">
+            <!-- Options here -->
+        </select>
+    </div>
 
-            <div class="row py-3 justify-content-evenly" id="filter-search">
-                <!-- Dropdown -->
-                <div class="row">
-                <div class="col-12 col-lg-3 mb-2 mb-lg-0 px-0">
-                    <select class="form-select rounded-5 text-black" aria-label="Filter options" id="filterOptions">
-                        <!-- Options here -->
-                    </select>
-                </div>
-                
-                <!-- Empty Column for Spacing on Larger Screens -->
-                <div class="col-9 col-lg-4 mb-2 mb-lg-0 d-none d-lg-block"></div>
-                
-                <!-- Search Bar -->
-                
-                <div class="col-12 col-lg-4 mb-2 mb-lg-0 d-flex px-0">
-                    <div class="input-group flex-nowrap">
-                        <input type="text" class="form-control rounded-5" placeholder="Code/Name of Module" aria-label="module_input" id="searchInput" value="">
-                    </div>
-                </div>
+    <!-- Search Bar and Button on the far right -->
+    <div class="col-12 col-sm-7 col-md-7 d-flex justify-content-end align-items-center px-0 py-2">
+        <div class="input-group flex-nowrap mr-2" style="max-width: 350px;">
+            <input type="text" class="form-control rounded-5" placeholder="Code/Name of Module" aria-label="module_input" id="searchInput" value="">
+        </div>
+        <button type="button" class="btn btn-primary px-3 rounded-5" id="searchBtn">Search</button>
+    </div>
+</div>
 
-           
-                <!-- Search Button -->
-                <div class="col-12 col-lg-1 d-flex justify-content-end px-0">
-                    <button type="button" class="button-primary px-3 rounded-5" id="searchBtn">Search</button>
-                </div>
-                <!-- <div class="col-8 d-block d-xs-none"></div> -->
-
-                </div>
-            </div>
+            
+            
             
             <!-- Course Table -->
             
             <div id="courseTable" class="table-responsive">
-                <table class="table align-middle rounded-3 tableModules" id="tableModules">
+                <table class="table table-hover align-middle rounded-3 tableModules" id="tableModules">
                     <thead>
                         <tr>
                             <th scope="col" class="text-body-tertiary text-center" style="width: 5%">Select</th>
@@ -86,24 +76,22 @@
                             <!-- <th scope="col" class="text-body-tertiary text-center">Details</th> -->
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="6" class="text-center text-secondary">Please enter code/name into search bar</td>
-                        </tr>
-                    </tbody>
+                    <div class="tbody-wrapper"></div>
+                        <tbody>
+                            <tr>
+                                <td colspan="6" class="text-center text-secondary">Please enter code/name into search bar</td>
+                            </tr>
+                        </tbody>
+                     </div>
                 </table>
             </div>
             
 
                 <div id="modalInsert"></div>
 
-                <div class="row py-2">
-                    <div class="col-9 col-xs-4">
+                <div class="row pt-4">
+                    <div class="col d-flex flex-column flex-md-row justify-content-start gap-3">
                         <button type="button" class="btn btn-primary px-4 rounded-5" id="addToPlanner" data-bs-toggle="modal" data-bs-target="#addToPlannerModal">Add to Planner</button>
-                    </div>
-                </div>
-                <div class="row py-2">
-                    <div class="col-9 col-xs-4">
                         <button type="button" class="btn btn-primary px-4 rounded-5" id="removeFromPlanner">Remove from Planner</button>
                     </div>
                 </div>
@@ -112,13 +100,13 @@
 
     <div id="modals"></div>
     <div class="modal fade" id="addToPlannerModal" tabindex="-1" aria-labelledby="addToPlannerModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="addToPlannerModalLabel">Select the semester you would like to do in</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-center" id="addToPlannerModalBody"></div>
+                <div class="modal-body text-center " id="addToPlannerModalBody"></div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="buttonToAdd">Add to Planner</button>
                 </div>

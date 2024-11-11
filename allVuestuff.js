@@ -27,11 +27,11 @@ app.component('user-details-menu', {
     },
     template: `
         <div class="modal" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="userDetailsModalLabel">Provide Your Academic Details</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close btn-close-white " data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="userDetailsForm">
@@ -92,7 +92,7 @@ app.component('profile-top', {
 		</div>
     `
 })
-
+{/* <i class="fas fa-bars"></i> */}
 app.component('hamburger-button', {
     template: `
         <button id="toggleSidebar" class="btn" @click="mobileNav()">
@@ -102,7 +102,9 @@ app.component('hamburger-button', {
             <i class="fas fa-bars"></i>
         </button> 
         <button id="desktopMenuMinimise" class="btn" @click="minimiseSidebar()">
-            <i class="fas fa-bars"></i>
+            <svg width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8.70710678,12 L19.5,12 C19.7761424,12 20,12.2238576 20,12.5 C20,12.7761424 19.7761424,13 19.5,13 L8.70710678,13 L11.8535534,16.1464466 C12.0488155,16.3417088 12.0488155,16.6582912 11.8535534,16.8535534 C11.6582912,17.0488155 11.3417088,17.0488155 11.1464466,16.8535534 L7.14644661,12.8535534 C6.95118446,12.6582912 6.95118446,12.3417088 7.14644661,12.1464466 L11.1464466,8.14644661 C11.3417088,7.95118446 11.6582912,7.95118446 11.8535534,8.14644661 C12.0488155,8.34170876 12.0488155,8.65829124 11.8535534,8.85355339 L8.70710678,12 L8.70710678,12 Z M4,5.5 C4,5.22385763 4.22385763,5 4.5,5 C4.77614237,5 5,5.22385763 5,5.5 L5,19.5 C5,19.7761424 4.77614237,20 4.5,20 C4.22385763,20 4,19.7761424 4,19.5 L4,5.5 Z"/>
+    </svg>
         </button>
     `,
     methods: {
@@ -119,6 +121,7 @@ app.component('hamburger-button', {
             topNav = document.getElementById("navbartop")
         
             sideNav.style.width = "280px"
+            sideNav.classList.remove('minimized');
             logo.style.display = "block"
         
             for (var i = 0; i < iconText.length; i++) {
@@ -145,6 +148,7 @@ app.component('hamburger-button', {
             topNav = document.getElementById("navbartop")
         
             sideNav.style.width = "80px"
+            sideNav.classList.add('minimized');
             logo.style.display = "none"
             for (var i = 0; i < iconText.length; i++){
                 iconText[i].style.display = "none"
@@ -222,6 +226,7 @@ app.component('hamburger-button', {
                 MenuMinimise.style.display="none"
                 MenuExtend.style.display="none"
             }else{
+                sideNav.classList.add('minimized');
                 sideNav.style.display = "block"
                 sideNav.style.width = "80px"
                 sideNav.style.padding = "0"
@@ -280,13 +285,13 @@ app.component('sidebar', {
                         </div>
                     </div>
                     <li v-for="(attr, name) in names" class="nav-item">
-                        <a :href="attr[0]" :class="['nav-link', pagename === name ? 'active' : 'text-white']">
+                        <a :href="attr[0]" :class="['nav-link', pagename === name ? 'active' : 'text-white']" :data-tooltip="name">
                             <i :class="attr[1]" aria-hidden="true"></i>
                             <span class="icon-text">{{ name }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" id="logoutBtn" class="nav-link text-white">
+                        <a href="#" id="logoutBtn" class="nav-link text-white" data-tooltip="Logout">
                             <i class="	fas fa-sign-out-alt" aria-hidden="true"></i>
                             <span class="icon-text">Logout</span>
                         </a>
@@ -294,7 +299,36 @@ app.component('sidebar', {
                 </ul>
             </div>
         </nav>
-    `
+    `,
+    mounted() {
+        const sidebar = document.getElementById('sidebar');
+        const tooltipElements = document.querySelectorAll('.nav-link');
+    
+        tooltipElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                // Check if the sidebar is minimized
+                if (sidebar.classList.contains('minimized')) {
+                    const tooltipText = el.getAttribute('data-tooltip');
+                    const tooltipDiv = document.createElement('div');
+                    tooltipDiv.className = 'custom-tooltip';
+                    tooltipDiv.innerText = tooltipText;
+                    document.body.appendChild(tooltipDiv);
+    
+                    const rect = el.getBoundingClientRect();
+                    tooltipDiv.style.position = 'absolute';
+                    tooltipDiv.style.top = `${rect.top}px`;
+                    tooltipDiv.style.left = `${rect.right + 20}px`; // Position tooltip to the right
+                }
+            });
+    
+            el.addEventListener('mouseleave', () => {
+                const existingTooltip = document.querySelector('.custom-tooltip');
+                if (existingTooltip) {
+                    existingTooltip.remove();
+                }
+            });
+        });
+    }
 })
 
 app.component('dark-light-mode', {
