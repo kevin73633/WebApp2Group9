@@ -12,34 +12,41 @@ const Categories = ["All Tracks"];
 var Courses = [];
 var SelectedCoursesList = [];
 
-function ShowPlanner1()
-{
+function ShowPlanner1() {
     document.getElementById("plannerTable").style.display = "none";
     var coursePlanner = document.getElementById("coursePlanner");
     coursePlanner.innerHTML = "";
+
     var semCodes = ["1", "2", "3A", "3B"];
     for (let index = 0; index < 4; index++) {
-        var content = 
-        
-                    `
-                    <div class="col-12 col-md-6 col-lg-3"> 
-                        <div class="card mx-1 my-2 plannerCard">
-                        <h3 class="py-2">&nbsp Year ${index + 1}</h3>`
-                        for (let index2 = 0; index2 < 4; index2++) {
-                            content += `<div class="card-body mb-2">
-                                <h5 class="card-title">Semester ${semCodes[index2]}</h5>`
-                                var CoursesInYearAndSem = global.Course.GetAllCoursesInYearAndSem("Y" + (index + 1) + "S" + semCodes[index2]);
-                                for (let index3 = 0; index3 < CoursesInYearAndSem.length; index3++) {
-                                    const element = CoursesInYearAndSem[index3];
-                                    content+=`<div class="card my-1 text-center">${global.Course.GetByCourseCode(element.courseCode).courseName}</div>`
-                                }
-                            content+=`</div>`
-                        }
-                    content +=`</div>`
-                    content +=`</div>`
-                    coursePlanner.innerHTML += content;
+        var content = `
+            <div class="col-12 col-md-6 col-lg-3"> 
+                <div class="card mx-1 my-2 plannerCard">
+                    <h3 class="py-2 year">&nbsp Year ${index + 1}</h3>`;
+        var yearHasCourses = false;
+        for (let index2 = 0; index2 < 4; index2++) {
+            var CoursesInYearAndSem = global.Course.GetAllCoursesInYearAndSem("Y" + (index + 1) + "S" + semCodes[index2]);
+            if (CoursesInYearAndSem.length > 0) {
+                yearHasCourses = true;
+                content += `
+                    <div class="card-body mb-2">
+                        <h5 class="card-title semester">Semester ${semCodes[index2]}</h5>`;
+                
+                for (let index3 = 0; index3 < CoursesInYearAndSem.length; index3++) {
+                    const element = CoursesInYearAndSem[index3];
+                    content += `<div class="card my-1 text-center">${global.Course.GetByCourseCode(element.courseCode).courseName}</div>`;
+                }
+                content += `</div>`;
+            }
+        }
+        if (!yearHasCourses) {
+            content += `<p class="px-3 subtitle">No planned courses yet</p>`;
+        }
+        content += `</div></div>`;
+        coursePlanner.innerHTML += content;
     }
 }
+
 function ShowPlanner2()
 {
     document.getElementById("plannerTable").style.display = "block";
@@ -48,22 +55,22 @@ function ShowPlanner2()
     table.innerHTML =   `
         <tr>
                             <th scope="col" class="text-body-tertiary"  style="width: 25%;">Module Name</th>
-                            <th scope="col" value = "Y1S1" class="text-body-tertiary" style="width: 5%;">Y1S1</th>
-                            <th scope="col" value = "Y1S2" class="text-body-tertiary" style="width: 5%;">Y1S2</th>
-                            <th scope="col" value = "Y1S3a" class="text-body-tertiary" style="width: 5%;">Y1S3A</th>
-                            <th scope="col" value = "Y1S3b" class="text-body-tertiary" style="width: 5%;">Y1S3B</th>
-                            <th scope="col" value = "Y2S1" class="text-body-tertiary" style="width: 5%;">Y2S1</th>
-                            <th scope="col" value = "Y2S2" class="text-body-tertiary" style="width: 5%;">Y2S2</th>
-                            <th scope="col" value = "Y2S3a" class="text-body-tertiary style="width: 5%;">Y2S3A</th>
-                            <th scope="col" value = "Y2S3b" class="text-body-tertiary style="width: 5%;">Y2S3B</th>
-                            <th scope="col" value = "Y3S1" class="text-body-tertiary" style="width: 5%;">Y3S1</th>
-                            <th scope="col" value = "Y3S2" class="text-body-tertiary" style="width: 5%;">Y3S2</th>
-                            <th scope="col" value = "Y3S3a" class="text-body-tertiary" style="width: 5%;">Y3S3A</th>
-                            <th scope="col" value = "Y3S3b" class="text-body-tertiary" style="width: 5%;">Y3S3B</th>
-                            <th scope="col" value = "Y4S1" class="text-body-tertiary" style="width: 5%;">Y4S1</th>
-                            <th scope="col" value = "Y4S2" class="text-body-tertiary" style="width: 5%;">Y4S2</th>
-                            <th scope="col" value = "Y4S3a" class="text-body-tertiary" style="width: 5%;">Y4S3A</th>
-                            <th scope="col" value = "Y4S3b" class="text-body-tertiary" style="width: 5%;">Y4S3B</th>
+                            <th scope="col" value = "Y1S1" class="text-body-tertiary" style="width: 5%; text-align:center;">Y1S1</th>
+                            <th scope="col" value = "Y1S2" class="text-body-tertiary" style="width: 5%; text-align:center;">Y1S2</th>
+                            <th scope="col" value = "Y1S3a" class="text-body-tertiary" style="width: 5%; text-align:center;">Y1S3A</th>
+                            <th scope="col" value = "Y1S3b" class="text-body-tertiary" style="width: 5%; text-align:center;">Y1S3B</th>
+                            <th scope="col" value = "Y2S1" class="text-body-tertiary" style="width: 5%; text-align:center;">Y2S1</th>
+                            <th scope="col" value = "Y2S2" class="text-body-tertiary" style="width: 5%; text-align:center;">Y2S2</th>
+                            <th scope="col" value = "Y2S3a" class="text-body-tertiary" style="width: 5%; text-align:center;">Y2S3A</th>
+                            <th scope="col" value = "Y2S3b" class="text-body-tertiary" style="width: 5%; text-align:center;">Y2S3B</th>
+                            <th scope="col" value = "Y3S1" class="text-body-tertiary" style="width: 5%; text-align:center;">Y3S1</th>
+                            <th scope="col" value = "Y3S2" class="text-body-tertiary" style="width: 5%; text-align:center;">Y3S2</th>
+                            <th scope="col" value = "Y3S3a" class="text-body-tertiary" style="width: 5%; text-align:center;">Y3S3A</th>
+                            <th scope="col" value = "Y3S3b" class="text-body-tertiary" style="width: 5%; text-align:center;">Y3S3B</th>
+                            <th scope="col" value = "Y4S1" class="text-body-tertiary" style="width: 5%; text-align:center;">Y4S1</th>
+                            <th scope="col" value = "Y4S2" class="text-body-tertiary" style="width: 5%; text-align:center;">Y4S2</th>
+                            <th scope="col" value = "Y4S3a" class="text-body-tertiary" style="width: 5%; text-align:center;">Y4S3A</th>
+                            <th scope="col" value = "Y4S3b" class="text-body-tertiary" style="width: 5%; text-align:center;">Y4S3B</th>
 
                         </tr>`
     var headers = table.getElementsByTagName("tr")[0];

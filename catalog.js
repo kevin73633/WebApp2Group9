@@ -145,7 +145,7 @@ function createRows(selectedOption, search=false)
         for (var data_item of loopCourses) {
             //Create Table Row
             var row = document.createElement("tr");
-            row.setAttribute("style","line-height: 40px;")
+            row.setAttribute("style","padding-y: 60px;")
             var courseName = data_item.courseName;
             var courseCode = data_item.courseCode;
             var courseCategory = data_item.courseCategory;
@@ -233,8 +233,8 @@ function createCourseModal(course)
 
     // <!-- Modal -->
     var modal = null;
-    modal = `<div class="modal modal-lg fade" id="Modal_${course.courseCode}" tabindex="-1" aria-labelledby="Modal_${course.courseCode}" aria-hidden="true" style="margin-top:150px">
-        <div class="modal-dialog">
+    modal = `<div class="modal modal-lg fade" id="Modal_${course.courseCode}" tabindex="-1" aria-labelledby="Modal_${course.courseCode}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="Modal_${course.courseCode}">${course.courseName}</h1>
@@ -476,3 +476,15 @@ function saveDetails() {
 
 // Trigger save on button click
 saveDetailsBtn.addEventListener('click', saveDetails);
+
+function adjustCourseTableHeight() {
+    var height = window.innerHeight - 400;
+    var courseTable = document.getElementById("courseTable");
+  
+    if (courseTable) {
+      courseTable.style.height = height + "px";
+    }
+  }
+  
+  window.addEventListener("load", adjustCourseTableHeight);
+  window.addEventListener("resize", adjustCourseTableHeight);
