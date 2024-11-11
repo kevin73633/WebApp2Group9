@@ -575,13 +575,15 @@ h4 {
 #courseTable #tableModules thead {
   background: white;
   position: sticky;
-  top: 0;
+  top: -2px;
   width: 100%;
   table-layout: fixed;
+  z-index: 3;
 }
 #courseTable #tableModules tbody {
   max-height: 300px;
   overflow-y: auto;
+  z-index: 1;
 }
 #courseTable #tableModules th, #courseTable #tableModules td {
   width: 14.285%;
