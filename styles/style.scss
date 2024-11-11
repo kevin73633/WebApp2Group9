@@ -18,11 +18,17 @@ $primary-color:#040B31;
     --button-color:#040B31;
 	--topNav-color: white; 
 	--table-colors: white;
-	--placeholderText-color:rgb(152, 152, 152);
-	--link: rgb(13, 110, 253);
+	--placeholderText-color:#989898;
+	--link: #0d6efd;
 	--plannerBox: #040B31;
 	--subtitle: #525b75;
-	--table-border:rgba(203, 208, 221, 0.54);
+	--course-name: #525b75;
+	--table-border:#cbd0dd8a;
+	--btn-hover: #0D6EFD;
+	--pill-background-success: #d9fbd0;
+	--pill-color-success: #1C6C09;
+	--pill-background-danger: #fbd0d0;
+	--pill-color-danger: #6c0909;
 }
 .darkmode{
 	--base-color: #171821;
@@ -36,11 +42,17 @@ $primary-color:#040B31;
     --button-color: #2757fc;
 	--topNav-color: #15161c; 
 	--table-colors: 21222D;
-	--placeholderText-color:rgb(152, 152, 152);
+	--placeholderText-color:#999999;
 	--link: white;
 	--plannerBox: #2757fc;
 	--subtitle: #8a94ad;
-	--table-border: rgba(55, 62, 83, 0.78);
+	--course-name: #e3e5ea;
+	--table-border: #373e53c7;
+	--btn-hover: #0000ff;
+	--pill-background-success: #1D2527;
+	--pill-color-success: #90d67f;
+	--pill-background-danger: #271d1d;
+	--pill-color-danger: #d58787;
 }
 
 html{
@@ -79,37 +91,94 @@ body {
 	color: var(--opp-color) !important;
 }
 
+
 .btn{
 	font-family: "Poppins", sans-serif !important;
 	font-size:13px !important;
 }
+// Google Button
+.google-button {
+	background-color: #ffffff;
+	border: 1px solid #dcdcdc;
+	border-radius: 10px;
+	color: #333333;
+	font-size: 14px;
+	font-weight: 500;
+	padding: 10px 20px;
+	cursor: pointer;
+	width: 100%;
+	position: relative;
+	border: 0 2px 4px rgba(0, 0, 0, 0.1);
+	z-index: 0;
+  
+	.google-logo {
+	  width: 20px;
+	  height: 20px;
+	  margin-right: 10px;
+	}
+  
+	&:before {
+	  content: '';
+	  background: linear-gradient(45deg, #f4f4f4, #ededed, #c7c7c7, #a1a1a1);
+	  position: absolute;
+	  top: -2px;
+	  left: -2px;
+	  background-size: 400%;
+	  z-index: -1;
+	  filter: blur(5px);
+	  width: calc(100% + 4px);
+	  height: calc(100% + 4px);
+	  animation: glowing 13s linear infinite;
+	  opacity: 0;
+	  transition: opacity .1s ease-in-out;
+	  border-radius: 10px;
+	}
+  
+	&:active {
+	  color: #000;
+	}
+  
+	&:active:after {
+	  background: transparent;
+	}
+  
+	&:hover:before {
+	  opacity: 1;
+	}
+  
+	&:after {
+	  z-index: -1;
+	  content: '';
+	  position: absolute;
+	  width: 100%;
+	  height: 100%;
+	  background: white;
+	  left: 0;
+	  top: 0;
+	  border-radius: 10px;
+	}
+  }
 
-.button-primary, .btn-primary {
+.button-primary, .btn-primary, .btn-course {
 	background-color: var(--button-color) !important;
 	font-family: "Poppins", sans-serif;
 	font-size:13px;
+	padding: 10px 30px;
+    border-radius: 20px;
 	color:white;
-	padding: 8px 2px;
 	border:none !important;
     text-decoration: none;
     transition: background-color 0.3s ease, transform 0.3s ease;
+	transition: transform .5s ease;
+
     &:hover {
-        background-color: #0A1E4D;
+		transform: scale(1.02);
+        background-color: var(--btn-hover) !important;
     }
+
+	
 }
-.btn-course {
-    background-color: var(--button-color);
-    font-size: 13px;
-    color: white;
-    padding: 10px 30px;
-    border-radius: 20px;
-    border: 0;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    &:hover {
-        background-color: #0A1E4D;
-    }
-}
+
 #GoogleLoginBtn{
 	background-color: white;
 	padding: 5px 5x;
@@ -157,6 +226,10 @@ body {
 #searchInput::placeholder{
     color: var(--placeholderText-color) !important;
 }
+#searchBtn{
+	height:37px;
+	margin-left:10px;
+}
 tbody, td, tfoot, th, thead, tr{
 	background-color: var(--table-colors) !important;
 	color:var(--opp-color)!important;
@@ -171,14 +244,18 @@ a.px-2.text-decoration-none{
 	color:var(--link) !important;
 }
 .badge.rounded-pill.text-bg-danger{
-	background-color: #fbd0d0 !important;
-	color: #6c0909 !important;
+	font-weight: 550;
+	background-color: var(--pill-background-danger) !important;
+	color: var(	--pill-color-danger) !important;
 	border: 1px solid #d67f7f !important;
+	padding:5px 10px;
 }
 .badge.rounded-pill.text-bg-success{
-	background-color: #d9fbd0 !important;
-	color: #1C6C09 !important;
+	font-weight: 550;
+	background-color: var(--pill-background-success) !important;
+	color: var(	--pill-color-success) !important;
 	border: 1px solid #90d67f !important;
+	padding:5px 10px;
 }
 .modal-title, .modal-body{
 	color: var(--headerText-color)!important;
@@ -532,8 +609,11 @@ h4{
     border-radius: 20px;
     border: 0;
     text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
 	float: right;
+	transition: transform .5s ease;
+	&:hover{
+		transform: scale(1.2);
+	}
 }
 .carousel-inner{
 	padding:1em;
@@ -744,7 +824,8 @@ table a {
 	}
 }
 .card.my-1{
-    border-color:var(--headerText-color) !important;
+    border-color:var(--subtitle) !important;
+	color:var(--course-name) !important;
     padding:10px;
     margin-top: 20px !important;
     text-align: left !important;
@@ -770,7 +851,7 @@ table a {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: #252525;
+	background-color: var(--button-color);
 	-webkit-transition: .4s;
 	transition: .4s;
 	border-radius: 20px;
@@ -790,7 +871,7 @@ table a {
 }
 
 input:checked + .slider {
-	background-color: #252525;
+	background-color: var(--btn-hover);
 }
 
 input:checked + .slider:before {
@@ -845,6 +926,13 @@ input:checked + .slider .off
 
 .modal-content
 {
-	background-color: var(--base-color)!important;
+	background-color: var(--card-color)!important;
 	color: var(--headerText-color)!important;
+}
+.modal-header
+{
+	border-bottom: solid 1px var(--table-border) !important;
+}
+.modal-footer{
+	border-top: solid 1px var(--table-border) !important;
 }
