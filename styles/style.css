@@ -18,6 +18,7 @@
   --link: rgb(13, 110, 253);
   --plannerBox: #040B31;
   --subtitle: #525b75;
+  --table-border:rgba(203, 208, 221, 0.54);
 }
 
 .darkmode {
@@ -36,6 +37,7 @@
   --link: white;
   --plannerBox: #2757fc;
   --subtitle: #8a94ad;
+  --table-border: rgba(55, 62, 83, 0.78);
 }
 
 html {
@@ -586,6 +588,42 @@ h4 {
   white-space: nowrap;
 }
 
+#coursePlanner {
+  border-radius: 10px;
+}
+
+#plannerTable {
+  width: 100%;
+  font-size: 95%;
+  border-collapse: collapse;
+  background-color: var(--card-color) !important;
+  border-bottom: 1px solid var(--table-border);
+}
+#plannerTable thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  table-layout: fixed;
+}
+#plannerTable tbody {
+  overflow-y: auto;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+#plannerTable th, #plannerTable td {
+  padding: 8px;
+  text-align: left;
+  box-sizing: border-box;
+}
+#plannerTable th {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
+#plannerTable td {
+  padding: 20px 8px;
+}
+
 #courseTable {
   border-radius: 10px;
   flex-grow: 1;
@@ -601,18 +639,19 @@ h4 {
   font-size: 95%;
   border-collapse: collapse;
   background-color: var(--card-color) !important;
+  border-bottom: 1px solid var(--table-border);
 }
 #courseTable #tableModules thead {
-  position: sticky; /* Make the header stick to the top */
-  top: 0; /* Stick it to the top */
-  z-index: 1; /* Ensure the header stays on top of the table body */
+  position: sticky;
+  top: 0;
+  z-index: 1;
   width: 100%;
   table-layout: fixed;
 }
 #courseTable #tableModules tbody {
   overflow-y: auto;
-  max-height: 60vh; /* Limit height to 60% of the viewport */
-  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 60vh;
+  overflow-y: auto;
 }
 #courseTable #tableModules th, #courseTable #tableModules td {
   padding: 8px;
@@ -683,7 +722,7 @@ table a:hover {
 }
 #coursePlanner #plannerTable td:first-child {
   left: 0;
-  border-right: 1px solid #dee2e6;
+  border-right: 1px solid var(--table-border);
   width: -moz-fit-content;
   width: fit-content;
   white-space: nowrap;
