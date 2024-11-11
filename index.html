@@ -23,7 +23,6 @@
 
     <!-- Custom JavaScript -->
     <script src="index_javascript.js" type="module"></script>
-    <script src="allVuestuff.js"></script>
 </head>
 
 <body class="index-container">
@@ -51,10 +50,10 @@
 	</div>
         <!-- Vue.js App -->
         <div id="app" class="row justify-content-center">
-            <div class="col-12 text-center">
+            <div class="col-12">
                 <!-- Modal for Inputting Degree, GPA, Current Year, and Semester -->
                 <div class="modal" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="userDetailsModalLabel">Provide Your Academic Details</h5>
@@ -106,7 +105,6 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary" id="saveDetailsBtn">Save Details</button>
                             </div>
                         </div>
