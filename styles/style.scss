@@ -581,11 +581,13 @@ h4{
 			position:sticky;
 			top:0;
 			width: 100%;
-			table-layout: fixed; 
+			table-layout: fixed;
+			z-index: 3;
 		}
 		tbody {
 			max-height: 300px;
 			overflow-y: auto;
+			z-index: 1;
 		}
 		th, td {
 			width: 14.285%;
