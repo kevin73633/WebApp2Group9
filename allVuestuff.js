@@ -121,6 +121,7 @@ app.component('hamburger-button', {
             topNav = document.getElementById("navbartop")
         
             sideNav.style.width = "280px"
+            sideNav.classList.remove('minimized');
             logo.style.display = "block"
         
             for (var i = 0; i < iconText.length; i++) {
@@ -147,6 +148,7 @@ app.component('hamburger-button', {
             topNav = document.getElementById("navbartop")
         
             sideNav.style.width = "80px"
+            sideNav.classList.add('minimized');
             logo.style.display = "none"
             for (var i = 0; i < iconText.length; i++){
                 iconText[i].style.display = "none"
@@ -224,6 +226,7 @@ app.component('hamburger-button', {
                 MenuMinimise.style.display="none"
                 MenuExtend.style.display="none"
             }else{
+                sideNav.classList.add('minimized');
                 sideNav.style.display = "block"
                 sideNav.style.width = "80px"
                 sideNav.style.padding = "0"
@@ -282,13 +285,13 @@ app.component('sidebar', {
                         </div>
                     </div>
                     <li v-for="(attr, name) in names" class="nav-item">
-                        <a :href="attr[0]" :class="['nav-link', pagename === name ? 'active' : 'text-white']">
+                        <a :href="attr[0]" :class="['nav-link', pagename === name ? 'active' : 'text-white']" :data-tooltip="name">
                             <i :class="attr[1]" aria-hidden="true"></i>
                             <span class="icon-text">{{ name }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" id="logoutBtn" class="nav-link text-white">
+                        <a href="#" id="logoutBtn" class="nav-link text-white" data-tooltip="Logout">
                             <i class="	fas fa-sign-out-alt" aria-hidden="true"></i>
                             <span class="icon-text">Logout</span>
                         </a>
@@ -296,7 +299,36 @@ app.component('sidebar', {
                 </ul>
             </div>
         </nav>
-    `
+    `,
+    mounted() {
+        const sidebar = document.getElementById('sidebar');
+        const tooltipElements = document.querySelectorAll('.nav-link');
+    
+        tooltipElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                // Check if the sidebar is minimized
+                if (sidebar.classList.contains('minimized')) {
+                    const tooltipText = el.getAttribute('data-tooltip');
+                    const tooltipDiv = document.createElement('div');
+                    tooltipDiv.className = 'custom-tooltip';
+                    tooltipDiv.innerText = tooltipText;
+                    document.body.appendChild(tooltipDiv);
+    
+                    const rect = el.getBoundingClientRect();
+                    tooltipDiv.style.position = 'absolute';
+                    tooltipDiv.style.top = `${rect.top}px`;
+                    tooltipDiv.style.left = `${rect.right + 20}px`; // Position tooltip to the right
+                }
+            });
+    
+            el.addEventListener('mouseleave', () => {
+                const existingTooltip = document.querySelector('.custom-tooltip');
+                if (existingTooltip) {
+                    existingTooltip.remove();
+                }
+            });
+        });
+    }
 })
 
 app.component('dark-light-mode', {
