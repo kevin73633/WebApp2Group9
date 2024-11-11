@@ -14,9 +14,17 @@
   --button-color:#040B31;
   --topNav-color: white;
   --table-colors: white;
-  --placeholderText-color:rgb(152, 152, 152);
-  --link: rgb(13, 110, 253);
-  --plannerBox: #0a58ca;
+  --placeholderText-color:#989898;
+  --link: #0d6efd;
+  --plannerBox: #040B31;
+  --subtitle: #525b75;
+  --course-name: #525b75;
+  --table-border:#cbd0dd8a;
+  --btn-hover: #0D6EFD;
+  --pill-background-success: #d9fbd0;
+  --pill-color-success: #1C6C09;
+  --pill-background-danger: #fbd0d0;
+  --pill-color-danger: #6c0909;
 }
 
 .darkmode {
@@ -31,22 +39,182 @@
   --button-color: #2757fc;
   --topNav-color: #15161c;
   --table-colors: 21222D;
-  --placeholderText-color:rgb(152, 152, 152);
+  --placeholderText-color:#999999;
   --link: white;
-  --plannerBox: #eb9b13;
+  --plannerBox: #2757fc;
+  --subtitle: #8a94ad;
+  --course-name: #e3e5ea;
+  --table-border: #373e53c7;
+  --btn-hover: #0000ff;
+  --pill-background-success: #1D2527;
+  --pill-color-success: #90d67f;
+  --pill-background-danger: #271d1d;
+  --pill-color-danger: #d58787;
 }
 
-#desktopMenuExpand, #desktopMenuMinimise {
-  transition: transform 0.3s ease-in-out;
-}
-#desktopMenuExpand:hover, #desktopMenuMinimise:hover {
-  transform: rotate(180deg);
+html {
+  height: 100%;
+  margin: 0;
 }
 
-#banner_name {
+body {
+  font-family: "Poppins", sans-serif !important;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--base-color) !important;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  justify-content: center;
+}
+
+.plannerCard h3 {
   font-weight: 600;
 }
+.plannerCard h5 {
+  font-weight: 650;
+}
 
+#content {
+  margin-top: 60px;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  background-color: var(--base-color);
+}
+
+.btn-close {
+  color: white !important;
+}
+
+.modal-header {
+  background-color: var(--sidebar-color);
+}
+.modal-header .modal-title {
+  color: white !important;
+}
+
+.btn {
+  font-family: "Poppins", sans-serif !important;
+  font-size: 13px !important;
+}
+
+.google-button {
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  color: #333333;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  border: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 0;
+}
+.google-button .google-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.google-button:before {
+  content: "";
+  background: linear-gradient(45deg, #f4f4f4, #ededed, #c7c7c7, #a1a1a1);
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 13s linear infinite;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+  border-radius: 10px;
+}
+.google-button:active {
+  color: #000;
+}
+.google-button:active:after {
+  background: transparent;
+}
+.google-button:hover:before {
+  opacity: 1;
+}
+.google-button:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: white;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+.button-primary, .btn-primary, .btn-course {
+  background-color: var(--button-color) !important;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  color: white;
+  border: none !important;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: transform 0.5s ease;
+}
+.button-primary:hover, .btn-primary:hover, .btn-course:hover {
+  transform: scale(1.02);
+  background-color: var(--btn-hover) !important;
+}
+
+#GoogleLoginBtn {
+  background-color: white;
+  padding: 5px 5x;
+  border-radius: 10px;
+}
+
+#desktopMenuExpand {
+  transition: transform 0.3s ease-in-out;
+}
+#desktopMenuExpand:hover {
+  transform: rotate(180deg);
+}
+#desktopMenuExpand svg {
+  fill: var(--opp-color);
+}
+
+#desktopMenuMinimise {
+  transition: transform 0.3s ease-in-out;
+}
+#desktopMenuMinimise svg {
+  fill: var(--opp-color);
+}
+#desktopMenuMinimise:hover {
+  animation: bounceLeft 0.5s ease-out; /* Apply bounceLeft animation on hover */
+}
+
+@keyframes bounceLeft {
+  0% {
+    transform: translateX(0); /* Start at the original position */
+  }
+  30% {
+    transform: translateX(-10px); /* Move a little left */
+  }
+  50% {
+    transform: translateX(5px); /* Bounce to the right a little */
+  }
+  70% {
+    transform: translateX(-5px); /* Move left again */
+  }
+  100% {
+    transform: translateX(0); /* End at the original position */
+  }
+}
 .steps h4 {
   margin-bottom: 25px;
   font-size: revert;
@@ -73,12 +241,6 @@
   color: black;
 }
 
-#GoogleLoginBtn {
-  background-color: white;
-  padding: 5px 5x;
-  border-radius: 10px;
-}
-
 .form-select, .form-control {
   background-color: var(--card-color) !important;
   color: var(--opp-color) !important;
@@ -96,9 +258,18 @@
   color: var(--placeholderText-color) !important;
 }
 
+#searchBtn {
+  height: 37px;
+  margin-left: 10px;
+}
+
 tbody, td, tfoot, th, thead, tr {
   background-color: var(--table-colors) !important;
   color: var(--opp-color) !important;
+}
+
+th {
+  background-color: var(--card-color) !important;
 }
 
 th.text-body-tertiary {
@@ -110,76 +281,29 @@ a.px-2.text-decoration-none {
 }
 
 .badge.rounded-pill.text-bg-danger {
-  background-color: #fbd0d0 !important;
-  color: #6c0909 !important;
+  font-weight: 550;
+  background-color: var(--pill-background-danger) !important;
+  color: var(--pill-color-danger) !important;
   border: 1px solid #d67f7f !important;
+  padding: 5px 10px;
 }
 
 .badge.rounded-pill.text-bg-success {
-  background-color: #d9fbd0 !important;
-  color: #1C6C09 !important;
+  font-weight: 550;
+  background-color: var(--pill-background-success) !important;
+  color: var(--pill-color-success) !important;
   border: 1px solid #90d67f !important;
-}
-
-table a {
-  text-decoration: none !important;
-  color: var(--link) !important;
-}
-table a:hover {
-  text-decoration: underline !important;
-}
-
-html {
-  height: 100%;
-  margin: 0;
-  background-color: var(--base-color);
+  padding: 5px 10px;
 }
 
 .modal-title, .modal-body {
   color: var(--headerText-color) !important;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background-color: var(--base-color) !important;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  justify-content: center;
-}
-
 .cat-heading {
   color: var(--headerText-color);
-}
-
-.button-primary {
-  background-color: var(--button-color);
-  font-family: "Poppins", sans-serif;
-  font-size: 13px;
-  color: white;
-  padding: 8px 2px;
-  border: 0;
-  text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-.button-primary:hover {
-  background-color: #0A1E4D;
-}
-
-.btn-course {
-  background-color: var(--button-color);
-  font-size: 13px;
-  color: white;
-  padding: 10px 30px;
-  border-radius: 20px;
-  border: 0;
-  text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-.btn-course:hover {
-  background-color: #0A1E4D;
+  font-weight: 600;
+  padding-left: 15px;
 }
 
 .index-container {
@@ -189,13 +313,6 @@ body {
   height: 100vh;
   margin: 0;
   background-image: var(--login-bg) !important;
-}
-
-#content {
-  margin-top: 65px;
-  padding-left: 40px !important;
-  padding-right: 40px !important;
-  background-color: var(--base-color);
 }
 
 #theme {
@@ -303,6 +420,10 @@ i.fas.fa-book::before {
   height: 16px !important;
   display: inline-block;
   text-align: center;
+}
+
+.icon-text {
+  padding-left: 10px !important;
 }
 
 li {
@@ -425,10 +546,25 @@ h4 {
 
 #welcome-banner {
   color: var(--opp-color);
-  background-color: var(--banner-colors);
   border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 30px;
+  padding: 10px 0;
+}
+#welcome-banner h5 {
+  font-weight: 700;
+  font-size: calc(1.3203125rem + 0.84375vw);
+}
+#welcome-banner p {
+  color: var(--subtitle);
+}
+
+.subtitle {
+  color: var(--subtitle);
+}
+
+.banner_bg {
+  background-color: var(--banner-colors);
+  padding: 20px !important;
+  margin-bottom: 10px;
 }
 
 .profile_name {
@@ -437,12 +573,6 @@ h4 {
 .profile_name #nameheader {
   display: flex;
   color: var(--opp-color);
-}
-
-#courseTable {
-  align-items: center;
-  line-height: 100%;
-  font-size: 95%;
 }
 
 .text-center {
@@ -473,6 +603,7 @@ h4 {
   justify-content: space-between;
   padding-left: 16px;
   padding-right: 16px;
+  margin: 0;
   color: var(--headerText-color) !important;
 }
 
@@ -497,8 +628,11 @@ h4 {
   border-radius: 20px;
   border: 0;
   text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.3s ease;
   float: right;
+  transition: transform 0.5s ease;
+}
+.btn-course-delete:hover {
+  transform: scale(1.2);
 }
 
 .carousel-inner {
@@ -537,7 +671,6 @@ h4 {
 .row.g-0 {
   display: flex;
   align-items: center;
-  min-height: 200px;
 }
 
 .col-md-8 {
@@ -561,19 +694,60 @@ h4 {
   white-space: nowrap;
 }
 
+#coursePlanner {
+  border-radius: 10px;
+}
+
+#plannerTable {
+  width: 100%;
+  font-size: 95%;
+  border-collapse: collapse;
+  background-color: var(--card-color) !important;
+  border-bottom: 1px solid var(--table-border);
+}
+#plannerTable thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  table-layout: fixed;
+}
+#plannerTable tbody {
+  overflow-y: auto;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+#plannerTable th, #plannerTable td {
+  padding: 8px;
+  text-align: left;
+  box-sizing: border-box;
+}
+#plannerTable th {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
+#plannerTable td {
+  padding: 20px 8px;
+}
+
 #courseTable {
+  border-radius: 10px;
+  flex-grow: 1;
   height: 300px;
   width: 100%;
   overflow-y: auto;
+  align-items: center;
+  line-height: 100%;
+  font-size: 95%;
 }
 #courseTable #tableModules {
   width: 100%;
   font-size: 95%;
   border-collapse: collapse;
   background-color: var(--card-color) !important;
+  border-bottom: 1px solid var(--table-border);
 }
 #courseTable #tableModules thead {
-  background: white;
   position: sticky;
   top: -2px;
   width: 100%;
@@ -581,14 +755,14 @@ h4 {
   z-index: 3;
 }
 #courseTable #tableModules tbody {
-  max-height: 300px;
+  overflow-y: auto;
+  max-height: 60vh;
   overflow-y: auto;
   z-index: 1;
 }
 #courseTable #tableModules th, #courseTable #tableModules td {
-  width: 14.285%;
-  text-align: left;
   padding: 8px;
+  text-align: left;
   box-sizing: border-box;
 }
 #courseTable #tableModules th {
@@ -596,7 +770,17 @@ h4 {
   padding-bottom: 20px !important;
   width: -moz-fit-content !important;
   width: fit-content !important;
-  background-color: var(--card-color) !important;
+}
+#courseTable #tableModules td {
+  padding: 20px 8px;
+}
+
+table a {
+  text-decoration: none !important;
+  color: var(--link) !important;
+}
+table a:hover {
+  text-decoration: underline !important;
 }
 
 /* width */
@@ -645,7 +829,7 @@ h4 {
 }
 #coursePlanner #plannerTable td:first-child {
   left: 0;
-  border-right: 1px solid #dee2e6;
+  border-right: 1px solid var(--table-border);
   width: -moz-fit-content;
   width: fit-content;
   white-space: nowrap;
@@ -664,7 +848,8 @@ h4 {
 }
 
 .card.my-1 {
-  border-color: var(--headerText-color) !important;
+  border-color: var(--subtitle) !important;
+  color: var(--course-name) !important;
   padding: 10px;
   margin-top: 20px !important;
   text-align: left !important;
@@ -691,7 +876,7 @@ h4 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #252525;
+  background-color: var(--button-color);
   transition: 0.4s;
   border-radius: 20px;
 }
@@ -709,7 +894,7 @@ h4 {
 }
 
 input:checked + .slider {
-  background-color: #252525;
+  background-color: var(--btn-hover);
 }
 
 input:checked + .slider:before {
@@ -757,6 +942,57 @@ input:checked + .slider .off {
 }
 
 .modal-content {
-  background-color: var(--base-color) !important;
+  background-color: var(--card-color) !important;
   color: var(--headerText-color) !important;
+}
+
+.modal-header {
+  border-bottom: solid 0 !important;
+}
+
+.modal-footer {
+  border-top: solid 1px var(--table-border) !important;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above the icon */
+  left: 50%;
+  transform: translateX(-50%);
+  /* Tooltip arrow */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.custom-tooltip {
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  text-align: center;
+  position: fixed;
+  z-index: 1000;
+  opacity: 0.9;
+  white-space: nowrap;
 }/*# sourceMappingURL=style.css.map */
