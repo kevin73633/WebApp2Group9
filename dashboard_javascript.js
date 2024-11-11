@@ -33,14 +33,13 @@ function formatDate(date) {
   return date.toLocaleDateString('en-UK', options);
 }
 
-  const currentDateElement = document.getElementById('currentDate');
-  const currentDate = new Date();
-  currentDateElement.textContent = formatDate(currentDate);
+const currentDateElement = document.getElementById('currentDate');
+const currentDate = new Date();
+currentDateElement.textContent = formatDate(currentDate);
 
-function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, showViewBtn = false)
-{
+function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, showViewBtn = false) {
   var courseCodes = Object.keys(courses);
-  
+
   let totalCards = courseCodes.length;
   let cardsPerSlide = 3;
 
@@ -55,7 +54,7 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
   }
 
   let totalSlides = Math.ceil(totalCards / cardsPerSlide);
-  
+
   enrolledCoursesCarousel.innerHTML = '';
 
   for (let i = 0; i < totalSlides; i++) {
@@ -69,7 +68,7 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
     cardDeck.className = 'card-deck d-flex justify-content-center';
 
     let cardsToShow = Math.min(cardsPerSlide, totalCards - (i * cardsPerSlide));
-    
+
     for (let j = 0; j < cardsPerSlide; j++) {
       if (j < cardsToShow) {
         let cardIndex = (i * cardsPerSlide + j);
@@ -104,28 +103,26 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
         let cardText2 = document.createElement('p');
         cardText2.className = 'card-text2';
 
-        let viewButton = document.createElement('a');
-        viewButton.className = 'btn-course';
-        viewButton.setAttribute('href', `catalog.html?c=${courseName}`);
+        // Append course title and course name
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(courseNameElement);
+        cardBody.appendChild(cardText);
 
-        let row2 = document.createElement('div');
-        row2.className = 'row';
-        row2.id = "viewMoreButton";
-        if (showViewBtn)
-        {
+        // Move the "View More" button below the course name
+        if (showViewBtn) {
+          let viewButton = document.createElement('a');
+          viewButton.className = 'btn-course';
+          viewButton.setAttribute('href', `catalog.html?c=${courseName}`);
           viewButton.setAttribute("type", "button");
           viewButton.setAttribute("class", "btn-course");
-
           viewButton.textContent = 'View More';
-          let col2 = document.createElement('div');
-          col2.className = 'col-md-3 mx-2';
-          col2.appendChild(viewButton);
-          row2.appendChild(col2);
+
+          // Append the view button below the course name
+          cardBody.appendChild(viewButton);
         }
 
-        var deleteButton = null
-        if (showDeleteBtn)
-        {
+        var deleteButton = null;
+        if (showDeleteBtn) {
           deleteButton = document.createElement('a');
           deleteButton.className = 'btn-course-delete';
           deleteButton.setAttribute('href', '#');
@@ -136,28 +133,19 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
             global.currUser.DeleteCourse(courseCode);
             UpdateCoursesList();
           };
-          // var trashImg = document.createElement("img");
-          // trashImg.setAttribute('src', "images/trash.png");
-          // trashImg.style.height = "25px"
-          // trashImg.style.width = "25px"
-          // deleteButton.appendChild(trashImg);
 
-          // Create the icon element
           var trashIcon = document.createElement("i");
           trashIcon.classList.add("fa", "fa-times");
           trashIcon.style.fontSize = "24px";
-
-          // Append the icon to the deleteButton
           deleteButton.appendChild(trashIcon);
         }
 
-        createCourseModal(courseCode,courseName,courseDescription );
-        
+        createCourseModal(courseCode, courseName, courseDescription);
+
         cardText2.appendChild(cardTitle);
         if (showDeleteBtn)
           cardText2.appendChild(deleteButton);
-        cardBody.appendChild(courseNameElement);
-        cardBody.appendChild(cardText);
+
         colText.appendChild(cardBody);
 
         let colImg = document.createElement('div');
@@ -172,8 +160,6 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
         row.appendChild(colImg);
         card.appendChild(cardText2);
         card.appendChild(row);
-        if (showViewBtn)
-          card.appendChild(row2);
         cardDeck.appendChild(card);
       } else {
         let emptyCard = document.createElement('div');
@@ -186,6 +172,8 @@ function FillCourseList(enrolledCoursesCarousel, courses, showDeleteBtn = true, 
     enrolledCoursesCarousel.appendChild(carouselItem);
   }
 }
+
+  
 
 function UpdateCoursesList() {
   var courses = global.currUser.courses;

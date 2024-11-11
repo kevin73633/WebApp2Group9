@@ -20,7 +20,8 @@ $primary-color:#040B31;
 	--table-colors: white;
 	--placeholderText-color:rgb(152, 152, 152);
 	--link: rgb(13, 110, 253);
-	--plannerBox: #0a58ca;
+	--plannerBox: #040B31;
+	--subtitle: #525b75;
 }
 .darkmode{
 	--base-color: #171821;
@@ -36,14 +37,17 @@ $primary-color:#040B31;
 	--table-colors: 21222D;
 	--placeholderText-color:rgb(152, 152, 152);
 	--link: white;
-	--plannerBox: #eb9b13;
+	--plannerBox: #2757fc;
+	--subtitle: #8a94ad;
 }
 
 html{
+	
     height: 100%;
     margin: 0;
 }
 body {
+	font-family: "Poppins", sans-serif !important;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -107,9 +111,6 @@ body {
 	&:hover {
 		transform: rotate(180deg);
 	}
-}
-#banner_name{
-	font-weight: 600;
 }
 .steps h4 {
 	margin-bottom: 25px;
@@ -175,6 +176,8 @@ a.px-2.text-decoration-none{
 
 .cat-heading{
 	color:var(--headerText-color);
+	font-weight: 600;
+	padding-left: 15px;
 }
 
 .index-container {
@@ -438,12 +441,22 @@ h4{
 
 #welcome-banner {
 	color: var(--opp-color);
-	background-color: var(--banner-colors);;
+	// background-color: var(--banner-colors);
 	border-radius: 10px;
-	padding: 20px;
-	margin-bottom: 30px;
+	padding: 10px 0;
+	h5{
+		font-weight: 700;
+		font-size:calc(1.3203125rem + 0.84375vw);
+	}
+	p{
+		color: var(--subtitle);
+	}
 }
-
+.banner_bg{
+	background-color: var(--banner-colors);
+	padding: 20px !important;
+	margin-bottom: 10px;
+}
 .profile_name {
 	color: var(	--opp-color);
 	#nameheader
@@ -537,7 +550,7 @@ h4{
 .row.g-0 {
     display: flex;
     align-items: center;
-	min-height: 200px;
+	// min-height: 200px;
 }
 
 .col-md-8 {

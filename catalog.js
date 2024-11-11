@@ -234,7 +234,7 @@ function createCourseModal(course)
     // <!-- Modal -->
     var modal = null;
     modal = `<div class="modal modal-lg fade" id="Modal_${course.courseCode}" tabindex="-1" aria-labelledby="Modal_${course.courseCode}" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="Modal_${course.courseCode}">${course.courseName}</h1>
