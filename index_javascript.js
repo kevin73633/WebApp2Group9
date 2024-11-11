@@ -181,4 +181,5 @@ function saveDetails() {
     $('#userDetailsModal').hide();
     GoToDashboard();
 }
+document.getElementById("saveDetailsBtn").onclick = function(){saveDetails();};
     
