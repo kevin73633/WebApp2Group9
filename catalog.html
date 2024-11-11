@@ -36,8 +36,8 @@
         <user-details-menu></user-details-menu>
 		<!-- Sidebar -->
 		<sidebar></sidebar>
-        <main id="content" class="pt-4">
-            <div class="row  mx-2" id="welcome-banner">
+        <main id="content" class="py-4">
+            <div class="row mx-1" id="welcome-banner">
                 <p id="banner_name" class="h3 mb-1">Course Catalogue</p>
             </div>
 
@@ -86,24 +86,22 @@
                             <!-- <th scope="col" class="text-body-tertiary text-center">Details</th> -->
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="6" class="text-center text-secondary">Please enter code/name into search bar</td>
-                        </tr>
-                    </tbody>
+                    <div class="tbody-wrapper"></div>
+                        <tbody>
+                            <tr>
+                                <td colspan="6" class="text-center text-secondary">Please enter code/name into search bar</td>
+                            </tr>
+                        </tbody>
+                     </div>
                 </table>
             </div>
             
 
                 <div id="modalInsert"></div>
 
-                <div class="row py-2">
-                    <div class="col-9 col-xs-4">
+                <div class="row pt-4">
+                    <div class="col d-flex flex-column flex-md-row justify-content-start gap-3">
                         <button type="button" class="btn btn-primary px-4 rounded-5" id="addToPlanner" data-bs-toggle="modal" data-bs-target="#addToPlannerModal">Add to Planner</button>
-                    </div>
-                </div>
-                <div class="row py-2">
-                    <div class="col-9 col-xs-4">
                         <button type="button" class="btn btn-primary px-4 rounded-5" id="removeFromPlanner">Remove from Planner</button>
                     </div>
                 </div>
@@ -112,13 +110,13 @@
 
     <div id="modals"></div>
     <div class="modal fade" id="addToPlannerModal" tabindex="-1" aria-labelledby="addToPlannerModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="addToPlannerModalLabel">Select the semester you would like to do in</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-center" id="addToPlannerModalBody"></div>
+                <div class="modal-body text-center " id="addToPlannerModalBody"></div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="buttonToAdd">Add to Planner</button>
                 </div>

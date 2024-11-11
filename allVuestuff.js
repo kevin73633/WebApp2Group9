@@ -27,7 +27,7 @@ app.component('user-details-menu', {
     },
     template: `
         <div class="modal" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="userDetailsModalLabel">Provide Your Academic Details</h5>
