@@ -84,7 +84,14 @@ body {
 }
 
 .btn-close {
-  color: var(--opp-color) !important;
+  color: white !important;
+}
+
+.modal-header {
+  background-color: var(--sidebar-color);
+}
+.modal-header .modal-title {
+  color: white !important;
 }
 
 .btn {
@@ -909,7 +916,7 @@ input:checked + .slider .off {
 }
 
 .modal-header {
-  border-bottom: solid 1px var(--table-border) !important;
+  border-bottom: solid 0 !important;
 }
 
 .modal-footer {
