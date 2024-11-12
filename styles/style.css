@@ -441,21 +441,24 @@ h4 {
   text-align: center;
 }
 
+body.index-container {
+  background-color: #171821 !important;
+}
+
 .index-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   margin: 0;
+  height: 100vh;
   background-image: var(--login-bg) !important;
   background-size: cover;
   background-position: center;
+  overflow: hidden;
 }
 .index-container .login-card {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
-  max-width: 450px; /* Set max width for the card */
-  width: 100%; /* Ensure the card takes up the available width, up to the max-width */
 }
 .index-container .login p {
   font-size: 13px;

@@ -460,7 +460,9 @@ h4{
 	margin-bottom: 40px;
 	text-align:center;
 }
-
+body.index-container{
+	background-color: #171821 !important
+}
 .index-container {
 	@include flex-center;
 	margin: 0;
