@@ -467,6 +467,7 @@ h4{
 	background-image: var(--login-bg) !important;
 	background-size: cover;
 	background-position: center;
+	overflow: hidden;
 	.login-card{
 		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 		transition: background-color 0.3s ease;
