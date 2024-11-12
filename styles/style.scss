@@ -233,7 +233,7 @@ body {
 //Modal
 .modal-title, .modal-body{
 	color: var(--headerText-color)!important;
-	font-family: $font-primary !important;
+		font-family: $font-primary !important;
 }
 .modal-header{
 	background-color: var(--sidebar-color);
@@ -466,9 +466,14 @@ h4{
 	height: 100vh;
 	margin: 0;
 	background-image: var(--login-bg) !important;
+	background-size: cover;
+	background-position: center;
 	.login-card{
 		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 		transition: background-color 0.3s ease;
+		max-width: 450px; /* Set max width for the card */
+    width: 100%; /* Ensure the card takes up the available width, up to the max-width */
+		
 	}
 	.login{
 		p{
