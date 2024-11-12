@@ -181,8 +181,5 @@ function saveDetails() {
     $('#userDetailsModal').hide();
     GoToDashboard();
 }
-
-// Trigger save on button click
-saveDetailsBtn.addEventListener('click', saveDetails);
-
+document.getElementById("saveDetailsBtn").onclick = function(){saveDetails();};
     

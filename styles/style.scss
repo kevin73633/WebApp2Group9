@@ -650,15 +650,16 @@ h4{
 		border-bottom: 1px solid var(--table-border);
 		thead {
 			position: sticky;
-			top: 0; 
-			z-index: 1; 
+			top: -2px;
 			width: 100%;
 			table-layout: fixed;
+			z-index: 3;
 		}
 		tbody {
 			overflow-y: auto;
 			max-height: 60vh;
 			overflow-y: auto;
+			z-index: 1;
 		}
 		th, td {
 			padding: 8px;

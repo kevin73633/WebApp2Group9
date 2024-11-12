@@ -646,15 +646,16 @@ h4 {
 }
 #courseTable #tableModules thead {
   position: sticky;
-  top: 0;
-  z-index: 1;
+  top: -2px;
   width: 100%;
   table-layout: fixed;
+  z-index: 3;
 }
 #courseTable #tableModules tbody {
   overflow-y: auto;
   max-height: 60vh;
   overflow-y: auto;
+  z-index: 1;
 }
 #courseTable #tableModules th, #courseTable #tableModules td {
   padding: 8px;
