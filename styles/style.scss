@@ -463,7 +463,6 @@ h4{
 
 .index-container {
 	@include flex-center;
-	height: 100vh;
 	margin: 0;
 	background-image: var(--login-bg) !important;
 	background-size: cover;
