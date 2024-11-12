@@ -443,6 +443,7 @@ h4 {
 
 body.index-container {
   background-color: #171821 !important;
+  overflow: hidden;
 }
 
 .index-container {
