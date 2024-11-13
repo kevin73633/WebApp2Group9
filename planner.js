@@ -34,7 +34,7 @@ function ShowPlanner1() {
                 
                 for (let index3 = 0; index3 < CoursesInYearAndSem.length; index3++) {
                     const element = CoursesInYearAndSem[index3];
-                    content += `<div class="card my-1 text-center">${global.Course.GetByCourseCode(element.courseCode).courseName}</div>`;
+                    content += `<div class="card innerPlanner">${global.Course.GetByCourseCode(element.courseCode).courseName}</div>`;
                 }
                 content += `</div>`;
             }
