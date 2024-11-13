@@ -476,7 +476,14 @@ function saveDetails() {
 
 // Trigger save on button click
 saveDetailsBtn.addEventListener('click', saveDetails);
-
+gpaInput.addEventListener("keypress", function(event) 
+{
+    if (event.key === "Enter") 
+    {
+        event.preventDefault();
+        saveDetails();
+    }
+});
 function adjustCourseTableHeight() {
     var height = window.innerHeight - 320;
     var courseTable = document.getElementById("courseTable");
