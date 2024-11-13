@@ -538,12 +538,12 @@ body.index-container {
 
 #filter-search .form-select,
 #filter-search .form-control {
-  color: var(--opp-color);
+  color: var(--opp-color) !important;
 }
 
 .form-control-input {
   background-color: var(--card-color) !important;
-  color: var(--opp-color);
+  color: var(--opp-color) !important;
 }
 
 #filterOptions {

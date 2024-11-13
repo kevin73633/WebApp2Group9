@@ -236,14 +236,14 @@ function createCourseModal(course)
     modal = `<div class="modal modal-lg fade" id="Modal_${course.courseCode}" tabindex="-1" aria-labelledby="Modal_${course.courseCode}" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header modal-header-border">
                     <h1 class="modal-title fs-5" id="Modal_${course.courseCode}">${course.courseName}</h1>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     ${course.courseDescription}
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer modal-footer-border">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
