@@ -169,13 +169,33 @@ body {
   border-radius: 10px;
 }
 
+.btn-modal {
+  padding: 8px 10px;
+  background-color: var(--button-color) !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 13px !important;
+  color: white !important;
+  border: none;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: transform 0.5s ease;
+}
+.btn-modal:hover {
+  transform: scale(1.02);
+  background-color: var(--btn-hover) !important;
+}
+
+.btn-secondary {
+  font-family: "Poppins", sans-serif !important;
+  font-size: 13px !important;
+}
+
 .button-primary, .btn-primary, .btn-course {
-  background-color: var(--button-color);
-  font-family: "Poppins", sans-serif;
-  font-size: 13px;
   padding: 10px 30px;
-  border-radius: 20px;
-  color: white;
+  background-color: var(--button-color) !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 13px !important;
+  color: white !important;
   border: none;
   text-decoration: none;
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -183,7 +203,7 @@ body {
 }
 .button-primary:hover, .btn-primary:hover, .btn-course:hover {
   transform: scale(1.02);
-  background-color: var(--btn-hover);
+  background-color: var(--btn-hover) !important;
 }
 
 #desktopMenuExpand {

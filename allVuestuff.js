@@ -71,7 +71,7 @@ app.component('user-details-menu', {
                     </div>
                     <div class="modal-footer modal-footer-border">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="saveDetailsBtn">Save Details</button>
+                        <button type="button" class="btn btn-modal" id="saveDetailsBtn">Save Details</button>
                     </div>
                 </div>
             </div>
@@ -274,7 +274,7 @@ app.component('sidebar', {
         <nav id="sidebar">
             <div class="side">
                 <ul class="nav sidebar-nav d-flex flex-column">
-                    <div id="header" class="d-flex flex-column align-items-start mb-2 px-2">
+                    <div id="header" class="d-flex flex-column align-items-start mb-1 px-3">
                         <img src="images/step_logo.png" alt="Logo" class="logo-img mb-3">
                         <div id="logo" class="text-start">
                             <h1 id="steps" class="fs-2">S T E P S</h1>

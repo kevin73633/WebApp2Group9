@@ -71,6 +71,20 @@ $border-radius-large: 20px;
 	justify-content: space-between;
 }
 
+@mixin button-styles{
+	background-color: var(--button-color) !important;
+	font-family: $font-primary !important;
+	font-size: 13px !important;
+	color:white !important;
+	border:none;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+	transition: transform .5s ease;
+    &:hover {
+		transform: scale(1.02);
+        background-color: var(--btn-hover) !important;
+    }
+}
 html{
     height: 100%;
     margin: 0;
@@ -193,22 +207,19 @@ body {
 	padding: 5px 5px;
 	border-radius: $border-radius-medium;
 }
+.btn-modal{
+	padding: 8px 10px;
+	@include button-styles;
+	
+}
 
+.btn-secondary{
+	font-family: $font-primary !important;
+	font-size: 13px !important;
+}
 .button-primary, .btn-primary, .btn-course {
-	background-color: var(--button-color);
-	font-family: $font-primary ;
-	font-size: 13px;
 	padding: 10px 30px;
-    border-radius: $border-radius-large;
-	color:white;
-	border:none;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-	transition: transform .5s ease;
-    &:hover {
-		transform: scale(1.02);
-        background-color: var(--btn-hover);
-    }
+	@include button-styles;
 }
 
 #desktopMenuExpand{
