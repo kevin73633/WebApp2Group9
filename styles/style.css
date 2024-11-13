@@ -550,6 +550,10 @@ body.index-container {
   color: var(--opp-color);
 }
 
+#searchInput {
+  background-color: var(--card-color);
+}
+
 #searchInput::-moz-placeholder {
   color: var(--placeholderText-color);
 }
@@ -813,7 +817,7 @@ a.px-2.text-decoration-none {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--button-color);
+  background-color: var(--opp-color);
   transition: 0.4s;
   border-radius: 10px;
 }
@@ -825,7 +829,7 @@ a.px-2.text-decoration-none {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: var(--base-color);
   border-radius: 10px;
   transition: 0.4s;
 }
@@ -843,13 +847,17 @@ input:checked + .slider:before {
 }
 
 .on, .off {
-  color: white;
+  color: var(--base-color);
   position: absolute;
   transform: translate(10%, -50%);
   top: 50%;
   left: 50%;
   font-size: 10px;
   font-family: Verdana, sans-serif;
+}
+
+.on {
+  color: white;
 }
 
 input:checked + .slider .on {

@@ -559,12 +559,15 @@ body.index-container{
 
 .form-control-input {
     background-color: var(--card-color) !important;
-    color: var(--opp-color) !important;
+    color: var(--opp-color)!important;
 }
 #filterOptions {
     color: var(--opp-color);
 }
-
+#searchInput
+{
+	background-color: var(--card-color);
+}
 #searchInput::placeholder{
     color: var(--placeholderText-color);
 }
@@ -821,7 +824,7 @@ a.px-2.text-decoration-none{
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: var(--button-color);
+	background-color: var(--opp-color);
 	-webkit-transition: .4s;
 	transition: .4s;
 	border-radius: $border-radius-medium;
@@ -834,7 +837,7 @@ a.px-2.text-decoration-none{
 	width: 26px;
 	left: 4px;
 	bottom: 4px;
-	background-color: white;
+	background-color: var(--base-color);
 	border-radius: $border-radius-medium;
 	-webkit-transition: .4s;
 	transition: .4s;
@@ -857,7 +860,7 @@ input:checked + .slider:before {
 
 .on, .off
 {
-	color: white;
+	color: var(--base-color);
 	position: absolute;
 	transform: translate(10%,-50%);
 	top: 50%;
@@ -865,7 +868,10 @@ input:checked + .slider:before {
 	font-size: 10px;
 	font-family: Verdana, sans-serif;
 }
-
+.on
+{
+	color: white;
+}
 input:checked + .slider .on
 {
 	display: block;

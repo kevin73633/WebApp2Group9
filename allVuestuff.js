@@ -154,8 +154,8 @@ app.component('hamburger-button', {
                 iconText[i].style.display = "none"
             }
             mainContent.style.marginLeft = "80px"
-            mainContent.style.paddingLeft = "80px"
-            mainContent.style.paddingRight = "80px"
+            mainContent.style.paddingLeft = "20px"
+            mainContent.style.paddingRight = "20px"
             
             topNav.style.marginLeft="80px"
         
