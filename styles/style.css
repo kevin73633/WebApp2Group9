@@ -543,7 +543,7 @@ body.index-container {
 
 .form-control-input {
   background-color: var(--card-color) !important;
-  color: var(--opp-color);
+  color: var(--opp-color) !important;
 }
 
 #filterOptions {
