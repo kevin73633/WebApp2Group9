@@ -29,7 +29,7 @@ app.component('user-details-menu', {
         <div class="modal" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header modal-header-border">
                         <h5 class="modal-title" id="userDetailsModalLabel">Provide Your Academic Details</h5>
                         <button type="button" class="btn-close btn-close-white " data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -46,7 +46,7 @@ app.component('user-details-menu', {
                             <!-- GPA Input -->
                             <div class="mb-3">
                                 <label for="gpaInput" class="form-label">GPA</label>
-                                <input type="number" step="0.01" min="0.01" max="4.3" class="form-control" id="gpaInput"
+                                <input type="number" step="0.01" min="0.01" max="4.3" class="form-control form-control-input" id="gpaInput"
                                     placeholder="Enter your GPA">
                                 <span class="error" id="gpaError"></span>
                             </div>
@@ -69,7 +69,7 @@ app.component('user-details-menu', {
                             <div class="error" id="saveDetailsError"></div>
                         </form>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer modal-footer-border">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" id="saveDetailsBtn">Save Details</button>
                     </div>
