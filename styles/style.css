@@ -856,6 +856,10 @@ input:checked + .slider:before {
   font-family: Verdana, sans-serif;
 }
 
+.on {
+  color: white;
+}
+
 input:checked + .slider .on {
   display: block;
   transform: translate(-60%, -50%);

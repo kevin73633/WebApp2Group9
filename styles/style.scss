@@ -868,7 +868,10 @@ input:checked + .slider:before {
 	font-size: 10px;
 	font-family: Verdana, sans-serif;
 }
-
+.on
+{
+	color: white;
+}
 input:checked + .slider .on
 {
 	display: block;
