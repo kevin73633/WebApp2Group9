@@ -193,11 +193,11 @@ function createRows(selectedOption, search=false)
                 // For enrolled or not, use if-else
                 if (tookCourse === "yes") {
                     span.innerText = "Enrolled " + enrolledYear;
-                    span.setAttribute('class', 'badge rounded-pill text-bg-success')
+                    span.setAttribute('class', 'badge rounded-pill custom-success-badge')
                 }
                 else {
                     span.innerText = "Not Enrolled";
-                    span.setAttribute('class', 'badge rounded-pill text-bg-danger')
+                    span.setAttribute('class', 'badge rounded-pill custom-danger-badge')
                 }
                 col.appendChild(span);
                 row.appendChild(col);
@@ -478,7 +478,7 @@ function saveDetails() {
 saveDetailsBtn.addEventListener('click', saveDetails);
 
 function adjustCourseTableHeight() {
-    var height = window.innerHeight - 400;
+    var height = window.innerHeight - 320;
     var courseTable = document.getElementById("courseTable");
   
     if (courseTable) {

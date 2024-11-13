@@ -37,7 +37,7 @@
   --card-color:#21222D;
   --button-color: #2757fc;
   --topNav-color: #15161c;
-  --table-colors: 21222D;
+  --table-colors: #21222D;
   --placeholderText-color:#999999;
   --link: white;
   --plannerBox: #2757fc;
@@ -58,6 +58,7 @@ html {
 
 body {
   font-family: "Poppins", sans-serif;
+  font-size: 15px;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -69,7 +70,7 @@ body {
 }
 
 #header {
-  padding: 12px !important;
+  padding: 12px;
   margin: 0 auto;
 }
 
@@ -80,8 +81,8 @@ body {
 }
 
 .btn {
-  font-family: "Poppins", sans-serif !important;
-  font-size: 13px !important;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
 }
 
 .btn-close {
@@ -169,20 +170,20 @@ body {
 }
 
 .button-primary, .btn-primary, .btn-course {
-  background-color: var(--button-color) !important;
-  font-family: "Poppins", sans-serif !important;
-  font-size: 13px !important;
+  background-color: var(--button-color);
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
   padding: 10px 30px;
   border-radius: 20px;
   color: white;
-  border: none !important;
+  border: none;
   text-decoration: none;
   transition: background-color 0.3s ease, transform 0.3s ease;
   transition: transform 0.5s ease;
 }
 .button-primary:hover, .btn-primary:hover, .btn-course:hover {
   transform: scale(1.02);
-  background-color: var(--btn-hover) !important;
+  background-color: var(--btn-hover);
 }
 
 #desktopMenuExpand {
@@ -206,24 +207,30 @@ body {
 }
 
 .modal-title, .modal-body {
-  color: var(--headerText-color) !important;
-  font-family: "Poppins", sans-serif !important;
+  color: var(--headerText-color);
+  font-family: "Poppins", sans-serif;
+}
+
+.modal-header-border {
+  border-bottom: solid 0 !important;
 }
 
 .modal-header {
   background-color: var(--sidebar-color);
-  border-bottom: solid 0 !important;
 }
 .modal-header .modal-title {
-  color: white !important;
+  color: white;
 }
 
 .modal-content {
-  background-color: var(--card-color) !important;
-  color: var(--headerText-color) !important;
+  color: var(--headerText-color);
 }
 
-.modal-footer {
+.modal .modal-content {
+  background-color: var(--card-color);
+}
+
+.modal-footer-border {
   border-top: solid 1px var(--table-border) !important;
 }
 
@@ -320,24 +327,23 @@ profile-top {
 .nav-link {
   color: white;
   opacity: 0.5;
-  padding: 10px;
   margin-bottom: 5px;
   border-radius: 5px;
 }
 .nav-link.active {
-  background-color: white !important;
-  color: #040B31 !important;
-  margin: 0 0 0 !important;
+  background-color: white;
+  color: #040B31;
   opacity: 1;
+  margin: 0 0 0;
   text-align: center;
 }
 .nav-link:not(.active):hover {
-  color: #e4e4e4 !important;
+  color: #e4e4e4;
   opacity: 1;
 }
 .nav-link i {
-  width: 18px !important;
-  height: 16px !important;
+  width: 18px;
+  height: 16px;
 }
 .nav-link i.fas {
   margin: 0;
@@ -345,14 +351,14 @@ profile-top {
 }
 
 i.fas.fa-book::before {
-  width: 18px !important;
-  height: 16px !important;
+  width: 18px;
+  height: 16px;
   display: inline-block;
   text-align: center;
 }
 
 .icon-text {
-  padding-left: 10px !important;
+  padding-left: 10px;
 }
 
 li {
@@ -405,7 +411,6 @@ li {
 #welcome-banner {
   color: var(--opp-color);
   border-radius: 10px;
-  padding: 10px 0;
 }
 #welcome-banner h5 {
   font-weight: 700;
@@ -427,7 +432,7 @@ li {
 
 .banner_bg {
   background-color: var(--banner-colors);
-  padding: 20px !important;
+  padding: 20px;
   margin-bottom: 10px;
 }
 
@@ -442,7 +447,7 @@ h4 {
 }
 
 body.index-container {
-  background-color: #171821 !important;
+  background-color: #171821;
 }
 
 .index-container {
@@ -451,7 +456,7 @@ body.index-container {
   align-items: center;
   margin: 0;
   height: 100vh;
-  background-image: var(--login-bg) !important;
+  background-image: var(--login-bg);
   background-size: cover;
   background-position: center;
   overflow: hidden;
@@ -488,7 +493,7 @@ body.index-container {
   border-radius: 20px !important;
   padding: 12px 5px;
   background-color: var(--card-color) !important;
-  color: var(--headerText-color) !important;
+  color: var(--headerText-color);
 }
 
 .card-text {
@@ -501,52 +506,56 @@ body.index-container {
   padding-left: 16px;
   padding-right: 16px;
   margin: 0;
-  color: var(--headerText-color) !important;
+  color: var(--headerText-color);
 }
 
 .card-title {
   font-size: 1.2rem;
-  color: var(--headerText-color) !important;
+  color: var(--headerText-color);
 }
 
 .card-course-name {
   font-size: 1rem;
-  color: var(--headerText-color) !important;
+  color: var(--headerText-color);
 }
 
-.card.my-1 {
-  border-color: var(--subtitle) !important;
-  color: var(--course-name) !important;
+.innerPlanner {
+  color: var(--course-name);
   padding: 10px;
-  margin-top: 20px !important;
-  text-align: left !important;
+  margin-top: 20px;
+  text-align: left;
   box-shadow: 0px 0px 5px #fff;
 }
 
 .form-select {
-  background-color: var(--card-color);
-  color: black;
-}
-
-.form-label, .mb-3 {
-  color: var(--headerText-color) !important;
-}
-
-.form-select, .form-control {
   background-color: var(--card-color) !important;
   color: var(--opp-color) !important;
 }
 
+.form-label, .mb-3 {
+  color: var(--headerText-color);
+}
+
+#filter-search .form-select,
+#filter-search .form-control {
+  color: var(--opp-color);
+}
+
+.form-control-input {
+  background-color: var(--card-color) !important;
+  color: var(--opp-color);
+}
+
 #filterOptions {
-  color: var(--opp-color) !important;
+  color: var(--opp-color);
 }
 
 #searchInput::-moz-placeholder {
-  color: var(--placeholderText-color) !important;
+  color: var(--placeholderText-color);
 }
 
 #searchInput::placeholder {
-  color: var(--placeholderText-color) !important;
+  color: var(--placeholderText-color);
 }
 
 .carousel-inner {
@@ -557,6 +566,7 @@ body.index-container {
   display: flex;
   justify-content: space-between;
 }
+
 .carousel-item img {
   width: 100px;
   height: auto;
@@ -564,13 +574,30 @@ body.index-container {
 
 .carousel-control-prev,
 .carousel-control-next {
-  background-color: #252525 !important;
-  width: 5vh !important;
-  height: 5vh !important;
-  border-radius: 50% !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  padding: 10px !important;
+  background-color: #252525;
+  padding: 10px;
+  top: 50%;
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+#enrolledCarousel .carousel-control-prev,
+#enrolledCarousel .carousel-control-next,
+#plannedCarousel .carousel-control-prev,
+#plannedCarousel .carousel-control-next,
+#recommendedCarousel .carousel-control-prev,
+#recommendedCarousel .carousel-control-next,
+#completedCarousel .carousel-control-prev,
+#completedCarousel .carousel-control-next {
+  background-color: #252525;
+  width: 5vh;
+  height: 5vh;
+  top: 50%;
+  padding: 10px;
+  transform: translateY(-50%);
+  border-radius: 50%;
 }
 
 .row.g-0 {
@@ -602,7 +629,7 @@ body.index-container {
   width: 100%;
   font-size: 95%;
   border-collapse: collapse;
-  background-color: var(--card-color) !important;
+  background-color: var(--card-color);
   border-bottom: 1px solid var(--table-border);
 }
 #plannerTable thead {
@@ -623,11 +650,20 @@ body.index-container {
   box-sizing: border-box;
 }
 #plannerTable th {
-  padding-top: 20px !important;
-  padding-bottom: 20px !important;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 #plannerTable td {
   padding: 20px 8px;
+}
+
+.custom-table > :not(caption) > * > * {
+  background-color: var(--table-colors);
+  color: var(--opp-color) !important;
+}
+
+#plannerTable thead th, #plannerTable tbody td {
+  background-color: var(--table-colors);
 }
 
 #courseTable {
@@ -644,7 +680,6 @@ body.index-container {
   width: 100%;
   font-size: 95%;
   border-collapse: collapse;
-  background-color: var(--card-color) !important;
   border-bottom: 1px solid var(--table-border);
 }
 #courseTable #tableModules thead {
@@ -666,53 +701,40 @@ body.index-container {
   box-sizing: border-box;
 }
 #courseTable #tableModules th {
-  padding-top: 20px !important;
-  padding-bottom: 20px !important;
-  width: -moz-fit-content !important;
-  width: fit-content !important;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 #courseTable #tableModules td {
   padding: 20px 8px;
 }
 
 table a {
-  text-decoration: none !important;
-  color: var(--link) !important;
+  text-decoration: none;
+  color: var(--link);
 }
 table a:hover {
-  text-decoration: underline !important;
-}
-
-tbody, td, tfoot, th, thead, tr {
-  background-color: var(--table-colors) !important;
-  color: var(--opp-color) !important;
-}
-
-th {
-  background-color: var(--card-color) !important;
-}
-
-th.text-body-tertiary {
-  color: var(--opp-color) !important;
+  text-decoration: underline;
 }
 
 a.px-2.text-decoration-none {
-  color: var(--link) !important;
+  color: var(--link);
 }
 
-.badge.rounded-pill.text-bg-danger {
+.custom-success-badge {
+  background-color: var(--pill-background-success);
+  color: var(--pill-color-success);
+  border: 1px solid #90d67f;
   font-weight: 550;
-  background-color: var(--pill-background-danger) !important;
-  color: var(--pill-color-danger) !important;
-  border: 1px solid #d67f7f !important;
   padding: 5px 10px;
 }
 
-.badge.rounded-pill.text-bg-success {
+.custom-danger-badge {
+  background-color: var(--pill-background-danger);
+  color: var(--pill-color-danger);
+  border: 1px solid #d67f7f;
   font-weight: 550;
-  background-color: var(--pill-background-success) !important;
-  color: var(--pill-color-success) !important;
-  border: 1px solid #90d67f !important;
   padding: 5px 10px;
 }
 
@@ -733,16 +755,12 @@ a.px-2.text-decoration-none {
   background: transparent;
 }
 
-#userDetailsModalLabel {
-  color: black;
-}
-
 #gpaInput::-moz-placeholder {
-  color: var(--placeholderText-color) !important;
+  color: var(--placeholderText-color);
 }
 
 #gpaInput::placeholder {
-  color: var(--placeholderText-color) !important;
+  color: var(--placeholderText-color);
 }
 
 /* Planner Page */
@@ -763,17 +781,16 @@ a.px-2.text-decoration-none {
   width: fit-content;
   white-space: nowrap;
   overflow: hidden;
-  background-color: var(--base-color);
 }
 #coursePlanner .plannerbox {
-  background-color: var(--plannerBox) !important;
+  background-color: var(--plannerBox);
   border-radius: 10px;
-  width: 60px !important;
-  height: 24px !important;
+  width: 60px;
+  height: 24px;
 }
 #coursePlanner .emptybox {
-  width: 60px !important;
-  height: 24px !important;
+  width: 60px;
+  height: 24px;
 }
 
 /* Toggle */
