@@ -312,7 +312,7 @@ app.component('sidebar', {
                     const tooltipDiv = document.createElement('div');
                     tooltipDiv.className = 'custom-tooltip';
                     tooltipDiv.innerText = tooltipText;
-                    document.body.appendChild(tooltipDiv);
+                    sidebar.appendChild(tooltipDiv);
     
                     const rect = el.getBoundingClientRect();
                     tooltipDiv.style.position = 'absolute';
