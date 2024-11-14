@@ -193,11 +193,11 @@ function createRows(selectedOption, search=false)
                 // For enrolled or not, use if-else
                 if (tookCourse === "yes") {
                     span.innerText = "Enrolled " + enrolledYear;
-                    span.setAttribute('class', 'badge rounded-pill text-bg-success')
+                    span.setAttribute('class', 'badge rounded-pill custom-success-badge')
                 }
                 else {
                     span.innerText = "Not Enrolled";
-                    span.setAttribute('class', 'badge rounded-pill text-bg-danger')
+                    span.setAttribute('class', 'badge rounded-pill custom-danger-badge')
                 }
                 col.appendChild(span);
                 row.appendChild(col);
@@ -236,14 +236,14 @@ function createCourseModal(course)
     modal = `<div class="modal modal-lg fade" id="Modal_${course.courseCode}" tabindex="-1" aria-labelledby="Modal_${course.courseCode}" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header modal-header-border">
                     <h1 class="modal-title fs-5" id="Modal_${course.courseCode}">${course.courseName}</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     ${course.courseDescription}
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer modal-footer-border">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -476,9 +476,16 @@ function saveDetails() {
 
 // Trigger save on button click
 saveDetailsBtn.addEventListener('click', saveDetails);
-
+gpaInput.addEventListener("keypress", function(event) 
+{
+    if (event.key === "Enter") 
+    {
+        event.preventDefault();
+        saveDetails();
+    }
+});
 function adjustCourseTableHeight() {
-    var height = window.innerHeight - 400;
+    var height = window.innerHeight - 320;
     var courseTable = document.getElementById("courseTable");
   
     if (courseTable) {

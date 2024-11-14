@@ -17,7 +17,7 @@ function ShowPlanner1() {
     var coursePlanner = document.getElementById("coursePlanner");
     coursePlanner.innerHTML = "";
 
-    var semCodes = ["1", "2", "3A", "3B"];
+    var semCodes = ["1", "2", "3a", "3b"];
     for (let index = 0; index < 4; index++) {
         var content = `
             <div class="col-12 col-md-6 col-lg-3"> 
@@ -26,6 +26,7 @@ function ShowPlanner1() {
         var yearHasCourses = false;
         for (let index2 = 0; index2 < 4; index2++) {
             var CoursesInYearAndSem = global.Course.GetAllCoursesInYearAndSem("Y" + (index + 1) + "S" + semCodes[index2]);
+            console.log(CoursesInYearAndSem)
             if (CoursesInYearAndSem.length > 0) {
                 yearHasCourses = true;
                 content += `
@@ -34,7 +35,7 @@ function ShowPlanner1() {
                 
                 for (let index3 = 0; index3 < CoursesInYearAndSem.length; index3++) {
                     const element = CoursesInYearAndSem[index3];
-                    content += `<div class="card my-1 text-center">${global.Course.GetByCourseCode(element.courseCode).courseName}</div>`;
+                    content += `<div class="card innerPlanner">${global.Course.GetByCourseCode(element.courseCode).courseName}</div>`;
                 }
                 content += `</div>`;
             }
@@ -175,3 +176,11 @@ function saveDetails() {
 
 // Trigger save on button click
 saveDetailsBtn.addEventListener('click', saveDetails);
+gpaInput.addEventListener("keypress", function(event) 
+{
+    if (event.key === "Enter") 
+    {
+        event.preventDefault();
+        saveDetails();
+    }
+});
