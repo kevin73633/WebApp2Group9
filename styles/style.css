@@ -206,6 +206,10 @@ body {
   background-color: var(--btn-hover) !important;
 }
 
+.btn-course {
+  border-radius: 20px;
+}
+
 #desktopMenuExpand {
   transition: transform 0.3s ease-in-out;
 }

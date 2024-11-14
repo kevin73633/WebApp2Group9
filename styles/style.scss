@@ -221,6 +221,9 @@ body {
 	padding: 10px 30px;
 	@include button-styles;
 }
+.btn-course {
+	border-radius: $border-radius-large;
+}
 
 #desktopMenuExpand{
 	transition: transform .3s ease-in-out;
